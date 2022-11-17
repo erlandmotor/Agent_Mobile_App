@@ -1,10 +1,24 @@
 import 'package:agent_mobile_app/helper/themes_colors.dart';
+import 'package:agent_mobile_app/pages/on_boarding/on_boarding_page.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
-class SplashScreenPage extends StatelessWidget {
+class SplashScreenPage extends StatefulWidget {
   const SplashScreenPage({Key? key}) : super(key: key);
+
+  @override
+  State<SplashScreenPage> createState() => _SplashScreenPageState();
+}
+
+class _SplashScreenPageState extends State<SplashScreenPage> {
+  @override
+  void initState() {
+    super.initState();
+
+    Future.delayed(const Duration(seconds: 3), () {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => OnBoardingPage()));
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
