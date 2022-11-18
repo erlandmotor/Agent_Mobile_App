@@ -1,4 +1,4 @@
-import 'package:agent_mobile_app/helper/themes_colors.dart';
+import 'package:agent_mobile_app/helper/routes.dart';
 import 'package:agent_mobile_app/pages/on_boarding/on_boarding_page.dart';
 import 'package:flutter/material.dart';
 
@@ -15,8 +15,7 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
     super.initState();
 
     Future.delayed(const Duration(seconds: 3), () {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => OnBoardingPage()));
+      RouteWidget.pushReplacment(context: context, page: OnBoardingPage());
     });
   }
 
@@ -24,10 +23,9 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-          child: Container(
-        width: 150,
-        height: 150,
-        color: ColorApp.primaryA3,
+          child: Image.asset(
+        'assets/logo.png',
+        width: MediaQuery.of(context).size.height * 0.19,
       )),
     );
   }
