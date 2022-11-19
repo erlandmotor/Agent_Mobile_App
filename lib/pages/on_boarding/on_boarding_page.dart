@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 class OnBoardingPage extends StatelessWidget {
   OnBoardingPage({Key? key}) : super(key: key);
   final ValueNotifier<int> _indexBoard = ValueNotifier<int>(0);
+  final ValueNotifier<int> _indexMove = ValueNotifier<int>(1);
   final PageController _pageCountroll = PageController(initialPage: 0);
 
   final List _dataOnBoarding = [
@@ -51,7 +52,7 @@ class OnBoardingPage extends StatelessWidget {
                     itemCount: _dataOnBoarding.length,
                     controller: _pageCountroll,
                     itemBuilder: (context, index) => Image.asset(
-                      _dataOnBoarding[index]['image'],
+                      _dataOnBoarding[_indexBoard.value]['image'],
                       width: double.infinity,
                       fit: BoxFit.fill,
                     ),
@@ -92,12 +93,14 @@ class OnBoardingPage extends StatelessWidget {
                 style: FontStyle.body1,
               ),
               const Spacer(),
+
               ButtonCustom.buttonPrimary(
                 onTap: () {
-                  _indexBoard.value++;
-                  if (_indexBoard.value < _dataOnBoarding.length - 1) {
+                  _indexMove.value++;
+                  if (_indexBoard.value <= _dataOnBoarding.length - 2) {
+                    _indexBoard.value++;
                     _pageCountroll.jumpToPage(_indexBoard.value);
-                  } else if (_indexBoard.value == _dataOnBoarding.length) {
+                  } else if (_indexMove.value == 4) {
                     RouteWidget.pushReplacment(
                         context: context, page: LoginPage());
                   }

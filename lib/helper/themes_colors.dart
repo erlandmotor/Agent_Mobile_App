@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 /// variabel type static
 class ColorApp {
   /// blue
-  static Color primaryA3 = const Color(0XFF0000A3);
+  static Color primaryA3 = const Color(0XFF003060);
 
   /// blue groto
   static Color primaryB3 = const Color(0XFF0067B3);
