@@ -6,6 +6,7 @@ class WidgetFormInput extends StatelessWidget {
   final GlobalKey<FormState> formKey;
   final bool obscureText;
   final String hintText;
+  final Color? colorSuffix;
   final TextEditingController controller;
   final Function()? onTapSuffix;
   final String? iconSuffix;
@@ -16,6 +17,7 @@ class WidgetFormInput extends StatelessWidget {
     required this.obscureText,
     required this.hintText,
     required this.controller,
+    this.colorSuffix,
     this.onTapSuffix,
     this.iconSuffix,
     required this.iconPrefix,
@@ -53,6 +55,9 @@ class WidgetFormInput extends StatelessWidget {
                           horizontal: 16, vertical: 10),
                       child: Image.asset(
                         iconSuffix!,
+                        color: colorSuffix == null
+                            ? Colors.white
+                            : ColorApp.primaryA3,
                         height: 12,
                       ),
                     ),

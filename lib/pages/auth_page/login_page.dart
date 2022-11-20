@@ -9,6 +9,8 @@ import 'package:flutter/material.dart';
 
 class LoginPage extends StatelessWidget {
   LoginPage({Key? key}) : super(key: key);
+
+  final ValueNotifier<bool> _hidePasswod = ValueNotifier<bool>(false);
   final TextEditingController _emailInput = TextEditingController();
   final TextEditingController _passwordInput = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -29,7 +31,7 @@ class LoginPage extends StatelessWidget {
               title: 'Selamat Datang di DIGO',
               subTitle: 'Silahkan masukkan akun Anda dibawah ini',
             ),
-             const SizedBox(
+            const SizedBox(
               height: 25,
             ),
             WidgetFormInput(
@@ -40,14 +42,23 @@ class LoginPage extends StatelessWidget {
               iconSuffix: null,
               iconPrefix: 'assets/icons/mail.png',
             ),
-            WidgetFormInput(
-              onTapSuffix: () {},
-              controller: _passwordInput,
-              formKey: _formPass,
-              obscureText: true,
-              hintText: 'Kata Sandi',
-              iconPrefix: 'assets/icons/lock.png',
-              iconSuffix: 'assets/icons/eye.png',
+            AnimatedBuilder(
+              animation: _hidePasswod,
+              builder: (context, _) => WidgetFormInput(
+                onTapSuffix: () {
+                  _hidePasswod.value = !_hidePasswod.value;
+                  print(_hidePasswod.value);
+                },
+                controller: _passwordInput,
+                formKey: _formPass,
+                obscureText: true,
+                colorSuffix: _hidePasswod.value == false
+                    ? ColorApp.secondaryEA
+                    : ColorApp.primaryA3,
+                hintText: 'Kata Sandi',
+                iconPrefix: 'assets/icons/lock.png',
+                iconSuffix: 'assets/icons/eye.png',
+              ),
             ),
 
             Row(
@@ -107,10 +118,11 @@ class LoginPage extends StatelessWidget {
             const SizedBox(
               height: 25,
             ),
-            ButtonCustom.buttonPrimary(
+            ButtonCustom.buttonIconPrimary(
               onTap: () {},
               colorBtn: ColorApp.primaryA3,
-              text: 'Login',
+              text: 'Google',
+              icon: 'assets/icons/google.png',
             ),
             const SizedBox(
               height: 25,
@@ -118,7 +130,7 @@ class LoginPage extends StatelessWidget {
             ButtonCustom.buttonPrimary(
               onTap: () {},
               colorBtn: ColorApp.primaryA3,
-              text: 'Login',
+              text: 'Masuk',
             ),
             const Spacer(),
             Text(
