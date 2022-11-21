@@ -15,8 +15,9 @@ class RouteWidget {
     Navigator.push(context, MaterialPageRoute(builder: (context) => page));
   }
 
-  // static Future push(
-  //     {required BuildContext context, required Widget page}) async {
-  //   Navigator.push(context, MaterialPageRoute(builder: (context) => page));
-  // }
+  static Future pushAndRemoveUntil(
+      {required BuildContext context, required Widget page}) async {
+    Navigator.pushAndRemoveUntil(context,
+        MaterialPageRoute(builder: (context) => page), (route) => false);
+  }
 }

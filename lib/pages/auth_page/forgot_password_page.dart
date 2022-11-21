@@ -2,6 +2,7 @@ import 'package:agent_mobile_app/helper/margin_layout.dart';
 import 'package:agent_mobile_app/helper/routes.dart';
 import 'package:agent_mobile_app/helper/themes_colors.dart';
 import 'package:agent_mobile_app/helper/themse_fonts.dart';
+import 'package:agent_mobile_app/pages/auth_page/change_password_page.dart';
 import 'package:agent_mobile_app/pages/auth_page/login_page.dart';
 import 'package:agent_mobile_app/pages/auth_page/widgets/widget_form_input.dart';
 import 'package:agent_mobile_app/widget_reusable/widget_appbar_default.dart';
@@ -53,6 +54,8 @@ class ForgotPasswordPage extends StatelessWidget {
             ButtonCustom.buttonPrimary(
                 onTap: () {
                   //TODO: push email
+                  RouteWidget.push(
+                      context: context, page: ChangePasswordPage());
                 },
                 colorBtn: ColorApp.primaryA3,
                 text: 'Kirim'),
