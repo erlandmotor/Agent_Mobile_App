@@ -1,13 +1,15 @@
 import 'package:agent_mobile_app/helper/margin_layout.dart';
+import 'package:agent_mobile_app/helper/routes.dart';
 import 'package:agent_mobile_app/helper/themes_colors.dart';
 import 'package:agent_mobile_app/helper/themse_fonts.dart';
+import 'package:agent_mobile_app/pages/auth_page/login_page.dart';
 import 'package:agent_mobile_app/widget_reusable/widget_button.dart';
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
 class OnBoardingPage extends StatelessWidget {
   OnBoardingPage({Key? key}) : super(key: key);
   final ValueNotifier<int> _indexBoard = ValueNotifier<int>(0);
+  final ValueNotifier<int> _indexMove = ValueNotifier<int>(1);
   final PageController _pageCountroll = PageController(initialPage: 0);
 
   final List _dataOnBoarding = [
@@ -45,16 +47,15 @@ class OnBoardingPage extends StatelessWidget {
               const Spacer(),
               SizedBox(
                   height: MediaQuery.of(context).size.height * 0.3,
-                  child: PageView(
+                  child: PageView.builder(
                     reverse: true,
+                    itemCount: _dataOnBoarding.length,
                     controller: _pageCountroll,
-                    children: [
-                      Image.asset(
-                        _dataOnBoarding[_indexBoard.value]['image'],
-                        width: double.infinity,
-                        fit: BoxFit.fill,
-                      ),
-                    ],
+                    itemBuilder: (context, index) => Image.asset(
+                      _dataOnBoarding[_indexBoard.value]['image'],
+                      width: double.infinity,
+                      fit: BoxFit.fill,
+                    ),
                   )),
               const SizedBox(
                 height: 16,
@@ -78,7 +79,7 @@ class OnBoardingPage extends StatelessWidget {
               const SizedBox(
                 height: 24,
               ),
-              AutoSizeText(
+              Text(
                 _dataOnBoarding[_indexBoard.value]['title'],
                 textAlign: TextAlign.center,
                 style: FontStyle.heading1,
@@ -86,17 +87,22 @@ class OnBoardingPage extends StatelessWidget {
               const SizedBox(
                 height: 16,
               ),
-              AutoSizeText(
+              Text(
                 _dataOnBoarding[_indexBoard.value]['desc'],
                 textAlign: TextAlign.center,
                 style: FontStyle.body1,
               ),
               const Spacer(),
+
               ButtonCustom.buttonPrimary(
                 onTap: () {
-                  if (_indexBoard.value < _dataOnBoarding.length - 1) {
+                  _indexMove.value++;
+                  if (_indexBoard.value <= _dataOnBoarding.length - 2) {
                     _indexBoard.value++;
                     _pageCountroll.jumpToPage(_indexBoard.value);
+                  } else if (_indexMove.value == 4) {
+                    RouteWidget.pushReplacment(
+                        context: context, page: LoginPage());
                   }
                 },
                 text: 'Berikutnya',
