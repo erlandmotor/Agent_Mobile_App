@@ -19,6 +19,7 @@ class HeadersTitle extends StatelessWidget {
       subtitle: Center(
         child: Text(
           subTitle,
+          textAlign: TextAlign.center,
           style: FontStyle.body2,
         ),
       ),

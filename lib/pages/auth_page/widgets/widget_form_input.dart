@@ -38,9 +38,10 @@ class WidgetFormInput extends StatelessWidget {
             contentPadding:
                 const EdgeInsets.symmetric(vertical: 16, horizontal: 10),
             isCollapsed: true,
-            enabled: false,
+            focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: ColorApp.primaryA3)),
             prefixIcon: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
               child: Image.asset(
                 iconPrefix,
                 height: 12,
@@ -52,12 +53,10 @@ class WidgetFormInput extends StatelessWidget {
                     onTap: onTapSuffix,
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 16, vertical: 10),
+                          horizontal: 16, vertical: 12),
                       child: Image.asset(
                         iconSuffix!,
-                        color: colorSuffix == null
-                            ? Colors.white
-                            : ColorApp.primaryA3,
+                        color: colorSuffix,
                         height: 12,
                       ),
                     ),
