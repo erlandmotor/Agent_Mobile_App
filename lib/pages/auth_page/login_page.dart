@@ -2,6 +2,7 @@ import 'package:agent_mobile_app/helper/margin_layout.dart';
 import 'package:agent_mobile_app/helper/routes.dart';
 import 'package:agent_mobile_app/helper/themes_colors.dart';
 import 'package:agent_mobile_app/helper/themse_fonts.dart';
+import 'package:agent_mobile_app/pages/auth_page/forgot_password_page.dart';
 import 'package:agent_mobile_app/pages/auth_page/register_page.dart';
 import 'package:agent_mobile_app/pages/auth_page/widgets/widget_form_input.dart';
 import 'package:agent_mobile_app/pages/auth_page/widgets/widget_headers.dart';
@@ -22,6 +23,7 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
+      backgroundColor: Colors.white,
       body: Padding(
         padding: Marginlayout.marginhorizontal,
         child: Column(
@@ -88,10 +90,16 @@ class LoginPage extends StatelessWidget {
                     ),
                   ),
                 ),
-                Text(
-                  'Lupa kata sandi?',
-                  style: FontStyle.body1.copyWith(
-                      color: ColorApp.primaryA3, fontWeight: FontWeight.w600),
+                InkWell(
+                  onTap: () {
+                    RouteWidget.push(
+                        context: context, page: ForgotPasswordPage());
+                  },
+                  child: Text(
+                    'Lupa kata sandi?',
+                    style: FontStyle.body1.copyWith(
+                        color: ColorApp.primaryA3, fontWeight: FontWeight.w600),
+                  ),
                 ),
               ],
             ),
