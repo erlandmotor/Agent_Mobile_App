@@ -40,4 +40,25 @@ class FontStyle {
     letterSpacing: 0.4,
     fontFamily: 'Source Sans Pro',
   );
+
+  static TextStyle subtitle1SemiBold = const TextStyle(
+    fontSize: 17,
+    fontWeight: FontWeight.w600,
+    letterSpacing: 0.15,
+    fontFamily: 'Source Sans Pro',
+  );
+
+  static TextStyle subtitle2 = const TextStyle(
+    fontSize: 15,
+    fontWeight: FontWeight.w400,
+    letterSpacing: 0.1,
+    fontFamily: 'Source Sans Pro',
+  );
+
+  static TextStyle subtitle2SemiBold = const TextStyle(
+    fontSize: 15,
+    fontWeight: FontWeight.w600,
+    letterSpacing: 0.1,
+    fontFamily: 'Source Sans Pro',
+  );
 }
