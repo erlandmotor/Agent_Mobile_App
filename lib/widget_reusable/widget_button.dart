@@ -75,4 +75,39 @@ class ButtonCustom {
       ),
     );
   }
+
+  static Widget dropDownMenu({
+    // required Color dropdownColor,
+    // required bool isExpanded,
+    // required String value,
+    required List<String> listItems,
+    // required void Function(Object?)? onChange,
+  }) {
+    return Container(
+      width: 118,
+      height: 38,
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(6), color: ColorApp.primaryA3),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: DropdownButton(
+          icon: Icon(Icons.keyboard_arrow_down),
+          dropdownColor: ColorApp.primaryA3,
+          isExpanded: true,
+          iconEnabledColor: ColorApp.secondaryFF,
+          value: listItems.first,
+          items: listItems.map<DropdownMenuItem<String>>((value) {
+            return DropdownMenuItem<String>(
+                alignment: AlignmentDirectional.centerStart,
+                value: value,
+                child: Text(
+                  value,
+                  style: FontStyle.button,
+                ));
+          }).toList(),
+          onChanged: (value) {},
+        ),
+      ),
+    );
+  }
 }
