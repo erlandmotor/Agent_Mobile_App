@@ -2,6 +2,7 @@ import 'package:agent_mobile_app/helper/margin_layout.dart';
 import 'package:agent_mobile_app/helper/themes_colors.dart';
 import 'package:agent_mobile_app/helper/themse_fonts.dart';
 import 'package:flutter/material.dart';
+import 'package:dropdown_below/dropdown_below.dart';
 
 /// class ini berisi kumpulan widget reusable button
 class ButtonCustom {
@@ -82,6 +83,7 @@ class ButtonCustom {
     // required String value,
     required List<String> listItems,
     // required void Function(Object?)? onChange,
+    required String hint,
   }) {
     return Container(
       width: 118,
@@ -90,19 +92,28 @@ class ButtonCustom {
           borderRadius: BorderRadius.circular(6), color: ColorApp.primaryA3),
       child: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: DropdownButton(
-          icon: Icon(Icons.keyboard_arrow_down),
-          dropdownColor: ColorApp.primaryA3,
-          isExpanded: true,
-          iconEnabledColor: ColorApp.secondaryFF,
-          value: listItems.first,
+        child: DropdownBelow(
+          icon: Icon(
+            Icons.keyboard_arrow_down,
+            color: ColorApp.secondaryFF,
+          ),
+
+          itemWidth: 200,
+          boxTextstyle: FontStyle.button,
+          boxHeight: 45,
+          boxWidth: 200,
+          hint: Text(
+            hint,
+            style: FontStyle.button,
+          ),
+          // value: _selectedTest,
           items: listItems.map<DropdownMenuItem<String>>((value) {
             return DropdownMenuItem<String>(
                 alignment: AlignmentDirectional.centerStart,
                 value: value,
                 child: Text(
                   value,
-                  style: FontStyle.button,
+                  style: FontStyle.button3,
                 ));
           }).toList(),
           onChanged: (value) {},

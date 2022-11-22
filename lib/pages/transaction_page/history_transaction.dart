@@ -38,8 +38,8 @@ class HistoryTransaction extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            ButtonCustom.dropDownMenu(listItems: productItems),
-            ButtonCustom.dropDownMenu(listItems: statusItems),
+            ButtonCustom.dropDownMenu(listItems: productItems, hint: 'Produk'),
+            ButtonCustom.dropDownMenu(listItems: statusItems, hint: 'Status'),
             InkWell(
               child: Container(
                   width: 118,
@@ -153,6 +153,9 @@ class HistoryTransaction extends StatelessWidget {
                                     Text(
                                       '06.40 WIB',
                                       style: FontStyle.timeTransaction,
+                                    ),
+                                    SizedBox(
+                                      height: 5,
                                     ),
                                     Text(
                                       '-Rp50.000',

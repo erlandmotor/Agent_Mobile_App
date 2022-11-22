@@ -48,6 +48,14 @@ class FontStyle {
     fontFamily: 'Source Sans Pro',
   );
 
+  static TextStyle button3 = TextStyle(
+    fontSize: 15,
+    color: ColorApp.primaryA3,
+    fontWeight: FontWeight.w600,
+    letterSpacing: 1.25,
+    fontFamily: 'Source Sans Pro',
+  );
+
   static TextStyle caption = const TextStyle(
     fontSize: 13,
     letterSpacing: 0.4,
