@@ -15,22 +15,40 @@ class RegisterPage extends StatelessWidget {
   final ValueNotifier<bool> _hidePasswod = ValueNotifier<bool>(true);
   final TextEditingController _emailInput = TextEditingController();
   final TextEditingController _passwordInput = TextEditingController();
+  final TextEditingController _inputCodeRefferal = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final GlobalKey<FormState> _usernameKey = GlobalKey<FormState>();
   final GlobalKey<FormState> _formPass = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formPassConfirm = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
-      body: Padding(
-        padding: Marginlayout.marginhorizontal,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.only(bottom: 40),
+        child: Text.rich(
+          TextSpan(
+              text: 'Sudah mempunyai Akun?',
+              children: [
+                TextSpan(
+                  text: ' Masuk Disini',
+                  style: FontStyle.body2.copyWith(
+                      fontWeight: FontWeight.w600, color: ColorApp.primaryA3),
+                  recognizer: TapGestureRecognizer()
+                    ..onTap = () =>
+                        {RouteWidget.push(context: context, page: LoginPage())},
+                ),
+              ],
+              style: FontStyle.body2),
+          textAlign: TextAlign.center,
+        ),
+      ),
+      body: SafeArea(
+        child: ListView(
+          padding: Marginlayout.marginhorizontal,
           children: [
-            const Spacer(),
             const HeadersTitle(
               title: 'Selamat Datang di DIGO',
               subTitle: 'Silahkan daftarkan akun Anda dibawah ini',
@@ -72,26 +90,67 @@ class RegisterPage extends StatelessWidget {
                 iconSuffix: 'assets/icons/eye.png',
               ),
             ),
+            AnimatedBuilder(
+              animation: _hidePasswod,
+              builder: (context, _) => WidgetFormInput(
+                onTapSuffix: () {
+                  _hidePasswod.value = !_hidePasswod.value;
+                  print(_hidePasswod.value);
+                },
+                controller: _passwordInput,
+                formKey: _formPassConfirm,
+                obscureText: _hidePasswod.value,
+                colorSuffix: _hidePasswod.value == true
+                    ? ColorApp.secondaryB2
+                    : ColorApp.primaryA3,
+                hintText: 'Konfirmasi kata sandi',
+                iconPrefix: 'assets/icons/lock.png',
+                iconSuffix: 'assets/icons/eye.png',
+              ),
+            ),
+            TextField(
+              controller: _inputCodeRefferal,
+              cursorColor: ColorApp.primaryA3,
+              decoration: InputDecoration(
+                contentPadding:
+                    const EdgeInsets.symmetric(vertical: 16, horizontal: 10),
+                isCollapsed: true,
+                focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: ColorApp.primaryA3)),
+                hintText: 'Kode Refferal',
+                fillColor: ColorApp.primaryA3,
+                focusColor: ColorApp.primaryA3,
+                hoverColor: ColorApp.primaryA3,
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(6),
+                    borderSide: BorderSide(color: ColorApp.secondaryEA)),
+                hintStyle:
+                    FontStyle.body2.copyWith(color: ColorApp.secondaryB2),
+              ),
+            ),
+            const SizedBox(
+              height: 8,
+            ),
             Text(
               '*Jika tidak ada Kode Refferal tidak perlu diisi (opsional)',
               style: FontStyle.caption.copyWith(color: ColorApp.secondaryB2),
             ),
-
             const SizedBox(
               height: 25,
             ),
-
             ButtonCustom.buttonPrimary(
               onTap: () {},
               colorBtn: ColorApp.primaryA3,
               text: 'Daftar',
             ),
-            const Spacer(),
+            const SizedBox(
+              height: 25,
+            ),
             Text(
               'Dengan mendaftar, saya telah menyetujui',
               style: FontStyle.body2,
+              textAlign: TextAlign.center,
             ),
-
             Text.rich(
               TextSpan(
                   text: 'Ketentuan Layanan',
@@ -106,30 +165,7 @@ class RegisterPage extends StatelessWidget {
                   ],
                   style: FontStyle.body2.copyWith(
                       fontWeight: FontWeight.w600, color: ColorApp.primaryA3)),
-            ),
-            const Spacer(),
-
-            //NOte: move register
-            Text.rich(
-              TextSpan(
-                  text: 'Sudah mempunyai Akun?',
-                  children: [
-                    TextSpan(
-                      text: ' Masuk Disini',
-                      style: FontStyle.body2.copyWith(
-                          fontWeight: FontWeight.w600,
-                          color: ColorApp.primaryA3),
-                      recognizer: TapGestureRecognizer()
-                        ..onTap = () => {
-                              RouteWidget.push(
-                                  context: context, page: LoginPage())
-                            },
-                    ),
-                  ],
-                  style: FontStyle.body2),
-            ),
-            const SizedBox(
-              height: 40,
+              textAlign: TextAlign.center,
             ),
           ],
         ),

@@ -24,19 +24,38 @@ class LoginPage extends StatelessWidget {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
-      body: Padding(
-        padding: Marginlayout.marginhorizontal,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.only(bottom: 40),
+        child: Text.rich(
+          TextSpan(
+              text: 'Tidak mempunyai akun?',
+              children: [
+                TextSpan(
+                  text: ' Daftar Disini',
+                  style: FontStyle.body2.copyWith(
+                      fontWeight: FontWeight.w600, color: ColorApp.primaryA3),
+                  recognizer: TapGestureRecognizer()
+                    ..onTap = () => {
+                          RouteWidget.push(
+                              context: context, page: RegisterPage())
+                        },
+                ),
+              ],
+              style: FontStyle.body2),
+          textAlign: TextAlign.center,
+        ),
+      ),
+      body: SafeArea(
+        child: ListView(
+          padding: Marginlayout.marginhorizontal,
+          physics: const BouncingScrollPhysics(),
           children: [
-            const Spacer(),
             const HeadersTitle(
               title: 'Selamat Datang di DIGO',
               subTitle: 'Silahkan masukkan akun Anda dibawah ini',
             ),
             const SizedBox(
-              height: 25,
+              height: 48,
             ),
             WidgetFormInput(
               controller: _emailInput,
@@ -106,45 +125,17 @@ class LoginPage extends StatelessWidget {
             const SizedBox(
               height: 25,
             ),
-            Row(
-              children: [
-                const Divider(),
-                Expanded(
-                    child: Divider(
-                  endIndent: 15,
-                  color: ColorApp.secondaryB2,
-                )),
-                Text(
-                  'Atau masuk dengan',
-                  style: FontStyle.caption,
-                ),
-                Expanded(
-                    child: Divider(
-                  indent: 15,
-                  color: ColorApp.secondaryB2,
-                ))
-              ],
-            ),
-            const SizedBox(
-              height: 25,
-            ),
-            ButtonCustom.buttonIconPrimary(
-              onTap: () {},
-              colorBtn: ColorApp.primaryA3,
-              text: 'Google',
-              icon: 'assets/icons/google.png',
-            ),
-            const SizedBox(
-              height: 25,
-            ),
             ButtonCustom.buttonPrimary(
               onTap: () {},
               colorBtn: ColorApp.primaryA3,
               text: 'Masuk',
             ),
-            const Spacer(),
+            const SizedBox(
+              height: 25,
+            ),
             Text(
               'Dengan mendaftar, saya telah menyetujui',
+              textAlign: TextAlign.center,
               style: FontStyle.body2,
             ),
 
@@ -162,32 +153,9 @@ class LoginPage extends StatelessWidget {
                   ],
                   style: FontStyle.body2.copyWith(
                       fontWeight: FontWeight.w600, color: ColorApp.primaryA3)),
-            ),
-            const Spacer(),
-
-            //NOte: move register
-            Text.rich(
-              TextSpan(
-                  text: 'Tidak mempunyai akun?',
-                  children: [
-                    TextSpan(
-                      text: ' Daftar Disini',
-                      style: FontStyle.body2.copyWith(
-                          fontWeight: FontWeight.w600,
-                          color: ColorApp.primaryA3),
-                      recognizer: TapGestureRecognizer()
-                        ..onTap = () => {
-                              RouteWidget.push(
-                                  context: context, page: RegisterPage())
-                            },
-                    ),
-                  ],
-                  style: FontStyle.body2),
               textAlign: TextAlign.center,
             ),
-            const SizedBox(
-              height: 40,
-            ),
+            //NOte: move register
           ],
         ),
       ),
