@@ -75,4 +75,39 @@ class ButtonCustom {
       ),
     );
   }
+
+  static Widget homePageMenu({
+    required String image,
+    required String desc,
+  }) {
+    return Column(
+      // crossAxisAlignment: CrossAxisAlignment.start,
+      // mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Container(
+          height: 48,
+          width: 48,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(color: ColorApp.secondaryB2)),
+          child: Image.asset(
+            image,
+            fit: BoxFit.scaleDown,
+            scale: 3,
+          ),
+        ),
+        SizedBox(
+          height: 8,
+        ),
+        Container(
+          width: 72,
+          child: Text(
+            desc,
+            style: FontStyle.caption,
+            textAlign: TextAlign.center,
+          ),
+        )
+      ],
+    );
+  }
 }
