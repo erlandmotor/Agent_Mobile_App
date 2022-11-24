@@ -10,7 +10,7 @@ class WidgetFormInput extends StatelessWidget {
   final TextEditingController controller;
   final Function()? onTapSuffix;
   final String? iconSuffix;
-  final String iconPrefix;
+  final String? iconPrefix;
   const WidgetFormInput({
     Key? key,
     required this.formKey,
@@ -20,7 +20,7 @@ class WidgetFormInput extends StatelessWidget {
     this.colorSuffix,
     this.onTapSuffix,
     this.iconSuffix,
-    required this.iconPrefix,
+    this.iconPrefix,
   }) : super(key: key);
 
   @override
@@ -38,26 +38,28 @@ class WidgetFormInput extends StatelessWidget {
             contentPadding:
                 const EdgeInsets.symmetric(vertical: 16, horizontal: 10),
             isCollapsed: true,
-            enabled: false,
-            prefixIcon: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-              child: Image.asset(
-                iconPrefix,
-                height: 12,
-              ),
-            ),
+            focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: ColorApp.primaryA3)),
+            prefixIcon: iconPrefix != null
+                ? Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 16, vertical: 14),
+                    child: Image.asset(
+                      iconPrefix!,
+                      height: 12,
+                    ),
+                  )
+                : const Opacity(opacity: 0),
             suffixIcon: iconSuffix == null
                 ? const SizedBox()
                 : InkWell(
                     onTap: onTapSuffix,
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 16, vertical: 10),
+                          horizontal: 16, vertical: 12),
                       child: Image.asset(
                         iconSuffix!,
-                        color: colorSuffix == null
-                            ? Colors.white
-                            : ColorApp.primaryA3,
+                        color: colorSuffix,
                         height: 12,
                       ),
                     ),

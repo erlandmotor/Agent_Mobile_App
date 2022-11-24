@@ -10,6 +10,7 @@ class HeadersTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      contentPadding: const EdgeInsets.only(top: 48),
       title: Center(
         child: Text(
           title,
@@ -19,6 +20,7 @@ class HeadersTitle extends StatelessWidget {
       subtitle: Center(
         child: Text(
           subTitle,
+          textAlign: TextAlign.center,
           style: FontStyle.body2,
         ),
       ),
