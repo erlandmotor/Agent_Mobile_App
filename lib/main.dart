@@ -1,4 +1,7 @@
 import 'package:agent_mobile_app/pages/splash_screen.dart';
+import 'package:agent_mobile_app/pages/transaction_page/desc_transaction.dart';
+import 'package:agent_mobile_app/pages/transaction_page/history_transaction.dart';
+
 import 'package:flutter/material.dart';
 
 void main() {
@@ -16,7 +19,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const SplashScreenPage(),
+      home: HistoryTransaction(),
     );
   }
 }
