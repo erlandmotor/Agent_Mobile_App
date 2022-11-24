@@ -13,11 +13,14 @@ class HomePage extends StatelessWidget {
         children: [
           Image.asset(
             'assets/backround/bg1.png',
-            fit: BoxFit.cover,
+            fit: BoxFit.fill,
+            width: double.infinity,
+            height: MediaQuery.of(context).size.height * 0.37,
           ),
           Padding(
             padding: const EdgeInsets.only(left: 16.0, right: 16.0, top: 30.0),
             child: ListView(
+              physics: const BouncingScrollPhysics(),
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -26,29 +29,29 @@ class HomePage extends StatelessWidget {
                     Image.asset('assets/icons/notifications.png')
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 40,
                 ),
                 topWidget(),
-                SizedBox(
+                const SizedBox(
                   height: 24,
                 ),
                 menuWidget(),
-                SizedBox(
+                const SizedBox(
                   height: 24,
                 ),
                 Text(
                   'Jualan makin untung',
                   style: FontStyle.subtitle1SemiBold,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 8,
                 ),
                 Text(
                   'Dapetin diskon dan harga spesialnya di DIGO sekarang sebelum kehabisan!',
                   style: FontStyle.subtitle2,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 16,
                 ),
                 Image.asset('assets/promo.png')
@@ -77,7 +80,7 @@ class HomePage extends StatelessWidget {
                 image: 'assets/icons/listrik.png', desc: 'Token Listrik'),
           ],
         ),
-        SizedBox(
+        const SizedBox(
           height: 16,
         ),
         Row(
@@ -104,7 +107,7 @@ class HomePage extends StatelessWidget {
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           color: ColorApp.secondaryEA,
-          boxShadow: [
+          boxShadow: const [
             BoxShadow(
                 color: Colors.grey, blurRadius: 7, offset: Offset(0.0, 0.75))
           ]),
@@ -152,7 +155,7 @@ class HomePage extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 16,
                 ),
                 Expanded(
@@ -196,7 +199,7 @@ class HomePage extends StatelessWidget {
                 child: Container(
                   height: 72,
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(
+                    borderRadius: const BorderRadius.only(
                       bottomLeft: Radius.circular(10),
                     ),
                     color: ColorApp.secondaryFF,
@@ -211,7 +214,7 @@ class HomePage extends StatelessWidget {
                           'Level Digo',
                           style: FontStyle.subtitle2,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 8,
                         ),
                         Row(
@@ -221,7 +224,7 @@ class HomePage extends StatelessWidget {
                               height: 20,
                               width: 20,
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 16,
                             ),
                             Text(
@@ -235,15 +238,15 @@ class HomePage extends StatelessWidget {
                   ),
                 ),
               ),
-              VerticalDivider(
+              const VerticalDivider(
                 width: 2,
               ),
               Expanded(
                 child: Container(
                   height: 72,
                   decoration: BoxDecoration(
-                    borderRadius:
-                        BorderRadius.only(bottomRight: Radius.circular(10)),
+                    borderRadius: const BorderRadius.only(
+                        bottomRight: Radius.circular(10)),
                     color: ColorApp.secondaryFF,
                   ),
                   child: Padding(
@@ -256,7 +259,7 @@ class HomePage extends StatelessWidget {
                           'Koin Digo',
                           style: FontStyle.subtitle2,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 8,
                         ),
                         Row(
@@ -266,7 +269,7 @@ class HomePage extends StatelessWidget {
                               height: 20,
                               width: 20,
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 16,
                             ),
                             Text(
