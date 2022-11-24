@@ -1,5 +1,6 @@
 import 'package:agent_mobile_app/helper/themes_colors.dart';
 import 'package:agent_mobile_app/helper/themse_fonts.dart';
+import 'package:agent_mobile_app/widget_reusable/widget_button.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
@@ -15,8 +16,8 @@ class HomePage extends StatelessWidget {
             fit: BoxFit.cover,
           ),
           Padding(
-            padding: const EdgeInsets.only(left: 16.0, right: 16.0, top: 60.0),
-            child: Column(
+            padding: const EdgeInsets.only(left: 16.0, right: 16.0, top: 30.0),
+            child: ListView(
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -26,9 +27,31 @@ class HomePage extends StatelessWidget {
                   ],
                 ),
                 SizedBox(
-                  height: 32,
+                  height: 40,
                 ),
-                topWidget()
+                topWidget(),
+                SizedBox(
+                  height: 24,
+                ),
+                menuWidget(),
+                SizedBox(
+                  height: 24,
+                ),
+                Text(
+                  'Jualan makin untung',
+                  style: FontStyle.subtitle1SemiBold,
+                ),
+                SizedBox(
+                  height: 8,
+                ),
+                Text(
+                  'Dapetin diskon dan harga spesialnya di DIGO sekarang sebelum kehabisan!',
+                  style: FontStyle.subtitle2,
+                ),
+                SizedBox(
+                  height: 16,
+                ),
+                Image.asset('assets/promo.png')
               ],
             ),
           ),
@@ -37,13 +60,54 @@ class HomePage extends StatelessWidget {
     );
   }
 
+  Column menuWidget() {
+    return Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ButtonCustom.homePageMenu(
+                image: 'assets/icons/pulsa.png', desc: 'Pulsa'),
+            ButtonCustom.homePageMenu(
+                image: 'assets/icons/paket.png', desc: 'Paket Data'),
+            ButtonCustom.homePageMenu(
+                image: 'assets/icons/voucher.png', desc: 'Voucher Game'),
+            ButtonCustom.homePageMenu(
+                image: 'assets/icons/listrik.png', desc: 'Token Listrik'),
+          ],
+        ),
+        SizedBox(
+          height: 16,
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ButtonCustom.homePageMenu(
+                image: 'assets/icons/wallet.png', desc: 'Top-Up E-Wallet'),
+            ButtonCustom.homePageMenu(
+                image: 'assets/icons/pdam.png', desc: 'PDAM'),
+            ButtonCustom.homePageMenu(
+                image: 'assets/icons/bpjs.png', desc: 'BPJS'),
+            ButtonCustom.homePageMenu(
+                image: 'assets/icons/other.png', desc: 'Lainnya'),
+          ],
+        ),
+      ],
+    );
+  }
+
   Container topWidget() {
     return Container(
       height: 143,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        color: ColorApp.secondaryEA,
-      ),
+          borderRadius: BorderRadius.circular(10),
+          color: ColorApp.secondaryEA,
+          boxShadow: [
+            BoxShadow(
+                color: Colors.grey, blurRadius: 7, offset: Offset(0.0, 0.75))
+          ]),
       child: Column(
         children: [
           Padding(
