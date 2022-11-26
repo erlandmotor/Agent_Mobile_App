@@ -1,8 +1,10 @@
 import 'package:agent_mobile_app/helper/margin_layout.dart';
+import 'package:agent_mobile_app/helper/routes.dart';
 import 'package:agent_mobile_app/helper/shadow.dart';
 import 'package:agent_mobile_app/helper/themes_colors.dart';
 import 'package:agent_mobile_app/helper/themse_fonts.dart';
 import 'package:agent_mobile_app/pages/auth_page/widgets/widget_form_input.dart';
+import 'package:agent_mobile_app/pages/poin_page/check_redem_page.dart';
 import 'package:agent_mobile_app/widget_reusable/widget_appbar_default.dart';
 import 'package:agent_mobile_app/widget_reusable/widget_button.dart';
 import 'package:flutter/material.dart';
@@ -84,7 +86,7 @@ class RewardDetailPage extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                'Deskripsi',
+                'Redeem Poin',
                 style: FontStyle.subtitle1SemiBold,
               ),
               const SizedBox(
@@ -92,7 +94,7 @@ class RewardDetailPage extends StatelessWidget {
               ),
               //NOTE Data Deskripsi
               Text(
-                'Khusus buat kamu yang ingin dapat tambahan pulsa dari DIGO. Yuk buruan redeem sekarang juga keburu selesai rewardnya.',
+                'Masukan Nomor Handphone Terlebih dahulu sebelum anda melakukan Redeem poin.',
                 style: FontStyle.subtitle2,
               ),
               const SizedBox(
@@ -105,11 +107,20 @@ class RewardDetailPage extends StatelessWidget {
                 controller: _inputNumber,
                 iconPrefix: 'assets/icons/call.png',
               ),
+              // Padding(
+              //   padding: const EdgeInsets.only(top: 10.0),
+              //   child: Text(
+              //     '*Nomor HP yang anda masukkan tidak sesuai',
+              //     style: FontStyle.caption
+              //         .copyWith(color: ColorApp.subSecondary21),
+              //   ),
+              // ),
               const SizedBox(
                 height: 70,
               ),
               ButtonCustom.buttonPrimary(
-                onTap: () {},
+                onTap: () => RouteWidget.push(
+                    context: context, page: const CheckDetailRedeemPage()),
                 // colorBtn: ColorApp.secondaryB2,
                 // text: 'Oups, dikoin kamu belum cukup',
                 colorBtn: ColorApp.primaryA3,

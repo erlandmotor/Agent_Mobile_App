@@ -6,6 +6,7 @@ class CustomAppBar {
   static PreferredSizeWidget appBarDefault(BuildContext context,
       {required Color backgroundColor,
       required Color colorComponen,
+      List<Widget>? action,
       required String title}) {
     return AppBar(
       backgroundColor: backgroundColor,
@@ -22,6 +23,7 @@ class CustomAppBar {
         title,
         style: FontStyle.heading1.copyWith(color: colorComponen),
       ),
+      actions: action ?? [],
     );
   }
 }
