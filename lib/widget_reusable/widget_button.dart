@@ -35,14 +35,13 @@ class ButtonCustom {
 
   /// function ini menampilkan widget button dimana tedapat icon pada bagian kiri dan text pada bagian tengah
   /// button tidak memiliki brackground hanya memiliki border
-  static Widget buttonIconPrimary({
+  static Widget buttonSeccondary({
     required Function() onTap,
-    required Color colorBtn,
     required String text,
-    required String icon,
   }) {
     return Container(
       height: 45,
+      alignment: Alignment.center,
       width: double.infinity,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(6),
@@ -51,26 +50,9 @@ class ButtonCustom {
         onTap: onTap,
         splashColor: ColorApp.secondaryEA,
         highlightColor: ColorApp.secondaryEA,
-        child: Padding(
-          padding: Marginlayout.marginhorizontal,
-          child: Stack(
-            children: [
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Image.asset(
-                  icon,
-                  height: 24,
-                ),
-              ),
-              Align(
-                alignment: Alignment.center,
-                child: Text(
-                  text,
-                  style: FontStyle.button.copyWith(color: ColorApp.secondary00),
-                ),
-              )
-            ],
-          ),
+        child: Text(
+          text,
+          style: FontStyle.button.copyWith(color: ColorApp.secondary00),
         ),
       ),
     );

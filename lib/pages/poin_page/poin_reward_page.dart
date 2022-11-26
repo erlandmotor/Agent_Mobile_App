@@ -1,7 +1,9 @@
 import 'package:agent_mobile_app/helper/margin_layout.dart';
+import 'package:agent_mobile_app/helper/routes.dart';
 import 'package:agent_mobile_app/helper/shadow.dart';
 import 'package:agent_mobile_app/helper/themes_colors.dart';
 import 'package:agent_mobile_app/helper/themse_fonts.dart';
+import 'package:agent_mobile_app/pages/poin_page/reward_detail_page.dart';
 import 'package:agent_mobile_app/pages/poin_page/widgets/card_reward.dart';
 import 'package:agent_mobile_app/widget_reusable/widget_appbar_default.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +11,7 @@ import 'package:flutter/material.dart';
 class PoinRewardPage extends StatelessWidget {
   const PoinRewardPage({Key? key}) : super(key: key);
 
-  Widget _headersPoin() {
+  Widget _headersPoin(BuildContext context) {
     return Column(
       children: [
         Container(
@@ -30,9 +32,10 @@ class PoinRewardPage extends StatelessWidget {
                 minLeadingWidth: 0,
                 dense: true,
                 title: Text('100 Koin', style: FontStyle.heading1),
-                trailing: Icon(
-                  Icons.arrow_forward_ios_sharp,
-                  size: 21,
+                trailing: IconButton(
+                  onPressed: () => RouteWidget.push(
+                      context: context, page: RewardDetailPage()),
+                  icon: const Icon(Icons.arrow_forward_ios_sharp),
                   color: ColorApp.secondary00,
                 ),
               ),
@@ -117,7 +120,7 @@ class PoinRewardPage extends StatelessWidget {
             padding:
                 EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.02),
             children: [
-              _headersPoin(),
+              _headersPoin(context),
               Padding(
                 padding: Marginlayout.marginhorizontal.copyWith(top: 24),
                 child: Text(
@@ -133,7 +136,10 @@ class PoinRewardPage extends StatelessWidget {
                 child: ListView.builder(
                   padding: Marginlayout.marginhorizontal,
                   scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) => const CardPoinReward(),
+                  itemBuilder: (context, index) => CardPoinReward(
+                    onTap: () => RouteWidget.push(
+                        context: context, page: RewardDetailPage()),
+                  ),
                 ),
               ),
               //NOTE: list data Reward Lainnya
@@ -152,7 +158,10 @@ class PoinRewardPage extends StatelessWidget {
                 child: ListView.builder(
                   padding: Marginlayout.marginhorizontal,
                   scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) => const CardPoinReward(),
+                  itemBuilder: (context, index) => CardPoinReward(
+                    onTap: () => RouteWidget.push(
+                        context: context, page: RewardDetailPage()),
+                  ),
                 ),
               ),
             ],
