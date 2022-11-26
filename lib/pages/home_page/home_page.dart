@@ -1,5 +1,8 @@
+import 'package:agent_mobile_app/helper/key.dart';
+import 'package:agent_mobile_app/helper/routes.dart';
 import 'package:agent_mobile_app/helper/themes_colors.dart';
 import 'package:agent_mobile_app/helper/themse_fonts.dart';
+import 'package:agent_mobile_app/pages/poin_page/poin_reward_page.dart';
 import 'package:agent_mobile_app/widget_reusable/widget_button.dart';
 import 'package:flutter/material.dart';
 
@@ -32,7 +35,7 @@ class HomePage extends StatelessWidget {
                 const SizedBox(
                   height: 40,
                 ),
-                topWidget(),
+                topWidget(context),
                 const SizedBox(
                   height: 24,
                 ),
@@ -101,7 +104,7 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Container topWidget() {
+  Container topWidget(BuildContext context) {
     return Container(
       height: 143,
       decoration: BoxDecoration(
@@ -242,43 +245,47 @@ class HomePage extends StatelessWidget {
                 width: 2,
               ),
               Expanded(
-                child: Container(
-                  height: 72,
-                  decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.only(
-                        bottomRight: Radius.circular(10)),
-                    color: ColorApp.secondaryFF,
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Koin Digo',
-                          style: FontStyle.subtitle2,
-                        ),
-                        const SizedBox(
-                          height: 8,
-                        ),
-                        Row(
-                          children: [
-                            Image.asset(
-                              'assets/icons/coin.png',
-                              height: 20,
-                              width: 20,
-                            ),
-                            const SizedBox(
-                              width: 16,
-                            ),
-                            Text(
-                              '100',
-                              style: FontStyle.subtitle1SemiBold,
-                            )
-                          ],
-                        )
-                      ],
+                child: InkWell(
+                  onTap: () => RouteWidget.push(
+                      context: context, page: const PoinRewardPage()),
+                  child: Container(
+                    height: 72,
+                    decoration: BoxDecoration(
+                      borderRadius: const BorderRadius.only(
+                          bottomRight: Radius.circular(10)),
+                      color: ColorApp.secondaryFF,
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Koin Digo',
+                            style: FontStyle.subtitle2,
+                          ),
+                          const SizedBox(
+                            height: 8,
+                          ),
+                          Row(
+                            children: [
+                              Image.asset(
+                                'assets/icons/coin.png',
+                                height: 20,
+                                width: 20,
+                              ),
+                              const SizedBox(
+                                width: 16,
+                              ),
+                              Text(
+                                '100',
+                                style: FontStyle.subtitle1SemiBold,
+                              )
+                            ],
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 ),
