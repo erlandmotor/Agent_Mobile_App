@@ -3,6 +3,7 @@ import 'package:agent_mobile_app/helper/routes.dart';
 import 'package:agent_mobile_app/helper/shadow.dart';
 import 'package:agent_mobile_app/helper/themes_colors.dart';
 import 'package:agent_mobile_app/helper/themse_fonts.dart';
+import 'package:agent_mobile_app/pages/poin_page/history_poin_page.dart';
 import 'package:agent_mobile_app/pages/poin_page/reward_detail_page.dart';
 import 'package:agent_mobile_app/pages/poin_page/widgets/card_reward.dart';
 import 'package:agent_mobile_app/widget_reusable/widget_appbar_default.dart';
@@ -34,7 +35,7 @@ class PoinRewardPage extends StatelessWidget {
                 title: Text('100 Koin', style: FontStyle.heading1),
                 trailing: IconButton(
                   onPressed: () => RouteWidget.push(
-                      context: context, page: RewardDetailPage()),
+                      context: context, page: HistoryPoinPage()),
                   icon: const Icon(Icons.arrow_forward_ios_sharp),
                   color: ColorApp.secondary00,
                 ),
