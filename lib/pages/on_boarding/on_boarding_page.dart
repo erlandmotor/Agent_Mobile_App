@@ -17,19 +17,19 @@ class OnBoardingPage extends StatelessWidget {
       'image': 'assets/ilustration/on boarding 1.png',
       'title': 'Selamat Datang di DIGO',
       'desc':
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
+          'Selamat Datang di DIGO (DIGital Outlet) Aplikasi agen yang menyediakan berbagai produk pengisiian pulsa, paket data, pembayaran PDAM, dll. Kumpulikan sebanyak-banyaknya CUAN-mu'
     },
     {
       'image': 'assets/ilustration/on boarding 2.png',
       'title': 'Selalu ada Promo Disetiap Produk',
       'desc':
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
+          'Dengan aplikasi DIGO akan selalu ada promo menarik di tiap bulannya yang akan dibagikan kepada kalian pengguna setia DIGO'
     },
     {
       'image': 'assets/ilustration/on boarding 3.png',
       'title': 'Dapatkan Reward-mu Dengan Bertransaksi Bersama Kami',
       'desc':
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
+          'Hanya dengan bertansaksi melalui aplikasi DIGO anda bisa mendapatkan reward berupa poin yang bisa anda tukarkan pada reedem coin menjadi uang, pulsa , data dan berbagai macam reward luar biasa lainnya'
     },
   ];
 
