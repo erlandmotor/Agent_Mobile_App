@@ -37,7 +37,7 @@ class _SABTState extends State<SABT> {
             aspect: FlexibleSpaceBarSettings);
 
     bool visible =
-        settings == null || settings.currentExtent <= settings.minExtent;
+        settings == null || settings.currentExtent <= settings.maxExtent;
     if (_visible != visible) {
       setState(() {
         _visible = visible;

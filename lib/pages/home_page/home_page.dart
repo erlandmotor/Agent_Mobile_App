@@ -1,4 +1,4 @@
-import 'package:agent_mobile_app/helper/key.dart';
+import 'package:agent_mobile_app/helper/margin_layout.dart';
 import 'package:agent_mobile_app/helper/routes.dart';
 import 'package:agent_mobile_app/helper/themes_colors.dart';
 import 'package:agent_mobile_app/helper/themse_fonts.dart';
@@ -12,61 +12,76 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        children: [
-          Image.asset(
-            'assets/backround/bg1.png',
-            fit: BoxFit.fill,
-            width: double.infinity,
-            height: MediaQuery.of(context).size.height * 0.37,
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 16.0, right: 16.0, top: 30.0),
-            child: ListView(
-              physics: const BouncingScrollPhysics(),
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Image.asset('assets/logo2.png'),
-                    Image.asset('assets/icons/notifications.png')
-                  ],
-                ),
-                const SizedBox(
-                  height: 40,
-                ),
-                topWidget(context),
-                const SizedBox(
+      body: NestedScrollView(
+        headerSliverBuilder: (context, innerBoxIsScrolled) {
+          return <Widget>[
+            SliverAppBar(
+              elevation: 0,
+              automaticallyImplyLeading: true,
+              forceElevated: false,
+              backgroundColor: Colors.white,
+              snap: false,
+              centerTitle: true,
+              floating: false,
+              pinned: true,
+              titleSpacing: 1,
+              flexibleSpace: Stack(
+                children: <Widget>[
+                  Image.asset(
+                    "assets/backround/bg1.png",
+                    width: double.infinity,
+                    height: double.infinity,
+                    fit: BoxFit.fill,
+                  ),
+                  headersHome(context)
+                ],
+              ),
+              leadingWidth: 144,
+              leading: Padding(
+                  padding: Marginlayout.marginLeft,
+                  child: Image.asset(
+                    'assets/logo2.png',
+                  )),
+              expandedHeight: MediaQuery.of(context).size.height * 0.30,
+              actions: [
+                Image.asset(
+                  'assets/icons/notifications.png',
                   height: 24,
                 ),
-                menuWidget(),
-                const SizedBox(
-                  height: 24,
-                ),
-                Text(
-                  'Jualan makin untung',
-                  style: FontStyle.subtitle1SemiBold,
-                ),
-                const SizedBox(
-                  height: 8,
-                ),
-                Text(
-                  'Dapetin diskon dan harga spesialnya di DIGO sekarang sebelum kehabisan!',
-                  style: FontStyle.subtitle2,
-                ),
-                const SizedBox(
-                  height: 16,
-                ),
-                Image.asset('assets/promo.png')
               ],
+            )
+          ];
+        },
+        body: ListView(
+          padding: Marginlayout.marginhorizontal,
+          physics: const BouncingScrollPhysics(),
+          children: [
+            menuWidget(),
+            const SizedBox(
+              height: 24,
             ),
-          ),
-        ],
+            Text(
+              'Jualan makin untung',
+              style: FontStyle.subtitle1SemiBold,
+            ),
+            const SizedBox(
+              height: 8,
+            ),
+            Text(
+              'Dapetin diskon dan harga spesialnya di DIGO sekarang sebelum kehabisan!',
+              style: FontStyle.subtitle2,
+            ),
+            const SizedBox(
+              height: 16,
+            ),
+            Image.asset('assets/promo.png')
+          ],
+        ),
       ),
     );
   }
 
-  Column menuWidget() {
+  Widget menuWidget() {
     return Column(
       children: [
         Row(
@@ -104,9 +119,11 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Container topWidget(BuildContext context) {
+  Widget headersHome(BuildContext context) {
     return Container(
       height: 143,
+      margin: Marginlayout.marginhorizontal
+          .copyWith(top: MediaQuery.of(context).size.height * 0.13),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           color: ColorApp.secondaryEA,
@@ -114,7 +131,9 @@ class HomePage extends StatelessWidget {
             BoxShadow(
                 color: Colors.grey, blurRadius: 7, offset: Offset(0.0, 0.75))
           ]),
-      child: Column(
+      child: ListView(
+        padding: EdgeInsets.zero,
+        physics: const BouncingScrollPhysics(),
         children: [
           Padding(
             padding: const EdgeInsets.all(8.0),
