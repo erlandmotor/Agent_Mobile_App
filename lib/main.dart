@@ -1,4 +1,5 @@
 import 'package:agent_mobile_app/pages/splash_screen.dart';
+
 import 'package:flutter/material.dart';
 
 void main() {

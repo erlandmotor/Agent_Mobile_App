@@ -6,7 +6,9 @@ import 'package:agent_mobile_app/widget_reusable/widget_button.dart';
 import 'package:flutter/material.dart';
 
 class DetailTransactionPage extends StatelessWidget {
-  const DetailTransactionPage({Key? key}) : super(key: key);
+  final String image;
+  const DetailTransactionPage({Key? key, required this.image})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +51,7 @@ class DetailTransactionPage extends StatelessWidget {
                     height: 16,
                   ),
                   Image.asset(
-                    'assets/ilustration/success.png',
+                    image,
                     height: MediaQuery.of(context).size.height * 0.13,
                   ),
                   const SizedBox(
