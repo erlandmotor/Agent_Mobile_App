@@ -36,14 +36,13 @@ class ButtonCustom {
 
   /// function ini menampilkan widget button dimana tedapat icon pada bagian kiri dan text pada bagian tengah
   /// button tidak memiliki brackground hanya memiliki border
-  static Widget buttonIconPrimary({
+  static Widget buttonSeccondary({
     required Function() onTap,
-    required Color colorBtn,
     required String text,
-    required String icon,
   }) {
     return Container(
       height: 45,
+      alignment: Alignment.center,
       width: double.infinity,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(6),
@@ -72,6 +71,17 @@ class ButtonCustom {
               )
             ],
           ),
+          // value: _selectedTest,
+          items: listItems.map<DropdownMenuItem<String>>((value) {
+            return DropdownMenuItem<String>(
+                alignment: AlignmentDirectional.centerStart,
+                value: value,
+                child: Text(
+                  value,
+                  style: FontStyle.button3,
+                ));
+          }).toList(),
+          onChanged: (value) {},
         ),
       ),
     );
