@@ -12,6 +12,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: NestedScrollView(
         headerSliverBuilder: (context, innerBoxIsScrolled) {
           return <Widget>[
@@ -19,7 +20,7 @@ class HomePage extends StatelessWidget {
               elevation: 0,
               automaticallyImplyLeading: true,
               forceElevated: false,
-              backgroundColor: Colors.white,
+              backgroundColor: Colors.transparent,
               snap: false,
               centerTitle: true,
               floating: false,

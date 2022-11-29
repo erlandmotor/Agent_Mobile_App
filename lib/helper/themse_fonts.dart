@@ -39,6 +39,12 @@ class FontStyle {
     letterSpacing: 1.25,
     fontFamily: 'Source Sans Pro',
   );
+  static TextStyle subtitle1SemiBold = const TextStyle(
+    fontSize: 17,
+    fontWeight: FontWeight.w600,
+    letterSpacing: 0.15,
+    fontFamily: 'Source Sans Pro',
+  );
 
   static TextStyle button2 = TextStyle(
     fontSize: 15,

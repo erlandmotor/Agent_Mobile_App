@@ -1,9 +1,8 @@
 import 'package:agent_mobile_app/helper/themes_colors.dart';
 import 'package:agent_mobile_app/helper/themse_fonts.dart';
 import 'package:agent_mobile_app/pages/home_page/home_page.dart';
+import 'package:agent_mobile_app/pages/transaction_page/history_transaction.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
 class CurrentPages extends StatelessWidget {
   CurrentPages({Key? key}) : super(key: key);
@@ -11,9 +10,7 @@ class CurrentPages extends StatelessWidget {
 
   final List<Widget> _itemPages = [
     const HomePage(),
-    Container(
-      color: Colors.red,
-    ),
+    HistoryTransaction(),
     Container(
       color: Colors.blue,
     ),

@@ -2,7 +2,7 @@ import 'package:agent_mobile_app/helper/margin_layout.dart';
 import 'package:agent_mobile_app/helper/routes.dart';
 import 'package:agent_mobile_app/helper/themes_colors.dart';
 import 'package:agent_mobile_app/helper/themse_fonts.dart';
-import 'package:agent_mobile_app/pages/poin_page/detail_transaction_page.dart';
+import 'package:agent_mobile_app/pages/detail_transaction/detail_transaction_page.dart';
 import 'package:agent_mobile_app/pages/poin_page/poin_reward_page.dart';
 import 'package:agent_mobile_app/widget_reusable/widget_button.dart';
 import 'package:flutter/material.dart';
@@ -56,7 +56,10 @@ class CheckDetailRedeemPage extends StatelessWidget {
                 ),
                 ButtonCustom.buttonPrimary(
                   onTap: () => RouteWidget.push(
-                      context: context, page: const DetailTransactionPage()),
+                      context: context,
+                      page: const DetailTransactionPage(
+                        image: 'assets/ilustration/success.png',
+                      )),
                   colorBtn: ColorApp.primaryA3,
                   text: 'Cek Detail Penukaran',
                 ),
@@ -64,7 +67,7 @@ class CheckDetailRedeemPage extends StatelessWidget {
                   height: 16,
                 ),
                 ButtonCustom.buttonSeccondary(
-                    onTap: () => RouteWidget.pushAndRemoveUntil(
+                    onTap: () => RouteWidget.pushReplacment(
                         context: context, page: const PoinRewardPage()),
                     text: 'Kembali ke halaman koin')
               ],
