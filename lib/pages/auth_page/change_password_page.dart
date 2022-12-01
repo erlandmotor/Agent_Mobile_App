@@ -56,7 +56,6 @@ class ChangePasswordPage extends StatelessWidget {
                   _hideNewPasswod.value = !_hideNewPasswod.value;
                 },
                 controller: _newPassword,
-                formKey: _newPasswordKey,
                 obscureText: _hideNewPasswod.value,
                 colorSuffix: _hideNewPasswod.value == true
                     ? ColorApp.secondaryB2
@@ -73,7 +72,6 @@ class ChangePasswordPage extends StatelessWidget {
                   _hideConfirmPasswod.value = !_hideConfirmPasswod.value;
                 },
                 controller: _confirmPassword,
-                formKey: _confmPasswordKey,
                 obscureText: _hideConfirmPasswod.value,
                 colorSuffix: _hideConfirmPasswod.value == true
                     ? ColorApp.secondaryB2

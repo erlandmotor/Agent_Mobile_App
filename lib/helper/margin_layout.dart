@@ -7,6 +7,7 @@ class Marginlayout {
   /// horizontal 16
   static EdgeInsets marginhorizontal =
       const EdgeInsets.symmetric(horizontal: 16);
+  static EdgeInsets marginAll = const EdgeInsets.all(16);
 
   /// vertical 16
   static EdgeInsets marginVertical = const EdgeInsets.symmetric(vertical: 16);

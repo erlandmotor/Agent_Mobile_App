@@ -7,7 +7,27 @@ import 'package:agent_mobile_app/widget_reusable/widget_button.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+  HomePage({super.key});
+  final List<Widget> _menuPrabayar = [
+    ButtonCustom.homePageMenu(
+        onTap: () {}, image: 'assets/icons/pulsa.png', desc: 'Pulsa'),
+    ButtonCustom.homePageMenu(
+        onTap: () {}, image: 'assets/icons/paket.png', desc: 'Paket Data'),
+    ButtonCustom.homePageMenu(
+        onTap: () {}, image: 'assets/icons/voucher.png', desc: 'Voucher Game'),
+    ButtonCustom.homePageMenu(
+        onTap: () {}, image: 'assets/icons/listrik.png', desc: 'Token Listrik'),
+    ButtonCustom.homePageMenu(
+        onTap: () {},
+        image: 'assets/icons/wallet.png',
+        desc: 'Top-Up E-Wallet'),
+    ButtonCustom.homePageMenu(
+        onTap: () {}, image: 'assets/icons/pdam.png', desc: 'PDAM'),
+    ButtonCustom.homePageMenu(
+        onTap: () {}, image: 'assets/icons/bpjs.png', desc: 'BPJS'),
+    ButtonCustom.homePageMenu(
+        onTap: () {}, image: 'assets/icons/other.png', desc: 'Lainnya'),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -53,11 +73,19 @@ class HomePage extends StatelessWidget {
             )
           ];
         },
-        body: ListView(
-          padding: Marginlayout.marginhorizontal,
-          physics: const BouncingScrollPhysics(),
+        body: Column(
+          // padding: Marginlayout.marginhorizontal,
+          // physics: const BouncingScrollPhysics(),
           children: [
-            menuWidget(),
+            // NOTE: Menu Item
+            GridView.builder(
+              physics: const NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 4, mainAxisSpacing: 10),
+              itemCount: _menuPrabayar.length,
+              itemBuilder: (context, index) => _menuPrabayar[index],
+            ),
             const SizedBox(
               height: 24,
             ),
@@ -79,44 +107,6 @@ class HomePage extends StatelessWidget {
           ],
         ),
       ),
-    );
-  }
-
-  Widget menuWidget() {
-    return Column(
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            ButtonCustom.homePageMenu(
-                image: 'assets/icons/pulsa.png', desc: 'Pulsa'),
-            ButtonCustom.homePageMenu(
-                image: 'assets/icons/paket.png', desc: 'Paket Data'),
-            ButtonCustom.homePageMenu(
-                image: 'assets/icons/voucher.png', desc: 'Voucher Game'),
-            ButtonCustom.homePageMenu(
-                image: 'assets/icons/listrik.png', desc: 'Token Listrik'),
-          ],
-        ),
-        const SizedBox(
-          height: 16,
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            ButtonCustom.homePageMenu(
-                image: 'assets/icons/wallet.png', desc: 'Top-Up E-Wallet'),
-            ButtonCustom.homePageMenu(
-                image: 'assets/icons/pdam.png', desc: 'PDAM'),
-            ButtonCustom.homePageMenu(
-                image: 'assets/icons/bpjs.png', desc: 'BPJS'),
-            ButtonCustom.homePageMenu(
-                image: 'assets/icons/other.png', desc: 'Lainnya'),
-          ],
-        ),
-      ],
     );
   }
 

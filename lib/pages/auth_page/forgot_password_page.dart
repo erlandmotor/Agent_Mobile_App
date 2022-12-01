@@ -42,7 +42,6 @@ class ForgotPasswordPage extends StatelessWidget {
             ),
             WidgetFormInput(
               controller: _emailInput,
-              formKey: _emailKey,
               obscureText: false,
               hintText: 'Masukan email',
               iconSuffix: null,
