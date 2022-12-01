@@ -101,7 +101,6 @@ class RewardDetailPage extends StatelessWidget {
                 height: 16,
               ),
               WidgetFormInput(
-                formKey: _numbuerKey,
                 obscureText: false,
                 hintText: '08**********',
                 controller: _inputNumber,

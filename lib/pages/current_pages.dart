@@ -1,5 +1,6 @@
 import 'package:agent_mobile_app/helper/themes_colors.dart';
 import 'package:agent_mobile_app/helper/themse_fonts.dart';
+import 'package:agent_mobile_app/pages/account/account_page.dart';
 import 'package:agent_mobile_app/pages/home_page/home_page.dart';
 import 'package:agent_mobile_app/pages/transaction_page/history_transaction.dart';
 import 'package:flutter/material.dart';
@@ -9,14 +10,12 @@ class CurrentPages extends StatelessWidget {
   final ValueNotifier<int> _indexPage = ValueNotifier(0);
 
   final List<Widget> _itemPages = [
-    const HomePage(),
+    HomePage(),
     HistoryTransaction(),
     Container(
       color: Colors.blue,
     ),
-    Container(
-      color: Colors.yellow,
-    ),
+    const AccountPage()
   ];
 
   Widget itemIconNav(

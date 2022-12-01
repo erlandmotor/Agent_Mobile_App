@@ -61,7 +61,6 @@ class LoginPage extends StatelessWidget {
             ),
             WidgetFormInput(
               controller: _emailInput,
-              formKey: _formKey,
               obscureText: false,
               hintText: 'Masukan email',
               iconSuffix: null,
@@ -75,7 +74,6 @@ class LoginPage extends StatelessWidget {
                   // print(_hidePasswod.value);
                 },
                 controller: _passwordInput,
-                formKey: _formPass,
                 obscureText: _hidePasswod.value,
                 colorSuffix: _hidePasswod.value == true
                     ? ColorApp.secondaryB2

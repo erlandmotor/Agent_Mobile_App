@@ -59,7 +59,6 @@ class RegisterPage extends StatelessWidget {
             ),
             WidgetFormInput(
               controller: _emailInput,
-              formKey: _usernameKey,
               obscureText: false,
               hintText: 'Masukan username',
               iconSuffix: null,
@@ -67,7 +66,6 @@ class RegisterPage extends StatelessWidget {
             ),
             WidgetFormInput(
               controller: _emailInput,
-              formKey: _formKey,
               obscureText: false,
               hintText: 'Masukan email',
               iconSuffix: null,
@@ -81,7 +79,6 @@ class RegisterPage extends StatelessWidget {
                   print(_hidePasswod.value);
                 },
                 controller: _passwordInput,
-                formKey: _formPass,
                 obscureText: _hidePasswod.value,
                 colorSuffix: _hidePasswod.value == true
                     ? ColorApp.secondaryB2
@@ -96,10 +93,8 @@ class RegisterPage extends StatelessWidget {
               builder: (context, _) => WidgetFormInput(
                 onTapSuffix: () {
                   _hidePasswod.value = !_hidePasswod.value;
-                  print(_hidePasswod.value);
                 },
                 controller: _passwordInput,
-                formKey: _formPassConfirm,
                 obscureText: _hidePasswod.value,
                 colorSuffix: _hidePasswod.value == true
                     ? ColorApp.secondaryB2
