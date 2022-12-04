@@ -73,7 +73,7 @@ class HomePage extends StatelessWidget {
             )
           ];
         },
-        body: Column(
+        body: ListView(
           // padding: Marginlayout.marginhorizontal,
           // physics: const BouncingScrollPhysics(),
           children: [
