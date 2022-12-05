@@ -1,5 +1,6 @@
 import 'package:agent_mobile_app/helper/themes_colors.dart';
 import 'package:agent_mobile_app/helper/themse_fonts.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:dropdown_below/dropdown_below.dart';
 
@@ -14,13 +15,13 @@ class ButtonCustom {
       borderRadius: BorderRadius.circular(6),
       child: Material(
         color: colorBtn,
-        child: SizedBox(
-          height: 45,
-          width: double.infinity,
-          child: InkWell(
-            onTap: onTap,
-            splashColor: colorBtn,
-            highlightColor: const Color(0XFF012243),
+        child: InkWell(
+          onTap: onTap,
+          splashColor: colorBtn,
+          highlightColor: const Color(0XFF012243),
+          child: SizedBox(
+            height: 45,
+            width: double.infinity,
             child: Center(
               child: Text(
                 text,
@@ -39,23 +40,38 @@ class ButtonCustom {
     required Function() onTap,
     required String text,
   }) {
-    return Container(
-      height: 45,
-      alignment: Alignment.center,
-      width: double.infinity,
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(6),
-          border: Border.all(color: ColorApp.secondaryEA)),
-      child: InkWell(
-        onTap: onTap,
-        splashColor: ColorApp.secondaryEA,
-        highlightColor: ColorApp.secondaryEA,
+    return InkWell(
+      onTap: onTap,
+      splashColor: ColorApp.secondaryEA,
+      highlightColor: ColorApp.secondaryEA,
+      child: Container(
+        height: 45,
+        alignment: Alignment.center,
+        width: double.infinity,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(6),
+            border: Border.all(color: ColorApp.secondaryEA)),
         child: Text(
           text,
           style: FontStyle.button.copyWith(color: ColorApp.secondary00),
         ),
       ),
     );
+  }
+
+  static Widget buttonLoading() {
+    return Container(
+        height: 45,
+        alignment: Alignment.center,
+        width: double.infinity,
+        decoration: BoxDecoration(
+          color: ColorApp.primaryA3,
+          borderRadius: BorderRadius.circular(6),
+        ),
+        child: const CupertinoActivityIndicator(
+          radius: 10,
+          color: Colors.white,
+        ));
   }
 
   static Widget dropDownMenu({
