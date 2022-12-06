@@ -1,4 +1,5 @@
 import 'package:agent_mobile_app/pages/splash_screen.dart';
+import 'package:agent_mobile_app/providers/auth/signin_provider.dart';
 import 'package:agent_mobile_app/providers/auth/signup_provider.dart';
 import 'package:agent_mobile_app/providers/auth/verification_otp_provider.dart';
 
@@ -21,6 +22,8 @@ class MyApp extends StatelessWidget {
             create: (context) => SignUpProviders()),
         ChangeNotifierProvider<VePinsProvider>(
             create: (context) => VePinsProvider()),
+        ChangeNotifierProvider<SigninProvider>(
+            create: (context) => SigninProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

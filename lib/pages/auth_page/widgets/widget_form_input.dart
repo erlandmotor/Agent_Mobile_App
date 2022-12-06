@@ -32,7 +32,7 @@ class WidgetFormInput extends StatelessWidget {
         obscureText: obscureText,
         validator: (String? error) {
           if (error!.isEmpty) {
-            return 'Field ini tidak boleh kosong';
+            return 'Field ini tidak boleh kosong*';
           }
         },
         cursorColor: ColorApp.primaryA3,
@@ -113,7 +113,7 @@ class WidgetFormInputEmail extends StatelessWidget {
           if (error!.contains('@gmail.com') == false && error.isNotEmpty) {
             return 'Email yang Anda masukkan tidak sesuai*';
           } else if (error.isEmpty) {
-            return 'Field ini tidak boleh kosong';
+            return 'Field ini tidak boleh kosong*';
           }
         },
         cursorColor: ColorApp.primaryA3,

@@ -33,6 +33,7 @@ dependencies:
   flutter:
     sdk: flutter
   provider: ^6.0.4
+  shared_preferences: ^2.0.15
 
 dev_dependencies:
   flutter_lints: ^2.0.0
@@ -53,6 +54,7 @@ flutter:
   assets:
     - assets/
     - assets/backround/
+    - assets/banner/
     - assets/icons/
     - assets/ilustration/
     - assets/logo/

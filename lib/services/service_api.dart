@@ -16,8 +16,9 @@ class ServiceApi {
           .timeout(const Duration(minutes: 1));
       if (response.statusCode == 200) {
         return response.data;
+      } else {
+        return {};
       }
-      return null;
     } on DioError catch (e) {
       if (e.response!.statusCode == 400) {
         print('Terjadi kesalahan, Coba Lagi Nanti');

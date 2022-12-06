@@ -26,35 +26,39 @@ class RegisterPage extends StatelessWidget {
   final TextEditingController _confirmPassword = TextEditingController();
   final TextEditingController _inputCodeRefferal = TextEditingController();
 
+  static GlobalKey<FormState> formKeySignUp =
+      GlobalKey<FormState>(debugLabel: 'sign-up');
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        resizeToAvoidBottomInset: false,
-        backgroundColor: Colors.white,
-        bottomNavigationBar: Padding(
-          padding: const EdgeInsets.only(bottom: 40),
-          child: Text.rich(
-            TextSpan(
-                text: 'Sudah mempunyai Akun?',
-                children: [
-                  TextSpan(
-                    text: ' Masuk Disini',
-                    style: FontStyle.body2.copyWith(
-                        fontWeight: FontWeight.w600, color: ColorApp.primaryA3),
-                    recognizer: TapGestureRecognizer()
-                      ..onTap = () => {
-                            RouteWidget.push(
-                                context: context, page: LoginPage())
-                          },
-                  ),
-                ],
-                style: FontStyle.body2),
-            textAlign: TextAlign.center,
+    return Form(
+        key: formKeySignUp,
+        child: Scaffold(
+          resizeToAvoidBottomInset: false,
+          backgroundColor: Colors.white,
+          bottomNavigationBar: Padding(
+            padding: const EdgeInsets.only(bottom: 40),
+            child: Text.rich(
+              TextSpan(
+                  text: 'Sudah mempunyai Akun?',
+                  children: [
+                    TextSpan(
+                      text: ' Masuk Disini',
+                      style: FontStyle.body2.copyWith(
+                          fontWeight: FontWeight.w600,
+                          color: ColorApp.primaryA3),
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () {
+                          formKeySignUp.currentState!.dispose();
+                          RouteWidget.push(context: context, page: LoginPage());
+                        },
+                    ),
+                  ],
+                  style: FontStyle.body2),
+              textAlign: TextAlign.center,
+            ),
           ),
-        ),
-        body: Form(
-          key: FormKey.formKey,
-          child: SafeArea(
+          body: SafeArea(
             child: ListView(
               padding: Marginlayout.marginhorizontal,
               children: [
@@ -162,7 +166,7 @@ class RegisterPage extends StatelessWidget {
                       } else {
                         return ButtonCustom.buttonPrimary(
                           onTap: () async {
-                            if (FormKey.formKey.currentState!.validate()) {
+                            if (formKeySignUp.currentState!.validate()) {
                               if (_confirmPassword.text.isNotEmpty &&
                                   _passwordInput.text.isNotEmpty &&
                                   _confirmPassword.text ==

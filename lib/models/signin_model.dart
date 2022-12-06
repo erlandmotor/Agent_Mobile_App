@@ -1,3 +1,7 @@
+import 'dart:convert';
+
+modelSignInToJson(ModelSignin data) => json.encode(data.toJson());
+
 class ModelSignin {
   ModelSignin({
     required this.email,

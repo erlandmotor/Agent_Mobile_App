@@ -3,7 +3,6 @@ import 'package:agent_mobile_app/helper/routes.dart';
 import 'package:agent_mobile_app/models/signup_model.dart';
 import 'package:agent_mobile_app/pages/auth_page/verification_otp_page.dart';
 import 'package:agent_mobile_app/services/service_api.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 
 class SignUpProviders extends ChangeNotifier {
@@ -28,7 +27,6 @@ class SignUpProviders extends ChangeNotifier {
                 mobileNumber: "08123456789"),
           ));
 
-      print(response);
       if (response['code'] == 200 && response['message'].toString() == 'OK') {
         RouteWidget.push(
             context: context,
