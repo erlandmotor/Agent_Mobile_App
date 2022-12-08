@@ -1,3 +1,5 @@
+import 'package:agent_mobile_app/helper/margin_layout.dart';
+import 'package:agent_mobile_app/helper/shadow.dart';
 import 'package:agent_mobile_app/helper/themes_colors.dart';
 import 'package:agent_mobile_app/helper/themse_fonts.dart';
 import 'package:agent_mobile_app/pages/auth_page/widgets/widget_form_input.dart';
@@ -12,6 +14,7 @@ class CheckoutPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: ColorApp.secondaryFF,
       appBar: CustomAppBar.appBarDefault(context,
           backgroundColor: ColorApp.primaryA3,
           colorComponen: ColorApp.secondaryFF,
@@ -61,23 +64,42 @@ class CheckoutPage extends StatelessWidget {
             SizedBox(
               height: 16,
             ),
-            ButtonCustom.listProductCheckout(
-                icon: 'assets/icons/money.png',
-                descPayment: 'Saldo Digo',
-                total: '6.000',
-                desc: 'Top Up Saldo',
-                onTap: () {
-                  _dialogRedeem(context);
-                }),
-
-            ButtonCustom.listProductCheckout(
-              icon: 'assets/icons/e-wallet.png',
-              descPayment: 'Saldo Digo',
-              total: '6.000',
-              desc: 'Top Up Saldo',
-              onTap: () {
-                _dialogRedeem(context);
-              },
+            Container(
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8),
+                  color: ColorApp.secondaryFF,
+                  boxShadow: CustomShadow.md),
+              child: ButtonCustom.listProductCheckout(
+                  textStyle: FontStyle.captionRed,
+                  icon: 'assets/icons/money.png',
+                  descPayment: 'Saldo Digo',
+                  total: '6.000',
+                  desc: 'Saldo tidak mencukupi',
+                  action: 'Top Up Saldo',
+                  text: true,
+                  onTap: () {
+                    _dialogRedeem(context);
+                  }),
+            ),
+            SizedBox(
+              height: 16,
+            ),
+            Container(
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8),
+                  color: ColorApp.secondaryFF,
+                  boxShadow: CustomShadow.md),
+              child: ButtonCustom.listProductCheckout(
+                  textStyle: FontStyle.captionGreen,
+                  icon: 'assets/icons/e-wallet.png',
+                  descPayment: 'Pembayaran Lain',
+                  total: '6.000',
+                  desc: 'E-Money, Bank, Gerai ATM',
+                  action: 'assets/icons/arrow.png',
+                  text: false,
+                  onTap: () {
+                    _dialogRedeem(context);
+                  }),
             ),
 
             // action: 'Saldo tidak mencukupi')

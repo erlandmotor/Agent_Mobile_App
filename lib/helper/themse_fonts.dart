@@ -76,8 +76,23 @@ class FontStyle {
     fontFamily: 'Source Sans Pro',
   );
 
+  static TextStyle captionBold = TextStyle(
+    fontSize: 13,
+    letterSpacing: 0.4,
+    fontFamily: 'Source Sans Pro',
+    fontWeight: FontWeight.w600,
+    color: ColorApp.primaryB3,
+  );
+
   static TextStyle captionRed = TextStyle(
     color: ColorApp.subSecondary21,
+    fontSize: 13,
+    letterSpacing: 0.4,
+    fontFamily: 'Source Sans Pro',
+  );
+
+  static TextStyle captionGreen = TextStyle(
+    color: ColorApp.subSecondary1B,
     fontSize: 13,
     letterSpacing: 0.4,
     fontFamily: 'Source Sans Pro',

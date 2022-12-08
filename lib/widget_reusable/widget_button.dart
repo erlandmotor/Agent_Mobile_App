@@ -102,9 +102,12 @@ class ButtonCustom {
           color: ColorApp.secondaryFF,
           boxShadow: CustomShadow.md),
       child: ListTile(
-        title: Text(
-          descProduct,
-          style: FontStyle.subtitle2SemiBold,
+        title: Padding(
+          padding: const EdgeInsets.only(bottom: 8.0),
+          child: Text(
+            descProduct,
+            style: FontStyle.subtitle2SemiBold,
+          ),
         ),
         subtitle: Text(
           expired,
@@ -113,10 +116,13 @@ class ButtonCustom {
         trailing: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            Text(
-              "Rp. " + price,
-              style: FontStyle.subtitle1SemiBoldBlue,
-            )
+            Padding(
+              padding: const EdgeInsets.only(bottom: 8.0),
+              child: Text(
+                "Rp. " + price,
+                style: FontStyle.subtitle1SemiBoldBlue,
+              ),
+            ),
           ],
         ),
       ),
@@ -128,11 +134,13 @@ class ButtonCustom {
     required String total,
     required String desc,
     required String icon,
-    String? action,
+    TextStyle? textStyle,
+    String action = '',
+    bool text = false,
     required Function() onTap,
   }) {
     return ListTile(
-      contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+      contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 16),
       // visualDensity: VisualDensity(vertical: ),
       leading: CircleAvatar(
         backgroundColor: ColorApp.primaryA3,
@@ -156,14 +164,23 @@ class ButtonCustom {
           ),
           Text(
             desc,
-            style: FontStyle.captionRed,
+            style: textStyle,
           )
         ],
       ),
-      trailing: Text(
-        desc,
-        style: FontStyle.captionBlue,
-      ),
+      trailing: text == true
+          ? Text(
+              action,
+              style: FontStyle.captionBold,
+            )
+          : Image(image: AssetImage(action)),
+      // image == null
+      //     ? Image.asset(image!)
+      //     : Text(
+      //         action,
+      //         style: FontStyle.captionBold,
+      //       ),
+
       onTap: onTap,
     );
   }

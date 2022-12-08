@@ -24,12 +24,6 @@ class ProductPage extends StatelessWidget {
           colorComponen: Colors.white,
           title: 'Pulsa',
           action: [Image.asset('assets/icons/question.png')]),
-      bottomNavigationBar: Padding(
-          padding: Marginlayout.marginhorizontal.copyWith(bottom: 40),
-          child: ButtonCustom.buttonSecondaryWithIcon(
-              onTap: () {},
-              text: 'Cek harga pulsa dan info lainnya',
-              icon: 'assets/icons/arrow.png')),
       body: Stack(
         children: [
           Container(
@@ -42,27 +36,40 @@ class ProductPage extends StatelessWidget {
               )),
           Padding(
             padding: Marginlayout.marginhorizontal,
-            child: ListView(
+            child: Column(
               children: [
-                _overViewReward(context),
-                SizedBox(
-                  height: 20,
+                ListView(
+                  children: [
+                    _overViewReward(context),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    PulsaPage()
+
+                    // Image.asset('assets/backround/input_phone_number.png'),
+                    // SizedBox(
+                    //   width: MediaQuery.of(context).size.width * 0.50,
+                    //   child: Text(
+                    //     'Masukkan nomor yang ingin diisi pulsanya',
+                    //     style: FontStyle.subtitle1,
+                    //     textAlign: TextAlign.center,
+                    //   ),
+                    // )
+                  ],
                 ),
-                PulsaPage()
-                // Image.asset('assets/backround/input_phone_number.png'),
-                // SizedBox(
-                //   width: MediaQuery.of(context).size.width * 0.50,
-                //   child: Text(
-                //     'Masukkan nomor yang ingin diisi pulsanya',
-                //     style: FontStyle.subtitle1,
-                //     textAlign: TextAlign.center,
-                //   ),
-                // )
               ],
             ),
           ),
         ],
       ),
+      bottomNavigationBar: Padding(
+          padding: Marginlayout.marginhorizontal.copyWith(bottom: 40),
+          child: ButtonCustom.buttonSecondaryWithIcon(
+              onTap: () {
+                RouteWidget.push(context: context, page: PulsaPage());
+              },
+              text: 'Cek harga pulsa dan info lainnya',
+              icon: 'assets/icons/arrow.png')),
     );
   }
 

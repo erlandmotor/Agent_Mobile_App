@@ -7,23 +7,23 @@ class PulsaPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'Nominal',
-          style: FontStyle.subtitle1SemiBold,
-          // textAlign: TextAlign.start,
-        ),
-        SizedBox(
-          height: 16,
-        ),
-        ButtonCustom.listProduct(
-            descProduct: 'Indosat Ooredo 5.000',
-            expired: 'Masa aktif 5 Hari',
-            price: '5850')
-      ],
-    );
+    return Container(
+        child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+          Text(
+            'Nominal',
+            style: FontStyle.subtitle1SemiBold,
+            // textAlign: TextAlign.start,
+          ),
+          SizedBox(
+            height: 16,
+          ),
+          ButtonCustom.listProduct(
+              descProduct: 'Indosat Ooredo 5.000',
+              expired: 'Masa aktif 5 Hari',
+              price: '5850'),
+        ]));
   }
 }
