@@ -1,3 +1,4 @@
+import 'package:agent_mobile_app/helper/margin_layout.dart';
 import 'package:agent_mobile_app/helper/themes_colors.dart';
 import 'package:agent_mobile_app/helper/themse_fonts.dart';
 import 'package:agent_mobile_app/pages/auth_page/widgets/widget_form_input.dart';
@@ -14,126 +15,111 @@ class FaqPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: ColorApp.primaryA3,
+        title: Text(
+          'Anda Butuh Bantuan ?',
+          style: FontStyle.headline5SemiBold,
+        ),
+        elevation: 0,
+      ),
       backgroundColor: ColorApp.secondaryFF,
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Stack(
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Stack(
+            children: [
+              Image.asset(
+                'assets/backround/bg_faq.png',
+                fit: BoxFit.fill,
+                width: double.infinity,
+                height: MediaQuery.of(context).size.height * 0.15,
+              ),
+              Padding(
+                padding: Marginlayout.marginhorizontal.copyWith(
+                  top: MediaQuery.of(context).size.height * 0.02,
+                ),
+                child: WidgetFormInputFaq(
+                  obscureText: false,
+                  hintText: 'Contoh : Bagaimana Transaksi Pulsa',
+                  controller: _faqInput,
+                  iconPrefix: 'assets/icons/search.png',
+                ),
+              )
+            ],
+          ),
+          Expanded(
+            child: ListView(
+              padding: Marginlayout.marginhorizontal.copyWith(top: 16),
               children: [
-                Image.asset(
-                  'assets/backround/bg_faq.png',
-                  fit: BoxFit.fill,
-                  width: double.infinity,
-                  height: MediaQuery.of(context).size.height * 0.30,
+                Text(
+                  'Yang Sering Ditanyakan !',
+                  style: FontStyle.subtitle1SemiBold,
+                ),
+                SizedBox(
+                  height: 24,
+                ),
+                ListView.builder(
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  itemCount: 10,
+                  itemBuilder: (context, index) {
+                    return AccordionPage();
+                  },
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: SafeArea(
-                    child: Column(
-                      // mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Anda Butuh Bantuan ?',
-                          style: FontStyle.headline5SemiBold,
+                  padding: Marginlayout.marginVertical,
+                  child: Container(
+                    // padding: EdgeInsets.symmetric(horizontal: 16.0),
+                    decoration: BoxDecoration(
+                        boxShadow: CustomShadow.base,
+                        color: ColorApp.secondaryFF),
+                    height: 97,
+                    width: double.infinity,
+                    child: Center(
+                      child: ListTile(
+                        // contentPadding: EdgeInsetsGeometry.infinity,
+                        leading: Container(
+                          alignment: AlignmentDirectional.center,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8),
+                              color: ColorApp.primaryA3),
+                          height: 32,
+                          width: 32,
+                          child: Image.asset('assets/icons/phonecall.png'),
                         ),
-                        const SizedBox(
-                          height: 15.5,
+                        title: Text(
+                          'Kendala pada Aplikasi?',
+                          style: FontStyle.subtitle2SemiBoldBlue,
                         ),
-                        WidgetFormInputFaq(
-                          obscureText: false,
-                          hintText: 'Contoh : Bagaimana Transaksi Pulsa',
-                          controller: _faqInput,
-                          iconPrefix: 'assets/icons/search.png',
-                        )
-                      ],
+                        subtitle: Text(
+                          'Chat CS Kami segera',
+                          style: FontStyle.subtitle2Blue,
+                        ),
+                        trailing: Container(
+                          height: 39,
+                          width: 117,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(6),
+                              color: ColorApp.primaryA3),
+                          child: Center(
+                            child: Text(
+                              'KIRIM PESAN',
+                              style: FontStyle.button,
+                            ),
+                          ),
+                        ),
+                      ),
                     ),
                   ),
                 )
               ],
             ),
-            const SizedBox(
-              height: 16,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: Text(
-                'Yang Sering Ditanyakan !',
-                style: FontStyle.subtitle1SemiBold,
-              ),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: Container(
-                height: MediaQuery.of(context).size.height * 0.40,
-                child: ListView.builder(
-                  padding: const EdgeInsets.symmetric(vertical: 0),
-                  itemCount: 1,
-                  itemBuilder: (context, index) {
-                    return Column(
-                      children: const [
-                        AccordionPage(),
-                        Divider(
-                          thickness: 1,
-                          height: 1,
-                        )
-                      ],
-                    );
-                  },
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: Container(
-                // padding: EdgeInsets.symmetric(horizontal: 16.0),
-                decoration: BoxDecoration(
-                    boxShadow: CustomShadow.base, color: ColorApp.secondaryFF),
-                height: 97,
-                width: double.infinity,
-                child: Center(
-                  child: ListTile(
-                    // contentPadding: EdgeInsetsGeometry.infinity,
-                    leading: Container(
-                      alignment: AlignmentDirectional.center,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8),
-                          color: ColorApp.primaryA3),
-                      height: 32,
-                      width: 32,
-                      child: Image.asset('assets/icons/phonecall.png'),
-                    ),
-                    title: Text(
-                      'Kendala pada Aplikasi?',
-                      style: FontStyle.subtitle2SemiBoldBlue,
-                    ),
-                    subtitle: Text(
-                      'Chat CS Kami segera',
-                      style: FontStyle.subtitle2Blue,
-                    ),
-                    trailing: Container(
-                      height: 39,
-                      width: 117,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(6),
-                          color: ColorApp.primaryA3),
-                      child: Center(
-                        child: Text(
-                          'KIRIM PESAN',
-                          style: FontStyle.button,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            )
-          ],
-        ),
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+        ],
       ),
     );
   }

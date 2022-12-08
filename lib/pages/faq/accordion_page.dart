@@ -19,87 +19,44 @@ class AccordionPage extends StatelessWidget //__
 
   @override
   Widget build(BuildContext context) {
-    return Accordion(
-        paddingListHorizontal: 0,
-        paddingListBottom: 0,
-        headerBorderRadius: 0,
-        maxOpenSections: 1,
-        contentBorderRadius: 0,
-        rightIcon: Icon(
-          Icons.keyboard_arrow_up_outlined,
-          color: ColorApp.secondary00,
-        ),
-        scaleWhenAnimating: true,
-        openAndCloseAnimation: true,
-        headerPadding: const EdgeInsets.symmetric(vertical: 7, horizontal: 15),
-        sectionOpeningHapticFeedback: SectionHapticFeedback.heavy,
-        sectionClosingHapticFeedback: SectionHapticFeedback.light,
-        children: [
-          AccordionSection(
-            paddingBetweenClosedSections: 0,
-            paddingBetweenOpenSections: 0,
-            isOpen: true,
-            headerBackgroundColor: ColorApp.secondaryFF,
-            headerBackgroundColorOpened: ColorApp.secondaryB2.withOpacity(0.4),
-            header: Text('Apa itu DIGO?', style: FontStyle.subtitle2),
-            content: Text(_loremIpsum, style: _contentStyle),
-            contentHorizontalPadding: 20,
-            contentBorderWidth: 1,
-            contentBorderColor: ColorApp.secondaryB2,
-          ),
-          // AccordionSection(
-          //   paddingBetweenClosedSections: 20,
-          //   paddingBetweenOpenSections: 1,
-          //   isOpen: true,
-          //   headerBackgroundColor: ColorApp.secondaryFF,
-          //   headerBackgroundColorOpened: ColorApp.secondaryB2.withOpacity(0.4),
-          //   header:
-          //       Text('Keuntungan Customer DIGO?', style: FontStyle.subtitle2),
-          //   content: Text(_loremIpsum, style: _contentStyle),
-          //   contentHorizontalPadding: 20,
-          //   contentBorderWidth: 1,
-          //   contentBorderColor: ColorApp.secondaryB2,
-          // ),
-          // AccordionSection(
-          //   paddingBetweenClosedSections: 20,
-          //   paddingBetweenOpenSections: 1,
-          //   isOpen: true,
-          //   headerBackgroundColor: ColorApp.secondaryFF,
-          //   headerBackgroundColorOpened: ColorApp.secondaryB2.withOpacity(0.4),
-          //   header: Text('Bagaimana Cara Menukarkan Point DIGO Menjadi Hadiah?',
-          //       style: FontStyle.subtitle2),
-          //   content: Text(_loremIpsum, style: _contentStyle),
-          //   contentHorizontalPadding: 20,
-          //   contentBorderWidth: 1,
-          //   contentBorderColor: ColorApp.secondaryB2,
-          // ),
-          // AccordionSection(
-          //   paddingBetweenClosedSections: 20,
-          //   paddingBetweenOpenSections: 1,
-          //   isOpen: true,
-          //   headerBackgroundColor: ColorApp.secondaryFF,
-          //   headerBackgroundColorOpened: ColorApp.secondaryB2.withOpacity(0.4),
-          //   header: Text('Apakah Ada User Premium Untuk Aplikasi DIGO?',
-          //       style: FontStyle.subtitle2),
-          //   content: Text(_loremIpsum, style: _contentStyle),
-          //   contentHorizontalPadding: 20,
-          //   contentBorderWidth: 1,
-          //   contentBorderColor: ColorApp.secondaryB2,
-          // ),
-          // AccordionSection(
-          //   paddingBetweenClosedSections: 20,
-          //   paddingBetweenOpenSections: 1,
-          //   isOpen: true,
-          //   headerBackgroundColor: ColorApp.secondaryFF,
-          //   headerBackgroundColorOpened: ColorApp.secondaryB2.withOpacity(0.4),
-          //   header: Text(
-          //       'Bagaimana Cara Mendapatkan Point untuk Reedem Pada Aplikasi DIGO?',
-          //       style: FontStyle.subtitle2),
-          //   content: Text(_loremIpsum, style: _contentStyle),
-          //   contentHorizontalPadding: 20,
-          //   contentBorderWidth: 1,
-          //   contentBorderColor: ColorApp.secondaryB2,
-          // ),
-        ]);
+    return Column(
+      children: [
+        Accordion(
+            disableScrolling: true,
+            paddingListTop: 5,
+            paddingListHorizontal: 0,
+            paddingListBottom: 0,
+            headerBorderRadius: 0,
+            maxOpenSections: 1,
+            contentBorderRadius: 0,
+            rightIcon: Icon(
+              Icons.keyboard_arrow_up_outlined,
+              color: ColorApp.secondary00,
+            ),
+            scaleWhenAnimating: true,
+            openAndCloseAnimation: true,
+            headerPadding:
+                const EdgeInsets.symmetric(vertical: 7, horizontal: 15),
+            sectionOpeningHapticFeedback: SectionHapticFeedback.heavy,
+            sectionClosingHapticFeedback: SectionHapticFeedback.light,
+            children: [
+              AccordionSection(
+                paddingBetweenClosedSections: 0,
+                paddingBetweenOpenSections: 0,
+                headerBackgroundColor: ColorApp.secondaryFF,
+                headerBackgroundColorOpened:
+                    ColorApp.secondaryB2.withOpacity(0.4),
+                header: Text('Apa itu DIGO?', style: FontStyle.subtitle2),
+                content: Text(_loremIpsum, style: _contentStyle),
+                contentHorizontalPadding: 20,
+                contentBorderWidth: 1,
+                contentBorderColor: ColorApp.secondaryB2,
+              ),
+            ]),
+        Divider(
+          thickness: 1,
+        )
+      ],
+    );
   }
 }
