@@ -1,7 +1,9 @@
 import 'package:agent_mobile_app/helper/themes_colors.dart';
 import 'package:agent_mobile_app/helper/themse_fonts.dart';
+import 'package:agent_mobile_app/pages/desc_product/checkout_product.dart';
 import 'package:flutter/material.dart';
 import 'package:dropdown_below/dropdown_below.dart';
+import 'package:agent_mobile_app/helper/shadow.dart';
 
 /// class ini berisi kumpulan widget reusable button
 class ButtonCustom {
@@ -55,6 +57,114 @@ class ButtonCustom {
           style: FontStyle.button.copyWith(color: ColorApp.secondary00),
         ),
       ),
+    );
+  }
+
+  static Widget buttonSecondaryWithIcon({
+    required Function() onTap,
+    required String text,
+    required String icon,
+  }) {
+    return Container(
+      height: 45,
+      alignment: Alignment.center,
+      width: double.infinity,
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(6),
+          border: Border.all(color: ColorApp.secondaryEA)),
+      child: InkWell(
+        onTap: onTap,
+        splashColor: ColorApp.secondaryEA,
+        highlightColor: ColorApp.secondaryEA,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Text(
+              text,
+              style: FontStyle.subtitle2.copyWith(color: ColorApp.secondary00),
+            ),
+            Image.asset(icon)
+          ],
+        ),
+      ),
+    );
+  }
+
+  static Widget listProduct({
+    required String descProduct,
+    required String expired,
+    required String price,
+  }) {
+    return Container(
+      width: double.infinity,
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(6),
+          color: ColorApp.secondaryFF,
+          boxShadow: CustomShadow.md),
+      child: ListTile(
+        title: Text(
+          descProduct,
+          style: FontStyle.subtitle2SemiBold,
+        ),
+        subtitle: Text(
+          expired,
+          style: FontStyle.caption,
+        ),
+        trailing: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Text(
+              "Rp. " + price,
+              style: FontStyle.subtitle1SemiBoldBlue,
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  static Widget listProductCheckout({
+    required String descPayment,
+    required String total,
+    required String desc,
+    required String icon,
+    String? action,
+    required Function() onTap,
+  }) {
+    return ListTile(
+      contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+      // visualDensity: VisualDensity(vertical: ),
+      leading: CircleAvatar(
+        backgroundColor: ColorApp.primaryA3,
+        child: Image.asset(icon),
+      ),
+      title: Text(
+        descPayment,
+        style: FontStyle.captionTransaction,
+      ),
+      subtitle: Column(
+        // mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            "Rp." + total,
+            style: FontStyle.caption,
+          ),
+          SizedBox(
+            height: 4,
+          ),
+          Text(
+            desc,
+            style: FontStyle.captionRed,
+          )
+        ],
+      ),
+      trailing: Text(
+        desc,
+        style: FontStyle.captionBlue,
+      ),
+      onTap: onTap,
     );
   }
 

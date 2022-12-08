@@ -1,3 +1,5 @@
+import 'package:agent_mobile_app/pages/desc_product/checkout_product.dart';
+import 'package:agent_mobile_app/pages/desc_product/product_page.dart';
 import 'package:agent_mobile_app/pages/splash_screen.dart';
 
 import 'package:flutter/material.dart';
@@ -17,7 +19,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const SplashScreenPage(),
+      home: ProductPage(),
     );
   }
 }
