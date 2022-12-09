@@ -26,13 +26,10 @@ class RegisterPage extends StatelessWidget {
   final TextEditingController _confirmPassword = TextEditingController();
   final TextEditingController _inputCodeRefferal = TextEditingController();
 
-  static GlobalKey<FormState> formKeySignUp =
-      GlobalKey<FormState>(debugLabel: 'sign-up');
-
   @override
   Widget build(BuildContext context) {
     return Form(
-        key: formKeySignUp,
+        key: FormKey().formKeySignUp,
         child: Scaffold(
           resizeToAvoidBottomInset: false,
           backgroundColor: Colors.white,
@@ -49,7 +46,6 @@ class RegisterPage extends StatelessWidget {
                           color: ColorApp.primaryA3),
                       recognizer: TapGestureRecognizer()
                         ..onTap = () {
-                          formKeySignUp.currentState!.dispose();
                           RouteWidget.push(context: context, page: LoginPage());
                         },
                     ),
@@ -125,6 +121,7 @@ class RegisterPage extends StatelessWidget {
                             message: 'Password yang Anda masukkan tidak sama*');
                       }
                     }),
+                const TextError(message: 'Email sudah terdaftar*'),
                 TextField(
                   controller: _inputCodeRefferal,
                   cursorColor: ColorApp.primaryA3,
@@ -166,7 +163,10 @@ class RegisterPage extends StatelessWidget {
                       } else {
                         return ButtonCustom.buttonPrimary(
                           onTap: () async {
-                            if (formKeySignUp.currentState!.validate()) {
+                            if (FormKey()
+                                .formKeySignUp
+                                .currentState!
+                                .validate()) {
                               if (_confirmPassword.text.isNotEmpty &&
                                   _passwordInput.text.isNotEmpty &&
                                   _confirmPassword.text ==

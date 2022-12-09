@@ -1,3 +1,4 @@
+import 'package:agent_mobile_app/helper/form_key.dart';
 import 'package:agent_mobile_app/helper/margin_layout.dart';
 import 'package:agent_mobile_app/helper/routes.dart';
 import 'package:agent_mobile_app/helper/themes_colors.dart';
@@ -6,9 +7,9 @@ import 'package:agent_mobile_app/pages/auth_page/forgot_password_page.dart';
 import 'package:agent_mobile_app/pages/auth_page/register_page.dart';
 import 'package:agent_mobile_app/pages/auth_page/widgets/widget_form_input.dart';
 import 'package:agent_mobile_app/pages/auth_page/widgets/widget_headers.dart';
-import 'package:agent_mobile_app/pages/current_pages.dart';
 import 'package:agent_mobile_app/providers/auth/signin_provider.dart';
 import 'package:agent_mobile_app/widget_reusable/widget_button.dart';
+import 'package:agent_mobile_app/widget_reusable/widget_text_error.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -17,13 +18,16 @@ class LoginPage extends StatelessWidget {
   LoginPage({Key? key}) : super(key: key);
 
   final ValueNotifier<bool> _hidePasswod = ValueNotifier<bool>(true);
-  final TextEditingController _emailInput = TextEditingController();
+  final TextEditingController _emailInput =
+      TextEditingController(text: 'amrilrismanto@gmail.com');
   final TextEditingController _passwordInput = TextEditingController();
-  static GlobalKey<FormState> formKeySignin = GlobalKey<FormState>();
+  final GlobalKey<FormState> formKeySignin =
+      GlobalKey<FormState>(debugLabel: 'sign-in');
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        key: FormKey().keyScaffold,
         resizeToAvoidBottomInset: false,
         backgroundColor: Colors.white,
         //NOte: move register
@@ -72,7 +76,6 @@ class LoginPage extends StatelessWidget {
                   builder: (context, _) => WidgetFormInput(
                     onTapSuffix: () {
                       _hidePasswod.value = !_hidePasswod.value;
-                      // print(_hidePasswod.value);
                     },
                     controller: _passwordInput,
                     obscureText: _hidePasswod.value,
@@ -84,6 +87,17 @@ class LoginPage extends StatelessWidget {
                     iconSuffix: 'assets/icons/eye.png',
                   ),
                 ),
+                ValueListenableBuilder<bool>(
+                    valueListenable:
+                        context.read<SigninProvider>().invalidLoging,
+                    builder: (context, isInvalidLogin, _) {
+                      if (isInvalidLogin == true) {
+                        return const TextError(
+                            message: 'Email atau password anda salah*');
+                      } else {
+                        return const SizedBox();
+                      }
+                    }),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -127,33 +141,26 @@ class LoginPage extends StatelessWidget {
                 const SizedBox(
                   height: 25,
                 ),
-                ButtonCustom.buttonPrimary(
-                  onTap: () {
-                    RouteWidget.push(context: context, page: CurrentPages());
-                  },
-                  colorBtn: ColorApp.primaryA3,
-                  text: 'Masuk',
-                ),
-                // ValueListenableBuilder<bool>(
-                //     valueListenable: context.read<SigninProvider>().isLoading,
-                //     builder: (context, loading, _) {
-                //       if (loading == true) {
-                //         return ButtonCustom.buttonLoading();
-                //       } else {
-                //         return ButtonCustom.buttonPrimary(
-                //           onTap: () {
-                //             if (formKeySignin.currentState!.validate() ==
-                //                 true) {
-                //             context.read<SigninProvider>().signIn(context,
-                //                   email: _emailInput.text.trim(),
-                //                   password: _passwordInput.text.trim());
-                //             }
-                //           },
-                //           colorBtn: ColorApp.primaryA3,
-                //           text: 'Masuk',
-                //         );
-                //       }
-                //     }),
+                ValueListenableBuilder<bool>(
+                    valueListenable: context.read<SigninProvider>().isLoading,
+                    builder: (context, loading, _) {
+                      if (loading == true) {
+                        return ButtonCustom.buttonLoading();
+                      } else {
+                        return ButtonCustom.buttonPrimary(
+                          onTap: () {
+                            if (formKeySignin.currentState!.validate() ==
+                                true) {
+                              context.read<SigninProvider>().signIn(context,
+                                  email: _emailInput.text.trim(),
+                                  password: _passwordInput.text.trim());
+                            }
+                          },
+                          colorBtn: ColorApp.primaryA3,
+                          text: 'Masuk',
+                        );
+                      }
+                    }),
                 const SizedBox(
                   height: 25,
                 ),

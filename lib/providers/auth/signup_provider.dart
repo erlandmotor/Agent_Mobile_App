@@ -26,7 +26,8 @@ class SignUpProviders extends ChangeNotifier {
                 password: password,
                 mobileNumber: "08123456789"),
           ));
-
+      print(response);
+      // 'email already used'
       if (response['code'] == 200 && response['message'].toString() == 'OK') {
         RouteWidget.push(
             context: context,
@@ -37,7 +38,6 @@ class SignUpProviders extends ChangeNotifier {
 
       _isLoading.value = false;
     } catch (e) {
-      print('======>>>>>>     ' + e.toString());
       _isLoading.value = false;
     }
   }

@@ -69,13 +69,13 @@ class VePinsProvider extends ChangeNotifier {
   Future resendPinVerif({required String email}) async {
     try {
       _isLoadResendPin.value = true;
-      final response = await _api.postData(
-          urlPath: ApiUrl.resendPin,
-          body: resendOtpModelToJson(ResendOtpModel(email: email)));
+      // final response = await _api.postData(
+      //     urlPath: ApiUrl.resendPin,
+      //     body: resendOtpModelToJson(ResendOtpModel(email: email)));
 
-      if (response['code'] == 200 && response['message'] == 'OK') {
-        counterTime();
-      }
+      // if (response['code'] == 200 && response['message'] == 'OK') {
+      //   counterTime();
+      // }
       _isLoadResendPin.value = false;
     } catch (e) {
       _isLoadResendPin.value = false;

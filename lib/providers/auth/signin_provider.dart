@@ -5,7 +5,7 @@ import 'package:agent_mobile_app/models/signin_model.dart';
 import 'package:agent_mobile_app/pages/current_pages.dart';
 import 'package:agent_mobile_app/services/service_api.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SigninProvider extends ChangeNotifier {
@@ -14,14 +14,18 @@ class SigninProvider extends ChangeNotifier {
   final ValueNotifier<bool> _isLoading = ValueNotifier<bool>(false);
   ValueNotifier<bool> get isLoading => _isLoading;
 
-  Future signIn(BuildContext context,
-      {required String email, required String password}) async {
+  final ValueNotifier<bool> _invalidLoging = ValueNotifier<bool>(false);
+  ValueNotifier<bool> get invalidLoging => _invalidLoging;
+
+  Future signIn(
+    BuildContext context, {
+    required String email,
+    required String password,
+  }) async {
     _isLoading.value = true;
-
-    final SharedPreferences pref = await SharedPreferences.getInstance();
-
     try {
-      final Map<String, dynamic> response = await _api.postData(
+      final SharedPreferences pref = await SharedPreferences.getInstance();
+      final Map<String, dynamic> message = await _api.postData(
         urlPath: ApiUrl.signIn,
         body: modelSignInToJson(
           ModelSignin(
@@ -30,16 +34,20 @@ class SigninProvider extends ChangeNotifier {
           ),
         ),
       );
-      if (response['code'] == 200 && response['message'] == 'OK') {
-        pref.setString(SPrefKey.token, response['data']['access_token']);
-        pref.setString(SPrefKey.token, response['data']['refresh_token']);
+      if (message['code'] == 200) {
+        _invalidLoging.value = false;
+        pref.setString(SPrefKey.token, message['data']['access_token']);
+        pref.setString(SPrefKey.refreshToken, message['data']['refresh_token']);
         RouteWidget.push(context: context, page: CurrentPages());
+      } else if (message['code'] == 401) {
+        _invalidLoging.value = true;
+      } else {
+        _invalidLoging.value = true;
       }
       _isLoading.value = false;
     } catch (e) {
-      print(e);
       _isLoading.value = false;
-      //TODO: something
     }
+    notifyListeners();
   }
 }

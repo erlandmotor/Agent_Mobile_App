@@ -1,5 +1,7 @@
 import 'package:agent_mobile_app/helper/routes.dart';
+import 'package:agent_mobile_app/pages/current_pages.dart';
 import 'package:agent_mobile_app/pages/on_boarding/on_boarding_page.dart';
+import 'package:agent_mobile_app/services/service_api.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreenPage extends StatefulWidget {
@@ -10,13 +12,23 @@ class SplashScreenPage extends StatefulWidget {
 }
 
 class _SplashScreenPageState extends State<SplashScreenPage> {
+  final ServiceApi _service = ServiceApi();
   @override
   void initState() {
     super.initState();
 
     Future.delayed(const Duration(seconds: 3), () {
-      RouteWidget.pushReplacment(context: context, page: OnBoardingPage());
+      wrapperPage();
     });
+  }
+
+  Future wrapperPage() async {
+    if (await _service.getToken() != null ||
+        await _service.getRefreshToken() != null) {
+      RouteWidget.pushReplacment(context: context, page: CurrentPages());
+    } else {
+      RouteWidget.pushReplacment(context: context, page: OnBoardingPage());
+    }
   }
 
   @override

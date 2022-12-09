@@ -10,6 +10,7 @@ import 'package:agent_mobile_app/pages/auth_page/login_page.dart';
 import 'package:agent_mobile_app/pages/poin_page/poin_reward_page.dart';
 import 'package:agent_mobile_app/widget_reusable/widget_button.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'edit_profile_page.dart';
 
@@ -64,7 +65,7 @@ class AccountPage extends StatelessWidget {
               )),
           // NOTE : Start level and koin DIGO
           Container(
-            height: 72,
+            height: 75,
             margin: const EdgeInsets.only(bottom: 24),
             decoration: BoxDecoration(
               color: ColorApp.secondaryFF,
@@ -83,28 +84,33 @@ class AccountPage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          'Level Digo',
-                          style: FontStyle.subtitle2,
+                        Flexible(
+                          child: Text(
+                            'Level Digo',
+                            style: FontStyle.subtitle2,
+                          ),
                         ),
                         const SizedBox(
                           height: 8,
                         ),
-                        Row(
-                          children: [
-                            Image.asset(
-                              'assets/icons/medal.png',
-                              height: 20,
-                              width: 20,
-                            ),
-                            const SizedBox(
-                              width: 16,
-                            ),
-                            Text(
-                              'Newbie',
-                              style: FontStyle.subtitle1SemiBold,
-                            )
-                          ],
+                        Flexible(
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Image.asset(
+                                'assets/icons/medal.png',
+                                height: 20,
+                                width: 20,
+                              ),
+                              const SizedBox(
+                                width: 16,
+                              ),
+                              Text(
+                                'Newbie',
+                                style: FontStyle.subtitle1SemiBold,
+                              )
+                            ],
+                          ),
                         )
                       ],
                     ),
@@ -125,28 +131,33 @@ class AccountPage extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            'Koin Digo',
-                            style: FontStyle.subtitle2,
+                          Flexible(
+                            child: Text(
+                              'Koin Digo',
+                              style: FontStyle.subtitle2,
+                            ),
                           ),
                           const SizedBox(
                             height: 8,
                           ),
-                          Row(
-                            children: [
-                              Image.asset(
-                                'assets/icons/coin.png',
-                                height: 20,
-                                width: 20,
-                              ),
-                              const SizedBox(
-                                width: 16,
-                              ),
-                              Text(
-                                '100',
-                                style: FontStyle.subtitle1SemiBold,
-                              )
-                            ],
+                          Flexible(
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Image.asset(
+                                  'assets/icons/coin.png',
+                                  height: 20,
+                                  width: 20,
+                                ),
+                                const SizedBox(
+                                  width: 16,
+                                ),
+                                Text(
+                                  '100',
+                                  style: FontStyle.subtitle1SemiBold,
+                                )
+                              ],
+                            ),
                           )
                         ],
                       ),
@@ -218,7 +229,7 @@ class AccountPage extends StatelessWidget {
               visualDensity: const VisualDensity(vertical: -1),
               onTap: () {
                 RouteWidget.push(
-                    context: context, page:  SettingPriceSellPage());
+                    context: context, page: SettingPriceSellPage());
               },
               title: Text(
                 'Atur Harga Jual',
@@ -309,8 +320,11 @@ class AccountPage extends StatelessWidget {
             ),
           ),
           ButtonCustom.buttonPrimary(
-              onTap: () => RouteWidget.pushReplacment(
-                  context: context, page: LoginPage()),
+              onTap: () async {
+                SharedPreferences _pref = await SharedPreferences.getInstance();
+                _pref.clear();
+                RouteWidget.pushReplacment(context: context, page: LoginPage());
+              },
               colorBtn: ColorApp.primaryA3,
               text: 'Keluar Akun'.toUpperCase()),
           const SizedBox(
