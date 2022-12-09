@@ -1,8 +1,7 @@
 import 'package:agent_mobile_app/pages/desc_product/checkout_product.dart';
 import 'package:agent_mobile_app/pages/desc_product/desc_transaction_page.dart';
-import 'package:agent_mobile_app/pages/desc_product/product_page.dart';
-import 'package:agent_mobile_app/pages/desc_product/product_pulsa.dart';
-import 'package:agent_mobile_app/pages/desc_product/pulsa/pulsa_page.dart';
+
+import 'package:agent_mobile_app/pages/desc_product/paket_data/paket_data.dart';
 import 'package:agent_mobile_app/pages/detail_transaction/detail_transaction_page.dart';
 import 'package:agent_mobile_app/pages/splash_screen.dart';
 
@@ -23,7 +22,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: ProductPage(),
+      home: PulsaPage(),
     );
   }
 }

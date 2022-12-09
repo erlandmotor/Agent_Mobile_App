@@ -4,8 +4,9 @@ import 'package:agent_mobile_app/helper/shadow.dart';
 import 'package:agent_mobile_app/helper/themes_colors.dart';
 import 'package:agent_mobile_app/helper/themse_fonts.dart';
 import 'package:agent_mobile_app/pages/auth_page/widgets/widget_form_input.dart';
-import 'package:agent_mobile_app/pages/desc_product/product_pulsa.dart';
-import 'package:agent_mobile_app/pages/desc_product/pulsa/pulsa_page.dart';
+
+import 'package:agent_mobile_app/pages/desc_product/paket_data/paket_data.dart';
+import 'package:agent_mobile_app/pages/desc_product/widget_reusable/widget_reusable.dart';
 import 'package:agent_mobile_app/pages/poin_page/check_redem_page.dart';
 import 'package:agent_mobile_app/widget_reusable/widget_appbar_default.dart';
 import 'package:agent_mobile_app/widget_reusable/widget_button.dart';
@@ -42,7 +43,10 @@ class ProductPage extends StatelessWidget {
             padding: Marginlayout.marginhorizontal,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: [_overViewReward(context), ChoicePage()],
+              children: [
+                ReusableWidget.overViewReward(
+                    context: context, controller: _inputNumber),
+              ],
             ),
           ),
         ],
@@ -56,34 +60,5 @@ class ProductPage extends StatelessWidget {
               text: 'Cek harga pulsa dan info lainnya',
               icon: 'assets/icons/arrow.png')),
     );
-  }
-
-  Widget _overViewReward(BuildContext context) {
-    return Container(
-        margin: EdgeInsets.only(
-            bottom: 24, top: MediaQuery.of(context).size.height * 0.2),
-        width: double.infinity,
-        padding: Marginlayout.marginhorizontal.copyWith(top: 16, bottom: 16),
-        alignment: Alignment.center,
-        decoration: BoxDecoration(
-            color: Colors.white,
-            boxShadow: CustomShadow.md,
-            borderRadius: BorderRadius.circular(6)),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Masukkan No. Handphone',
-              style: FontStyle.caption,
-            ),
-            SizedBox(
-              height: 8,
-            ),
-            WidgetFormInputNumber(
-                obscureText: false,
-                hintText: 'Contoh : 08571287123',
-                controller: _inputNumber),
-          ],
-        ));
   }
 }

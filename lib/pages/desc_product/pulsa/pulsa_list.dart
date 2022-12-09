@@ -2,8 +2,8 @@ import 'package:agent_mobile_app/helper/themse_fonts.dart';
 import 'package:agent_mobile_app/widget_reusable/widget_button.dart';
 import 'package:flutter/material.dart';
 
-class ChoicePage extends StatelessWidget {
-  ChoicePage({super.key});
+class PulsaList extends StatelessWidget {
+  PulsaList({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,7 @@ class ChoicePage extends StatelessWidget {
           SizedBox(
             height: 16,
           ),
-          ButtonCustom.listProduct(
+          ButtonCustom.listProductPulsa(
               descProduct: 'Indosat Ooredo 5.000',
               expired: 'Masa aktif 5 Hari',
               price: '5850'),
