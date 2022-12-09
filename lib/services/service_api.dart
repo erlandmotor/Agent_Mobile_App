@@ -40,17 +40,15 @@ class ServiceApi {
     try {
       final Response response =
           await Dio().post(ApiUrl.proBaseUrl + urlPath, data: body);
-      if (response.statusCode == 200) {
-        return response.data;
-      }
+      return response.data;
     } on DioError catch (e) {
       if (e.response!.statusCode! >= 500) {
-        widgetBadRequest(FormKey().mNavigation.currentContext!);
+        // widgetBadRequest(FormKey().mNavigation.currentContext!);
       } else {
         return e.response!.data;
       }
     } on TimeoutException {
-      dialogTimeOutService(FormKey().mNavigation.currentContext!);
+      // dialogTimeOutService(FormKey().mNavigation.currentContext!);
     }
   }
 

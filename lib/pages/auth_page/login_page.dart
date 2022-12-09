@@ -18,8 +18,7 @@ class LoginPage extends StatelessWidget {
   LoginPage({Key? key}) : super(key: key);
 
   final ValueNotifier<bool> _hidePasswod = ValueNotifier<bool>(true);
-  final TextEditingController _emailInput =
-      TextEditingController(text: 'amrilrismanto@gmail.com');
+  final TextEditingController _emailInput = TextEditingController();
   final TextEditingController _passwordInput = TextEditingController();
   final GlobalKey<FormState> formKeySignin =
       GlobalKey<FormState>(debugLabel: 'sign-in');
@@ -27,10 +26,8 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        key: FormKey().keyScaffold,
         resizeToAvoidBottomInset: false,
         backgroundColor: Colors.white,
-        //NOte: move register
         bottomNavigationBar: Padding(
             padding: const EdgeInsets.only(bottom: 40),
             child: Text.rich(

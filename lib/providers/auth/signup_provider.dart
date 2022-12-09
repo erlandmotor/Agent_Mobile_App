@@ -9,6 +9,9 @@ class SignUpProviders extends ChangeNotifier {
   final ValueNotifier<bool> _isLoading = ValueNotifier<bool>(false);
   ValueNotifier<bool> get isLoading => _isLoading;
 
+  final ValueNotifier<bool> _emailAlredy = ValueNotifier<bool>(false);
+  ValueNotifier<bool> get emailAlredy => _emailAlredy;
+
   final ServiceApi _api = ServiceApi();
 
   Future createAccount(BuildContext context,
@@ -17,27 +20,31 @@ class SignUpProviders extends ChangeNotifier {
       required String password}) async {
     _isLoading.value = true;
     try {
-      final response = await _api.postData(
+      final Map<String, dynamic> response = await _api.postData(
           urlPath: ApiUrl.signUp,
           body: modelSignUpToJson(
             ModelSignUp(
                 name: name,
                 email: email,
                 password: password,
-                mobileNumber: "08123456789"),
+                mobileNumber: "+62"),
           ));
-      print(response);
-      // 'email already used'
-      if (response['code'] == 200 && response['message'].toString() == 'OK') {
+      if (response['code'] == 201 && response['errors'] == null) {
+        _emailAlredy.value = false;
         RouteWidget.push(
             context: context,
             page: VerificationCodePage(
               email: email,
             ));
+      } else if (response['code'] == 409 && response['errors'][0]['value']) {
+        _emailAlredy.value = true;
+      } else {
+        _emailAlredy.value = true;
       }
 
       _isLoading.value = false;
     } catch (e) {
+      _emailAlredy.value = true;
       _isLoading.value = false;
     }
   }

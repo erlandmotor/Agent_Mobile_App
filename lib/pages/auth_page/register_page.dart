@@ -26,10 +26,13 @@ class RegisterPage extends StatelessWidget {
   final TextEditingController _confirmPassword = TextEditingController();
   final TextEditingController _inputCodeRefferal = TextEditingController();
 
+  final GlobalKey<FormState> formKeySignUp =
+      GlobalKey<FormState>(debugLabel: 'sign-up');
+
   @override
   Widget build(BuildContext context) {
     return Form(
-        key: FormKey().formKeySignUp,
+        key: formKeySignUp,
         child: Scaffold(
           resizeToAvoidBottomInset: false,
           backgroundColor: Colors.white,
@@ -121,7 +124,17 @@ class RegisterPage extends StatelessWidget {
                             message: 'Password yang Anda masukkan tidak sama*');
                       }
                     }),
-                const TextError(message: 'Email sudah terdaftar*'),
+                ValueListenableBuilder<bool>(
+                    valueListenable:
+                        context.read<SignUpProviders>().emailAlredy,
+                    builder: (context, alredy, _) {
+                      if (alredy == false) {
+                        return const SizedBox();
+                      } else {
+                        return const TextError(
+                            message: ' Mohon maaf email sudah terdaftar*');
+                      }
+                    }),
                 TextField(
                   controller: _inputCodeRefferal,
                   cursorColor: ColorApp.primaryA3,
@@ -163,10 +176,7 @@ class RegisterPage extends StatelessWidget {
                       } else {
                         return ButtonCustom.buttonPrimary(
                           onTap: () async {
-                            if (FormKey()
-                                .formKeySignUp
-                                .currentState!
-                                .validate()) {
+                            if (formKeySignUp.currentState!.validate()) {
                               if (_confirmPassword.text.isNotEmpty &&
                                   _passwordInput.text.isNotEmpty &&
                                   _confirmPassword.text ==
@@ -180,12 +190,15 @@ class RegisterPage extends StatelessWidget {
                                       password: _passwordInput.text,
                                     );
 
-                                _usernameInput.clear();
                                 _emailInput.clear();
-                                _passwordInput.clear();
-                                _confirmPassword.clear();
                                 _equalPassword.value = true;
                               } else {
+                                context
+                                    .read<SignUpProviders>()
+                                    .emailAlredy
+                                    .value = false;
+
+                                _confirmPassword.clear();
                                 _equalPassword.value = false;
                               }
                             }
