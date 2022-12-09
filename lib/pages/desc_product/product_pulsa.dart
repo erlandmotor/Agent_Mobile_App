@@ -2,8 +2,8 @@ import 'package:agent_mobile_app/helper/themse_fonts.dart';
 import 'package:agent_mobile_app/widget_reusable/widget_button.dart';
 import 'package:flutter/material.dart';
 
-class PulsaPage extends StatelessWidget {
-  const PulsaPage({super.key});
+class ChoicePage extends StatelessWidget {
+  ChoicePage({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -5,6 +5,7 @@ import 'package:agent_mobile_app/helper/themes_colors.dart';
 import 'package:agent_mobile_app/helper/themse_fonts.dart';
 import 'package:agent_mobile_app/pages/auth_page/widgets/widget_form_input.dart';
 import 'package:agent_mobile_app/pages/desc_product/product_pulsa.dart';
+import 'package:agent_mobile_app/pages/desc_product/pulsa/pulsa_page.dart';
 import 'package:agent_mobile_app/pages/poin_page/check_redem_page.dart';
 import 'package:agent_mobile_app/widget_reusable/widget_appbar_default.dart';
 import 'package:agent_mobile_app/widget_reusable/widget_button.dart';
@@ -27,37 +28,21 @@ class ProductPage extends StatelessWidget {
       body: Stack(
         children: [
           Container(
-              width: double.infinity,
-              height: MediaQuery.of(context).size.height * 0.25,
-              alignment: Alignment.center,
-              color: ColorApp.primaryA3,
-              child: Image.asset(
-                'assets/icons/phone1.png',
-              )),
+            width: double.infinity,
+            height: MediaQuery.of(context).size.height * 0.25,
+            alignment: Alignment.center,
+            color: ColorApp.primaryA3,
+            child: const Icon(
+              Icons.phone_android_rounded,
+              size: 60,
+              color: Colors.white,
+            ),
+          ),
           Padding(
             padding: Marginlayout.marginhorizontal,
             child: Column(
-              children: [
-                ListView(
-                  children: [
-                    _overViewReward(context),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    PulsaPage()
-
-                    // Image.asset('assets/backround/input_phone_number.png'),
-                    // SizedBox(
-                    //   width: MediaQuery.of(context).size.width * 0.50,
-                    //   child: Text(
-                    //     'Masukkan nomor yang ingin diisi pulsanya',
-                    //     style: FontStyle.subtitle1,
-                    //     textAlign: TextAlign.center,
-                    //   ),
-                    // )
-                  ],
-                ),
-              ],
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [_overViewReward(context), ChoicePage()],
             ),
           ),
         ],
@@ -78,7 +63,7 @@ class ProductPage extends StatelessWidget {
         margin: EdgeInsets.only(
             bottom: 24, top: MediaQuery.of(context).size.height * 0.2),
         width: double.infinity,
-        padding: Marginlayout.marginhorizontal.copyWith(top: 16, bottom: 6),
+        padding: Marginlayout.marginhorizontal.copyWith(top: 16, bottom: 16),
         alignment: Alignment.center,
         decoration: BoxDecoration(
             color: Colors.white,
@@ -86,43 +71,18 @@ class ProductPage extends StatelessWidget {
             borderRadius: BorderRadius.circular(6)),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          // mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Row(
-              children: [
-                Text(
-                  'Masukkan No. Handphone',
-                  style: FontStyle.caption,
-                ),
-                const Spacer(),
-              ],
+            Text(
+              'Masukkan No. Handphone',
+              style: FontStyle.caption,
             ),
-            const SizedBox(
-              height: 16,
+            SizedBox(
+              height: 8,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Expanded(
-                  flex: 9,
-                  child: WidgetFormInput(
-                      obscureText: false,
-                      hintText: 'Contoh : 08571287123',
-                      controller: _inputNumber),
-                ),
-                SizedBox(
-                  width: 10,
-                ),
-                Expanded(
-                    flex: 1,
-                    child: Center(
-                      child: Image.asset(
-                        'assets/icons/phone_book.png',
-                        height: 24,
-                      ),
-                    ))
-              ],
-            ),
+            WidgetFormInputNumber(
+                obscureText: false,
+                hintText: 'Contoh : 08571287123',
+                controller: _inputNumber),
           ],
         ));
   }

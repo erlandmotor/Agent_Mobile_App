@@ -75,6 +75,53 @@ class WidgetFormInput extends StatelessWidget {
   }
 }
 
+class WidgetFormInputNumber extends StatelessWidget {
+  final bool obscureText;
+  final String hintText;
+  final Color? colorSuffix;
+  final TextEditingController controller;
+  final Function()? onTapSuffix;
+  final String? iconSuffix;
+  final String? iconPrefix;
+
+  const WidgetFormInputNumber({
+    Key? key,
+    required this.obscureText,
+    required this.hintText,
+    required this.controller,
+    this.colorSuffix,
+    this.onTapSuffix,
+    this.iconSuffix,
+    this.iconPrefix,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      controller: controller,
+      obscureText: obscureText,
+      validator: (String? error) => 'Field ini tidak boleh kosong',
+      cursorColor: ColorApp.primaryA3,
+      decoration: InputDecoration(
+        contentPadding:
+            const EdgeInsets.symmetric(vertical: 16, horizontal: 10),
+        isCollapsed: true,
+        focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(6),
+            borderSide: BorderSide(color: ColorApp.primaryA3)),
+        hintText: hintText,
+        fillColor: ColorApp.primaryA3,
+        focusColor: ColorApp.primaryA3,
+        hoverColor: ColorApp.primaryA3,
+        border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(6),
+            borderSide: BorderSide(color: ColorApp.secondaryB2)),
+        hintStyle: FontStyle.body2.copyWith(color: ColorApp.secondaryB2),
+      ),
+    );
+  }
+}
+
 class WidgetFormInputCode extends StatelessWidget {
   final bool obscureText;
   final String hintText;

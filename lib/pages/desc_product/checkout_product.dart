@@ -11,6 +11,8 @@ class CheckoutPage extends StatelessWidget {
   CheckoutPage({super.key});
 
   TextEditingController codeController = TextEditingController();
+
+  bool methodPayment = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,9 +22,12 @@ class CheckoutPage extends StatelessWidget {
           colorComponen: ColorApp.secondaryFF,
           title: 'Checkout'),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 32),
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: ListView(
           children: [
+            SizedBox(
+              height: 32,
+            ),
             Text(
               'Apakah kamu mempunyai kode promo?',
               style: FontStyle.subtitle2,
@@ -101,10 +106,98 @@ class CheckoutPage extends StatelessWidget {
                     _dialogRedeem(context);
                   }),
             ),
-
-            // action: 'Saldo tidak mencukupi')
+            SizedBox(height: 32),
+            Text(
+              'RIncian Transaksi',
+              style: FontStyle.subtitle1SemiBold,
+            ),
+            SizedBox(
+              height: 15,
+            ),
+            Row(
+              // mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(
+                  flex: 1,
+                  child: Text(
+                    'Nama Produk',
+                    style: FontStyle.subtitle2,
+                  ),
+                ),
+                Expanded(
+                  flex: 1,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Text(
+                        'Pulsa Indosat Rp.5.000',
+                        style: FontStyle.subtitle2SemiBold,
+                      ),
+                      Text(
+                        'Masa Aktif 7 Hari',
+                        style: FontStyle.subtitle2SemiBold,
+                      )
+                    ],
+                  ),
+                )
+              ],
+            ),
+            detailTransaction(desc: 'Nomor Handphone', value: '085712586089'),
+            detailTransaction(desc: 'Harga', value: 'Rp.5850'),
+            detailTransaction(desc: 'Biaya Admin', value: '-'),
+            detailTransaction(desc: 'Promo', value: '-'),
+            Divider(
+              thickness: 1,
+            ),
+            detailTransaction(desc: 'Total Pembayaran', value: 'Rp.5850'),
+            SizedBox(
+              height: 46,
+            ),
+            methodPayment == true
+                ? ButtonCustom.buttonPrimarySecond(
+                    onTap: () {},
+                    text: 'BAYAR',
+                    colorBtn: ColorApp.secondaryEA,
+                    methodPayment: false)
+                : ButtonCustom.buttonPrimarySecond(
+                    onTap: () {},
+                    text: 'BAYAR',
+                    colorBtn: ColorApp.primaryA3,
+                    methodPayment: true),
+            SizedBox(
+              height: 32,
+            )
           ],
         ),
+      ),
+    );
+  }
+
+  Padding detailTransaction({
+    required String desc,
+    required String value,
+  }) {
+    return Padding(
+      padding: EdgeInsets.only(top: 8),
+      child: Row(
+        children: [
+          Expanded(
+            flex: 1,
+            child: Text(
+              desc,
+              style: FontStyle.subtitle2,
+            ),
+          ),
+          Expanded(
+            flex: 1,
+            child: Text(
+              value,
+              style: FontStyle.subtitle2SemiBold,
+              textAlign: TextAlign.end,
+            ),
+          )
+        ],
       ),
     );
   }
@@ -114,64 +207,92 @@ class CheckoutPage extends StatelessWidget {
       context: context,
       isDismissible: false,
       builder: (BuildContext context) {
-        return Container(
-          padding: const EdgeInsets.all(16),
-          color: Colors.white,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                'Redeem Poin',
-                style: FontStyle.subtitle1SemiBold,
+        return ListView(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(16),
+              color: Colors.white,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Pilih Metode Pembayaran',
+                        style: FontStyle.subtitle2,
+                      ),
+                      InkWell(
+                        child: Image.asset('assets/icons/x.png'),
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                      )
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 12.5,
+                  ),
+                  //NOTE Data Deskripsi
+                  Text(
+                    'E-Money',
+                    style: FontStyle.subtitle2SemiBold,
+                  ),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  paymentMethod(
+                      icon: 'assets/logo/dana1.png', paymentMethod: 'DANA'),
+                  paymentMethod(
+                      icon: 'assets/logo/shopeepay.png',
+                      paymentMethod: 'Shopee Pay'),
+                  paymentMethod(
+                      icon: 'assets/logo/ovo.png', paymentMethod: 'OVO'),
+                  SizedBox(
+                    height: 24,
+                  ),
+                  Text('Virtual Account'),
+                  SizedBox(
+                    height: 16,
+                  ),
+                  paymentMethod(
+                      icon: 'assets/logo/bni.png', paymentMethod: 'BNI'),
+                  paymentMethod(
+                      icon: 'assets/logo/bca.png', paymentMethod: 'BCA'),
+                  paymentMethod(
+                      icon: 'assets/logo/mandiri.png',
+                      paymentMethod: 'Mandiri'),
+                  paymentMethod(
+                      icon: 'assets/logo/bri.png', paymentMethod: 'BRI'),
+                ],
               ),
-              const SizedBox(
-                height: 16,
-              ),
-              //NOTE Data Deskripsi
-              Text(
-                'Masukan Nomor Handphone Terlebih dahulu sebelum anda melakukan Redeem poin.',
-                style: FontStyle.subtitle2,
-              ),
-              const SizedBox(
-                height: 16,
-              ),
-              // WidgetFormInput(
-              //   obscureText: false,
-              //   hintText: '08**********',
-              //   controller: _inputNumber,
-              //   iconPrefix: 'assets/icons/call.png',
-              // ),
-              // Padding(
-              //   padding: const EdgeInsets.only(top: 10.0),
-              //   child: Text(
-              //     '*Nomor HP yang anda masukkan tidak sesuai',
-              //     style: FontStyle.caption
-              //         .copyWith(color: ColorApp.subSecondary21),
-              //   ),
-              // ),
-              const SizedBox(
-                height: 70,
-              ),
-              // ButtonCustom.buttonPrimary(
-              //   onTap: () => RouteWidget.push(
-              //       context: context, page: const CheckDetailRedeemPage()),
-              //   // colorBtn: ColorApp.secondaryB2,
-              //   // text: 'Oups, dikoin kamu belum cukup',
-              //   colorBtn: ColorApp.primaryA3,
-              //   text: 'Redeem Sekarang',
-              // ),
-              const SizedBox(
-                height: 16,
-              ),
-              ButtonCustom.buttonSeccondary(
-                onTap: () => Navigator.pop(context),
-                text: 'Nanti deh',
-              ),
-            ],
-          ),
+            ),
+          ],
         );
       },
+    );
+  }
+
+  Column paymentMethod({
+    required String icon,
+    required String paymentMethod,
+  }) {
+    return Column(
+      children: [
+        ListTile(
+          contentPadding: EdgeInsets.zero,
+          leading: Image.asset(icon),
+          title: Text(
+            paymentMethod,
+            style: FontStyle.subtitle2SemiBold,
+          ),
+        ),
+        Divider(
+          height: 1,
+          thickness: 1,
+        )
+      ],
     );
   }
 }
