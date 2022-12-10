@@ -1,10 +1,7 @@
 import 'package:agent_mobile_app/helper/margin_layout.dart';
-import 'package:agent_mobile_app/helper/routes.dart';
 import 'package:agent_mobile_app/helper/themes_colors.dart';
 import 'package:agent_mobile_app/helper/themse_fonts.dart';
-import 'package:agent_mobile_app/pages/auth_page/login_page.dart';
 import 'package:agent_mobile_app/providers/auth/verification_otp_provider.dart';
-import 'package:agent_mobile_app/widget_reusable/succes_confirm_page.dart';
 import 'package:agent_mobile_app/widget_reusable/widget_appbar_default.dart';
 import 'package:agent_mobile_app/widget_reusable/widget_button.dart';
 import 'package:flutter/cupertino.dart';
@@ -45,7 +42,8 @@ class VerificationCodePage extends StatelessWidget {
             textAlign: TextAlign.center,
           ),
           Text(
-            email,
+            // email,
+            context.read<VePinsProvider>().generateName(name: email),
             textAlign: TextAlign.center,
             style: FontStyle.body2.copyWith(fontWeight: FontWeight.w600),
           ),
@@ -219,43 +217,53 @@ class VerificationCodePage extends StatelessWidget {
             valueListenable: context.read<VePinsProvider>().isLoadResendPin,
             builder: (context, loadResend, _) => ValueListenableBuilder<int>(
                 valueListenable: context.read<VePinsProvider>().timeResend,
-                builder: (context, data, _) {
+                builder: (context, time, _) {
                   if (loadResend == true) {
                     return CupertinoActivityIndicator(
                       radius: 10,
                       color: ColorApp.primaryA3,
                     );
                   } else {
-                    return Text.rich(
-                      TextSpan(
-                          text: data == 0
-                              ? 'Anda tidak menerima kode? '
-                              : 'Mohon tunggu ',
-                          style: FontStyle.caption,
-                          children: [
-                            TextSpan(
-                              text: data == 0 ? 'Kirim Ulang' : data.toString(),
-                              style: FontStyle.caption.copyWith(
-                                fontWeight: FontWeight.w700,
-                                color: ColorApp.primaryA3,
+                    return ValueListenableBuilder(
+                      valueListenable:
+                          context.read<VePinsProvider>().invalidVerification,
+                      builder: (context, invalide, _) => Text.rich(
+                        TextSpan(
+                            text: invalide == true
+                                ? 'Autentikasi Gagal ! Code OTP tidak valid*    '
+                                : time == 0
+                                    ? 'Anda tidak menerima kode? '
+                                    : 'Mohon tunggu ',
+                            style: FontStyle.caption.copyWith(
+                                color: invalide == true
+                                    ? ColorApp.subSecondary21
+                                    : ColorApp.secondary00),
+                            children: [
+                              TextSpan(
+                                text:
+                                    time == 0 ? 'Kirim Ulang' : time.toString(),
+                                style: FontStyle.caption.copyWith(
+                                  fontWeight: FontWeight.w700,
+                                  color: ColorApp.primaryA3,
+                                ),
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap = () {
+                                    if (time == 0) {
+                                      context
+                                          .read<VePinsProvider>()
+                                          .resendPinVerif(email: email);
+                                    }
+                                  },
                               ),
-                              recognizer: TapGestureRecognizer()
-                                ..onTap = () {
-                                  if (data == 0) {
-                                    context
-                                        .read<VePinsProvider>()
-                                        .resendPinVerif(email: email);
-                                  }
-                                },
-                            ),
-                            TextSpan(
-                              text: data == 0
-                                  ? ''
-                                  : ' detik untuk mengirim ulang',
-                              style: FontStyle.caption,
-                            )
-                          ]),
-                      textAlign: TextAlign.center,
+                              TextSpan(
+                                text: time == 0
+                                    ? ''
+                                    : ' detik untuk mengirim ulang',
+                                style: FontStyle.caption,
+                              )
+                            ]),
+                        textAlign: TextAlign.center,
+                      ),
                     );
                   }
                 }),
@@ -272,6 +280,7 @@ class VerificationCodePage extends StatelessWidget {
                   return ButtonCustom.buttonPrimary(
                     onTap: () async {
                       await context.read<VePinsProvider>().verificationData(
+                            context,
                             email: email,
                             otp:
                                 '${_pin1.text}${_pin2.text}${_pin3.text}${_pin4.text}',
