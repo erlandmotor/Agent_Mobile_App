@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 
 import '../../../helper/themes_colors.dart';
 
-class GopayList extends StatelessWidget {
-  GopayList({super.key});
+class EWalletList extends StatelessWidget {
+  EWalletList({super.key});
 
   @override
   Widget build(BuildContext context) {
