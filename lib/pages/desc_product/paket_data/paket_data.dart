@@ -6,8 +6,8 @@ import 'package:agent_mobile_app/pages/desc_product/widget_reusable/widget_reusa
 import 'package:agent_mobile_app/widget_reusable/widget_appbar_default.dart';
 import 'package:flutter/material.dart';
 
-class PulsaPage extends StatelessWidget {
-  PulsaPage({super.key});
+class PaketDataPage extends StatelessWidget {
+  PaketDataPage({super.key});
 
   TextEditingController inputNumber = TextEditingController();
 

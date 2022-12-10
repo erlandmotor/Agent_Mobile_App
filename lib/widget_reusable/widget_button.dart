@@ -1,3 +1,4 @@
+import 'package:agent_mobile_app/helper/routes.dart';
 import 'package:agent_mobile_app/helper/themes_colors.dart';
 import 'package:agent_mobile_app/helper/themse_fonts.dart';
 import 'package:agent_mobile_app/pages/desc_product/checkout_product.dart';
@@ -119,41 +120,47 @@ class ButtonCustom {
   }
 
   static Widget listProductPulsa({
+    required BuildContext context,
     required String descProduct,
     required String expired,
     required String price,
   }) {
-    return Container(
-      width: double.infinity,
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(6),
-          color: ColorApp.secondaryFF,
-          boxShadow: CustomShadow.md),
-      child: ListTile(
-        title: Padding(
-          padding: const EdgeInsets.only(bottom: 8.0),
-          child: Text(
-            descProduct,
-            style: FontStyle.subtitle2SemiBold,
+    return InkWell(
+      child: Container(
+        width: double.infinity,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(6),
+            color: ColorApp.secondaryFF,
+            boxShadow: CustomShadow.md),
+        child: ListTile(
+          title: Padding(
+            padding: const EdgeInsets.only(bottom: 8.0),
+            child: Text(
+              descProduct,
+              style: FontStyle.subtitle2SemiBold,
+            ),
+          ),
+          subtitle: Text(
+            expired,
+            style: FontStyle.caption,
+          ),
+          trailing: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(bottom: 8.0),
+                child: Text(
+                  "Rp. " + price,
+                  style: FontStyle.subtitle1SemiBoldBlue,
+                ),
+              ),
+            ],
           ),
         ),
-        subtitle: Text(
-          expired,
-          style: FontStyle.caption,
-        ),
-        trailing: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(bottom: 8.0),
-              child: Text(
-                "Rp. " + price,
-                style: FontStyle.subtitle1SemiBoldBlue,
-              ),
-            ),
-          ],
-        ),
       ),
+      onTap: () {
+        RouteWidget.push(context: context, page: CheckoutPage());
+      },
     );
   }
 

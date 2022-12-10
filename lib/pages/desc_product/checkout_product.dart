@@ -1,8 +1,10 @@
 import 'package:agent_mobile_app/helper/margin_layout.dart';
+import 'package:agent_mobile_app/helper/routes.dart';
 import 'package:agent_mobile_app/helper/shadow.dart';
 import 'package:agent_mobile_app/helper/themes_colors.dart';
 import 'package:agent_mobile_app/helper/themse_fonts.dart';
 import 'package:agent_mobile_app/pages/auth_page/widgets/widget_form_input.dart';
+import 'package:agent_mobile_app/pages/desc_product/desc_transaction_page.dart';
 import 'package:agent_mobile_app/widget_reusable/widget_appbar_default.dart';
 import 'package:agent_mobile_app/widget_reusable/widget_button.dart';
 import 'package:flutter/material.dart';
@@ -161,7 +163,10 @@ class CheckoutPage extends StatelessWidget {
                     colorBtn: ColorApp.secondaryEA,
                     methodPayment: false)
                 : ButtonCustom.buttonPrimarySecond(
-                    onTap: () {},
+                    onTap: () {
+                      RouteWidget.push(
+                          context: context, page: DescTransactionProductPage());
+                    },
                     text: 'BAYAR',
                     colorBtn: ColorApp.primaryA3,
                     methodPayment: true),

@@ -8,7 +8,10 @@ import 'package:agent_mobile_app/widget_reusable/widget_appbar_default.dart';
 import 'package:flutter/material.dart';
 
 class EWalletPage extends StatelessWidget {
-  EWalletPage({super.key});
+  EWalletPage({super.key, required this.icon, required this.eWallet});
+
+  String icon;
+  String eWallet;
 
   TextEditingController inputNumber = TextEditingController();
 
@@ -18,7 +21,7 @@ class EWalletPage extends StatelessWidget {
       appBar: CustomAppBar.appBarDefault(context,
           backgroundColor: ColorApp.primaryA3,
           colorComponen: ColorApp.secondaryFF,
-          title: 'Gopay',
+          title: eWallet,
           action: [Image.asset('assets/icons/question.png')]),
       body: Stack(
         children: [
@@ -27,7 +30,10 @@ class EWalletPage extends StatelessWidget {
               height: MediaQuery.of(context).size.height * 0.25,
               alignment: Alignment.center,
               color: ColorApp.primaryA3,
-              child: Image.asset('assets/icons/gopay.png')),
+              child: Image.asset(
+                icon,
+                scale: 0.3,
+              )),
           Padding(
             padding: Marginlayout.marginhorizontal,
             child: Column(
