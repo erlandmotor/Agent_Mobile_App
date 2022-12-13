@@ -203,3 +203,76 @@ class WidgetFormInputEmail extends StatelessWidget {
     );
   }
 }
+
+class WidgetFormInputFaq extends StatelessWidget {
+  final bool obscureText;
+  final String hintText;
+  final Color? colorSuffix;
+  final TextEditingController controller;
+  final Function()? onTapSuffix;
+  final String? iconSuffix;
+  final String? iconPrefix;
+  const WidgetFormInputFaq({
+    Key? key,
+    required this.obscureText,
+    required this.hintText,
+    required this.controller,
+    this.colorSuffix,
+    this.onTapSuffix,
+    this.iconSuffix,
+    this.iconPrefix,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 16),
+      child: TextFormField(
+        controller: controller,
+        obscureText: obscureText,
+        validator: (String? error) => 'Field ini tidak boleh kosong',
+        cursorColor: ColorApp.primaryA3,
+        decoration: InputDecoration(
+          contentPadding:
+              const EdgeInsets.symmetric(vertical: 16, horizontal: 10),
+          isCollapsed: true,
+          focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: ColorApp.secondaryFF)),
+          prefixIcon: iconPrefix != null
+              ? Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+                  child: Image.asset(
+                    iconPrefix!,
+                    height: 12,
+                  ),
+                )
+              : const Opacity(opacity: 0),
+          suffixIcon: iconSuffix == null
+              ? const SizedBox()
+              : InkWell(
+                  onTap: onTapSuffix,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 16, vertical: 12),
+                    child: Image.asset(
+                      iconSuffix!,
+                      color: colorSuffix,
+                      height: 12,
+                    ),
+                  ),
+                ),
+          hintText: hintText,
+          filled: true,
+          fillColor: ColorApp.secondaryFF,
+          focusColor: ColorApp.secondaryFF,
+          hoverColor: ColorApp.secondaryFF,
+          border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(6),
+              borderSide: BorderSide(color: ColorApp.secondaryEA)),
+          hintStyle: FontStyle.body2.copyWith(color: ColorApp.secondaryB2),
+        ),
+      ),
+    );
+  }
+}
