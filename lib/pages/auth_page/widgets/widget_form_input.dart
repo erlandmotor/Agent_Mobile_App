@@ -4,13 +4,14 @@ import 'package:flutter/material.dart';
 
 class WidgetFormOnlyInput extends StatelessWidget {
   final String hintText;
+  final String messageError;
   final TextEditingController controller;
-  final Function()? onTapSuffix;
+
   const WidgetFormOnlyInput({
     Key? key,
     required this.hintText,
     required this.controller,
-    this.onTapSuffix,
+    this.messageError = 'Field ini tidak boleh kosong*',
   }) : super(key: key);
 
   @override
@@ -21,7 +22,7 @@ class WidgetFormOnlyInput extends StatelessWidget {
         controller: controller,
         validator: (String? error) {
           if (error!.isEmpty) {
-            return 'Field ini tidak boleh kosong*';
+            return messageError;
           }
         },
         cursorColor: ColorApp.primaryA3,

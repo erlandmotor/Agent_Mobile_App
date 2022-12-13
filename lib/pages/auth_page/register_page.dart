@@ -47,9 +47,7 @@ class RegisterPage extends StatelessWidget {
                           fontWeight: FontWeight.w600,
                           color: ColorApp.primaryA3),
                       recognizer: TapGestureRecognizer()
-                        ..onTap = () {
-                          RouteWidget.push(context: context, page: LoginPage());
-                        },
+                        ..onTap = () => Navigator.pop(context),
                     ),
                   ],
                   style: FontStyle.body2),

@@ -1,5 +1,6 @@
 import 'package:agent_mobile_app/helper/form_key.dart';
 import 'package:agent_mobile_app/pages/splash_screen.dart';
+import 'package:agent_mobile_app/providers/auth/forgot_password_provider.dart';
 import 'package:agent_mobile_app/providers/auth/signin_provider.dart';
 import 'package:agent_mobile_app/providers/auth/signup_provider.dart';
 import 'package:agent_mobile_app/providers/auth/verification_otp_provider.dart';
@@ -31,6 +32,8 @@ class MyApp extends StatelessWidget {
             create: (context) => SigninProvider()),
         ChangeNotifierProvider<AccountProvider>(
             create: (context) => AccountProvider()),
+        ChangeNotifierProvider<ForgotPaswordProvider>(
+            create: (context) => ForgotPaswordProvider()),
       ],
       child: MaterialApp(
         navigatorKey: FormKey().mNavigation,
