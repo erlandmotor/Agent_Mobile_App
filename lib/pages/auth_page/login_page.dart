@@ -2,6 +2,7 @@ import 'package:agent_mobile_app/helper/margin_layout.dart';
 import 'package:agent_mobile_app/helper/routes.dart';
 import 'package:agent_mobile_app/helper/themes_colors.dart';
 import 'package:agent_mobile_app/helper/themse_fonts.dart';
+import 'package:agent_mobile_app/pages/auth_page/change_password_page.dart';
 import 'package:agent_mobile_app/pages/auth_page/forgot_password_page.dart';
 import 'package:agent_mobile_app/pages/auth_page/register_page.dart';
 import 'package:agent_mobile_app/pages/auth_page/widgets/widget_form_input.dart';

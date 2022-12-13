@@ -11,6 +11,7 @@ class TextError extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(bottom: 16),
       child: Text(message,
+      textAlign: TextAlign.left,
           style: FontStyle.subtitle2.copyWith(
             color: ColorApp.subSecondary21,
           )),
