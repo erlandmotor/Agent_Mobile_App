@@ -2,6 +2,49 @@ import 'package:agent_mobile_app/helper/themes_colors.dart';
 import 'package:agent_mobile_app/helper/themse_fonts.dart';
 import 'package:flutter/material.dart';
 
+class WidgetFormOnlyInput extends StatelessWidget {
+  final String hintText;
+  final TextEditingController controller;
+  final Function()? onTapSuffix;
+  const WidgetFormOnlyInput({
+    Key? key,
+    required this.hintText,
+    required this.controller,
+    this.onTapSuffix,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 16),
+      child: TextFormField(
+        controller: controller,
+        validator: (String? error) {
+          if (error!.isEmpty) {
+            return 'Field ini tidak boleh kosong*';
+          }
+        },
+        cursorColor: ColorApp.primaryA3,
+        decoration: InputDecoration(
+          contentPadding:
+              const EdgeInsets.symmetric(vertical: 16, horizontal: 10),
+          isCollapsed: true,
+          focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: ColorApp.primaryA3)),
+          hintText: hintText,
+          fillColor: ColorApp.primaryA3,
+          focusColor: ColorApp.primaryA3,
+          hoverColor: ColorApp.primaryA3,
+          border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(6),
+              borderSide: BorderSide(color: ColorApp.secondaryEA)),
+          hintStyle: FontStyle.body2.copyWith(color: ColorApp.secondaryB2),
+        ),
+      ),
+    );
+  }
+}
+
 class WidgetFormInput extends StatelessWidget {
   final bool obscureText;
   final String hintText;

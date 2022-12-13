@@ -43,7 +43,7 @@ class VePinsProvider extends ChangeNotifier {
             image: 'assets/ilustration/success.png',
             title: 'Hore.. Berhasil!',
             description:
-                'Verifikasi akun Anda berhasil nih....Selamat ya! SOMI (SObat MItra) kamu sudaha berhasil menjadi SOMI kami',
+                'Verifikasi akun Anda berhasil nih....Selamat ya! SOMI (SObat MItra) kamu sudah berhasil menjadi SOMI kami',
             buttonAction: ButtonCustom.buttonPrimary(
               onTap: () {
                 RouteWidget.pushAndRemoveUntil(

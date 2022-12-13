@@ -7,4 +7,7 @@ class ApiUrl {
   static String signIn = 'auth/signin';
   static String verificationCode = 'auth/otp/validate';
   static String resendPin = 'auth/otp/resend';
+  static String accountProfile = 'users';
+  static String changePassword = 'users/change-password';
+  static String updateProfile = 'users';
 }
