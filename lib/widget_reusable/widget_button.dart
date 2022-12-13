@@ -1,5 +1,6 @@
 import 'package:agent_mobile_app/helper/themes_colors.dart';
 import 'package:agent_mobile_app/helper/themse_fonts.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:dropdown_below/dropdown_below.dart';
 
@@ -14,13 +15,13 @@ class ButtonCustom {
       borderRadius: BorderRadius.circular(6),
       child: Material(
         color: colorBtn,
-        child: SizedBox(
-          height: 45,
-          width: double.infinity,
-          child: InkWell(
-            onTap: onTap,
-            splashColor: colorBtn,
-            highlightColor: const Color(0XFF012243),
+        child: InkWell(
+          onTap: onTap,
+          splashColor: colorBtn,
+          highlightColor: const Color(0XFF012243),
+          child: SizedBox(
+            height: 45,
+            width: double.infinity,
             child: Center(
               child: Text(
                 text,
@@ -39,23 +40,38 @@ class ButtonCustom {
     required Function() onTap,
     required String text,
   }) {
-    return Container(
-      height: 45,
-      alignment: Alignment.center,
-      width: double.infinity,
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(6),
-          border: Border.all(color: ColorApp.secondaryEA)),
-      child: InkWell(
-        onTap: onTap,
-        splashColor: ColorApp.secondaryEA,
-        highlightColor: ColorApp.secondaryEA,
+    return InkWell(
+      onTap: onTap,
+      splashColor: ColorApp.secondaryEA,
+      highlightColor: ColorApp.secondaryEA,
+      child: Container(
+        height: 45,
+        alignment: Alignment.center,
+        width: double.infinity,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(6),
+            border: Border.all(color: ColorApp.secondaryEA)),
         child: Text(
           text,
           style: FontStyle.button.copyWith(color: ColorApp.secondary00),
         ),
       ),
     );
+  }
+
+  static Widget buttonLoading() {
+    return Container(
+        height: 45,
+        alignment: Alignment.center,
+        width: double.infinity,
+        decoration: BoxDecoration(
+          color: ColorApp.primaryA3,
+          borderRadius: BorderRadius.circular(6),
+        ),
+        child: const CupertinoActivityIndicator(
+          radius: 10,
+          color: Colors.white,
+        ));
   }
 
   static Widget dropDownMenu({
@@ -105,33 +121,35 @@ class ButtonCustom {
 
   static Widget homePageMenu({
     required String image,
-    required String desc,
+    required String title,
     required Function() onTap,
   }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         InkWell(
-          onTap: onTap,
+          focusColor: Colors.transparent,
+          splashColor: Colors.transparent,
           child: Container(
-            height: 48,
-            width: 48,
-            margin: const EdgeInsets.only(bottom: 8),
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
             decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(8),
                 border: Border.all(color: ColorApp.secondaryB2)),
             child: Image.asset(
               image,
-              fit: BoxFit.scaleDown,
-              scale: 3,
+              fit: BoxFit.fill,
+              height: 20,
             ),
           ),
         ),
-        Text(
-          desc,
-          style: FontStyle.caption,
-          textAlign: TextAlign.center,
+        Expanded(
+          child: Text(
+            title,
+            maxLines: 2,
+            style: FontStyle.caption,
+            textAlign: TextAlign.center,
+          ),
         )
       ],
     );
