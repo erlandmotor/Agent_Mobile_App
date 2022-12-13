@@ -10,104 +10,117 @@ class HomePage extends StatelessWidget {
   HomePage({super.key});
   final List<Widget> _menuPrabayar = [
     ButtonCustom.homePageMenu(
-        onTap: () {}, image: 'assets/icons/pulsa.png', desc: 'Pulsa'),
+        onTap: () {}, image: 'assets/icons/pulsa.png', title: 'Pulsa'),
     ButtonCustom.homePageMenu(
-        onTap: () {}, image: 'assets/icons/paket.png', desc: 'Paket Data'),
+        onTap: () {}, image: 'assets/icons/paket.png', title: 'Paket Data'),
     ButtonCustom.homePageMenu(
-        onTap: () {}, image: 'assets/icons/voucher.png', desc: 'Voucher Game'),
+        onTap: () {},
+        image: 'assets/icons/voucher.png',
+        title: 'Voucher\nGame'),
     ButtonCustom.homePageMenu(
-        onTap: () {}, image: 'assets/icons/listrik.png', desc: 'Token Listrik'),
+        onTap: () {},
+        image: 'assets/icons/listrik.png',
+        title: 'Token\nListrik'),
     ButtonCustom.homePageMenu(
         onTap: () {},
         image: 'assets/icons/wallet.png',
-        desc: 'Top-Up E-Wallet'),
+        title: 'Top-Up\nE-Wallet'),
     ButtonCustom.homePageMenu(
-        onTap: () {}, image: 'assets/icons/pdam.png', desc: 'PDAM'),
+        onTap: () {}, image: 'assets/icons/pdam.png', title: 'PDAM'),
     ButtonCustom.homePageMenu(
-        onTap: () {}, image: 'assets/icons/bpjs.png', desc: 'BPJS'),
+        onTap: () {}, image: 'assets/icons/bpjs.png', title: 'BPJS'),
     ButtonCustom.homePageMenu(
-        onTap: () {}, image: 'assets/icons/other.png', desc: 'Lainnya'),
+        onTap: () {}, image: 'assets/icons/other.png', title: 'Lainnya'),
+  ];
+
+  final List<String> _listBanner = [
+    'assets/banner/promo1.png',
+    'assets/banner/promo2.png',
+    'assets/banner/promo3.png'
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: NestedScrollView(
-        headerSliverBuilder: (context, innerBoxIsScrolled) {
-          return <Widget>[
-            SliverAppBar(
-              elevation: 0,
-              automaticallyImplyLeading: true,
-              forceElevated: false,
-              backgroundColor: Colors.transparent,
-              snap: false,
-              centerTitle: true,
-              floating: false,
-              pinned: true,
-              titleSpacing: 1,
-              flexibleSpace: Stack(
-                children: <Widget>[
-                  Image.asset(
-                    "assets/backround/bg1.png",
-                    width: double.infinity,
-                    height: double.infinity,
-                    fit: BoxFit.fill,
-                  ),
-                  headersHome(context)
-                ],
+        backgroundColor: Colors.white,
+        appBar: PreferredSize(
+          child: AppBar(
+            backgroundColor: Colors.white,
+            automaticallyImplyLeading: false,
+            leadingWidth: 144,
+            elevation: 0,
+            leading: Padding(
+                padding: Marginlayout.marginLeft,
+                child: Image.asset(
+                  'assets/logo2.png',
+                )),
+            actions: [
+              Image.asset(
+                'assets/icons/notifications.png',
+                height: 24,
               ),
-              leadingWidth: 144,
-              leading: Padding(
-                  padding: Marginlayout.marginLeft,
-                  child: Image.asset(
-                    'assets/logo2.png',
-                  )),
-              expandedHeight: MediaQuery.of(context).size.height * 0.30,
-              actions: [
+            ],
+            flexibleSpace: Stack(
+              children: <Widget>[
                 Image.asset(
-                  'assets/icons/notifications.png',
-                  height: 24,
+                  "assets/backround/bg1.png",
+                  width: double.infinity,
+                  height: double.infinity,
+                  fit: BoxFit.fill,
                 ),
+                headersHome(context)
               ],
-            )
-          ];
-        },
-        body: ListView(
-          // padding: Marginlayout.marginhorizontal,
-          // physics: const BouncingScrollPhysics(),
+ 
+            ),
+          ),
+          preferredSize: Size.fromHeight(
+            MediaQuery.of(context).size.height * 0.31,
+          ),
+        ),
+        body: Column(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // NOTE: Menu Item
+            const SizedBox(
+              height: 5,
+            ),
             GridView.builder(
-              physics: const NeverScrollableScrollPhysics(),
+              physics: const BouncingScrollPhysics(),
               shrinkWrap: true,
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 4, mainAxisSpacing: 10),
+                  crossAxisCount: 4, mainAxisSpacing: 15),
               itemCount: _menuPrabayar.length,
               itemBuilder: (context, index) => _menuPrabayar[index],
             ),
-            const SizedBox(
-              height: 24,
+            Padding(
+              padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+              child: Text(
+                'Jualan makin untung',
+                style: FontStyle.subtitle2SemiBold,
+              ),
             ),
-            Text(
-              'Jualan makin untung',
-              style: FontStyle.subtitle1SemiBold,
+            Padding(
+              padding: const EdgeInsets.fromLTRB(20, 0, 20, 10),
+              child: Text(
+                'Dapetin diskon dan harga spesialnya di DIGO sekarang sebelum kehabisan!',
+                style: FontStyle.subtitle2,
+              ),
             ),
-            const SizedBox(
-              height: 8,
+            Flexible(
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                padding: Marginlayout.marginhorizontal.copyWith(bottom: 16),
+                physics: const BouncingScrollPhysics(),
+                itemCount: _listBanner.length,
+                itemBuilder: (context, index) => Image.asset(
+                  _listBanner[index],
+                  fit: BoxFit.fill,
+                ),
+              ),
             ),
-            Text(
-              'Dapetin diskon dan harga spesialnya di DIGO sekarang sebelum kehabisan!',
-              style: FontStyle.subtitle2,
-            ),
-            const SizedBox(
-              height: 16,
-            ),
-            Image.asset('assets/promo.png')
           ],
-        ),
-      ),
-    );
+        ));
   }
 
   Widget headersHome(BuildContext context) {
@@ -122,30 +135,26 @@ class HomePage extends StatelessWidget {
             BoxShadow(
                 color: Colors.grey, blurRadius: 7, offset: Offset(0.0, 0.75))
           ]),
-      child: ListView(
-        padding: EdgeInsets.zero,
-        physics: const BouncingScrollPhysics(),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
+          Expanded(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Expanded(
-                  flex: 2,
                   child: Container(
-                    height: 55,
-                    width: 140,
+                    margin: const EdgeInsets.fromLTRB(8, 8, 4, 8),
+                    padding: const EdgeInsets.all(8.0),
                     decoration: BoxDecoration(
                         color: ColorApp.secondaryFF,
                         borderRadius: BorderRadius.circular(6)),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Row(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Flexible(
+                          child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
@@ -159,129 +168,85 @@ class HomePage extends StatelessWidget {
                               )
                             ],
                           ),
-                          Text(
+                        ),
+                        Flexible(
+                          child: Text(
                             'Rp6.000',
                             style: FontStyle.subtitle2SemiBold,
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  width: 16,
-                ),
-                Expanded(
-                  flex: 1,
-                  child: Column(
-                    children: [
-                      Image.asset(
-                        'assets/icons/discount.png',
-                        height: 24,
-                        width: 24,
-                      ),
-                      Text(
-                        'Promo-Ku',
-                        style: FontStyle.caption,
-                      )
-                    ],
-                  ),
-                ),
-                Expanded(
-                  flex: 1,
-                  child: Column(
-                    children: [
-                      Image.asset(
-                        'assets/icons/qr.png',
-                        height: 24,
-                        width: 24,
-                      ),
-                      Text(
-                        'QR Code',
-                        style: FontStyle.caption,
-                      )
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Row(
-            children: [
-              Expanded(
-                child: Container(
-                  height: 72,
-                  decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.only(
-                      bottomLeft: Radius.circular(10),
-                    ),
-                    color: ColorApp.secondaryFF,
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Level Digo',
-                          style: FontStyle.subtitle2,
-                        ),
-                        const SizedBox(
-                          height: 8,
-                        ),
-                        Row(
-                          children: [
-                            Image.asset(
-                              'assets/icons/medal.png',
-                              height: 20,
-                              width: 20,
-                            ),
-                            const SizedBox(
-                              width: 16,
-                            ),
-                            Text(
-                              'Newbie',
-                              style: FontStyle.subtitle1SemiBold,
-                            )
-                          ],
+                          ),
                         )
                       ],
                     ),
                   ),
                 ),
-              ),
-              const VerticalDivider(
-                width: 2,
-              ),
-              Expanded(
-                child: InkWell(
-                  onTap: () => RouteWidget.push(
-                      context: context, page: const PoinRewardPage()),
+                Expanded(
                   child: Container(
-                    height: 72,
+                    width: double.infinity,
+                    padding: const EdgeInsets.all(8.0),
+                    margin: const EdgeInsets.fromLTRB(4, 8, 8, 8),
                     decoration: BoxDecoration(
-                      borderRadius: const BorderRadius.only(
-                          bottomRight: Radius.circular(10)),
                       color: ColorApp.secondaryFF,
+                      borderRadius: BorderRadius.circular(6),
                     ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
+                    child: Center(
+                      child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
-                          Text(
-                            'Koin Digo',
-                            style: FontStyle.subtitle2,
+                          Flexible(
+                            child: Image.asset(
+                              'assets/icons/qr.png',
+                              height: 24,
+                              width: 24,
+                            ),
                           ),
                           const SizedBox(
-                            height: 8,
+                            width: 10,
                           ),
-                          Row(
+                          Center(
+                            child: Text(
+                              'QR Code',
+                              style: FontStyle.subtitle2SemiBold,
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                )
+              ],
+            ),
+          ),
+          Expanded(
+            child: Row(
+              children: [
+                Expanded(
+                  child: Container(
+                    padding: const EdgeInsets.all(8.0),
+                    decoration: BoxDecoration(
+                      borderRadius: const BorderRadius.only(
+                        bottomLeft: Radius.circular(10),
+                      ),
+                      color: ColorApp.secondaryFF,
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Flexible(
+                          child: Text(
+                            'Level Digo',
+                            style: FontStyle.subtitle2,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 8,
+                        ),
+                        Flexible(
+                          child: Row(
                             children: [
                               Image.asset(
-                                'assets/icons/coin.png',
+                                'assets/icons/medal.png',
                                 height: 20,
                                 width: 20,
                               ),
@@ -289,18 +254,68 @@ class HomePage extends StatelessWidget {
                                 width: 16,
                               ),
                               Text(
-                                '100',
+                                'Newbie',
                                 style: FontStyle.subtitle1SemiBold,
                               )
                             ],
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+                const VerticalDivider(
+                  width: 2,
+                ),
+                Expanded(
+                  child: InkWell(
+                    onTap: () => RouteWidget.push(
+                        context: context, page: const PoinRewardPage()),
+                    child: Container(
+                      padding: const EdgeInsets.all(8.0),
+                      decoration: BoxDecoration(
+                        borderRadius: const BorderRadius.only(
+                            bottomRight: Radius.circular(10)),
+                        color: ColorApp.secondaryFF,
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Flexible(
+                            child: Text(
+                              'Koin Digo',
+                              style: FontStyle.subtitle2,
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 8,
+                          ),
+                          Flexible(
+                            child: Row(
+                              children: [
+                                Image.asset(
+                                  'assets/icons/coin.png',
+                                  height: 20,
+                                  width: 20,
+                                ),
+                                const SizedBox(
+                                  width: 16,
+                                ),
+                                Text(
+                                  '100',
+                                  style: FontStyle.subtitle1SemiBold,
+                                )
+                              ],
+                            ),
                           )
                         ],
                       ),
                     ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           )
         ],
       ),
