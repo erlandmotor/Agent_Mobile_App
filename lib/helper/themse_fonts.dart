@@ -68,6 +68,13 @@ class FontStyle {
     fontFamily: 'Source Sans Pro',
   );
 
+  static TextStyle captionBlue = TextStyle(
+    fontSize: 13,
+    letterSpacing: 0.4,
+    color: ColorApp.primaryB3,
+    fontFamily: 'Source Sans Pro',
+  );
+
   static TextStyle headingPage = TextStyle(
       fontSize: 26,
       color: ColorApp.secondaryFF,
