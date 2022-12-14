@@ -32,7 +32,7 @@ class EWalletPage extends StatelessWidget {
               color: ColorApp.primaryA3,
               child: Image.asset(
                 icon,
-                scale: 0.3,
+                height: 100,
               )),
           Padding(
             padding: Marginlayout.marginhorizontal,

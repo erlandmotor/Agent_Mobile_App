@@ -87,7 +87,10 @@ class EWallet extends StatelessWidget {
               borderRadius: BorderRadius.circular(6),
               boxShadow: CustomShadow.md),
           child: ListTile(
-            leading: Image.asset(icon),
+            leading: Image.asset(
+              icon,
+              height: 30,
+            ),
             title: Text(
               eWallet,
               style: FontStyle.subtitle1SemiBold,
