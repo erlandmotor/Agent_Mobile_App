@@ -15,7 +15,7 @@ class ButtonCustom {
       child: Material(
         color: colorBtn,
         child: SizedBox(
-          height: 45,
+          height: 52,
           width: double.infinity,
           child: InkWell(
             onTap: onTap,
@@ -25,6 +25,34 @@ class ButtonCustom {
               child: Text(
                 text,
                 style: FontStyle.button,
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  static Widget buttonPrimarySecond({
+    required Function() onTap,
+    required Color colorBtn,
+    required String text,
+  }) {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(6),
+      child: Material(
+        color: colorBtn,
+        child: SizedBox(
+          height: 52,
+          width: double.infinity,
+          child: InkWell(
+            onTap: onTap,
+            splashColor: colorBtn,
+            highlightColor: const Color(0XFF012243),
+            child: Center(
+              child: Text(
+                text,
+                style: FontStyle.secondButton,
               ),
             ),
           ),

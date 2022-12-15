@@ -28,6 +28,30 @@ class CustomAppBar {
     );
   }
 
+  static PreferredSizeWidget appBarDefaultSecond(BuildContext context,
+      {required Color backgroundColor,
+      required Color colorComponen,
+      List<Widget>? action,
+      required String title}) {
+    return AppBar(
+      backgroundColor: backgroundColor,
+      elevation: 0,
+      leading: InkWell(
+        onTap: () => Navigator.pop(context),
+        child: Icon(
+          Icons.arrow_back_ios_new_rounded,
+          color: colorComponen,
+        ),
+      ),
+      titleSpacing: 0,
+      title: Text(
+        title,
+        style: FontStyle.headline6Bold.copyWith(color: colorComponen),
+      ),
+      actions: action ?? [],
+    );
+  }
+
   static PreferredSizeWidget appBarWithTabBar(BuildContext context,
       {required Color backgroundColor,
       required Color colorComponen,
