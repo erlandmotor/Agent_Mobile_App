@@ -1,5 +1,6 @@
 import 'package:agent_mobile_app/pages/cashout/cashout_list_page.dart';
 import 'package:agent_mobile_app/pages/cashout/cashout_page.dart';
+import 'package:agent_mobile_app/pages/cashout/otp_regitration.dart';
 import 'package:agent_mobile_app/pages/notification/notification_page.dart';
 import 'package:agent_mobile_app/pages/splash_screen.dart';
 

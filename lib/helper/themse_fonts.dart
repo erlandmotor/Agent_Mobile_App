@@ -32,6 +32,12 @@ class FontStyle {
       fontFamily: 'Source Sans Pro',
       fontWeight: FontWeight.w600);
 
+  static TextStyle subtitle1White = TextStyle(
+      fontSize: 17,
+      color: ColorApp.secondaryFF,
+      fontFamily: 'Source Sans Pro',
+      fontWeight: FontWeight.w400);
+
   static TextStyle button = TextStyle(
     fontSize: 15,
     color: ColorApp.secondaryFF,
@@ -155,6 +161,12 @@ class FontStyle {
       fontWeight: FontWeight.w600,
       fontFamily: 'Source Sans Pro');
 
+  static TextStyle headline5SemiBoldWhite = TextStyle(
+      fontSize: 26,
+      color: ColorApp.secondaryFF,
+      fontWeight: FontWeight.w600,
+      fontFamily: 'Source Sans Pro');
+
   static TextStyle headline6 = TextStyle(
       fontSize: 22,
       color: ColorApp.secondary00,
@@ -170,6 +182,12 @@ class FontStyle {
   static TextStyle headline6Bold = TextStyle(
       fontSize: 22,
       color: ColorApp.secondary00,
+      fontWeight: FontWeight.w700,
+      fontFamily: 'Source Sans Pro');
+
+  static TextStyle headline6BoldWhite = TextStyle(
+      fontSize: 22,
+      color: ColorApp.secondaryFF,
       fontWeight: FontWeight.w700,
       fontFamily: 'Source Sans Pro');
 
@@ -195,5 +213,11 @@ class FontStyle {
       fontSize: 15,
       color: ColorApp.secondary00,
       fontWeight: FontWeight.w600,
+      fontFamily: 'Source Sans Pro');
+
+  static TextStyle subtitle2SemiBoldBlue = TextStyle(
+      fontSize: 15,
+      color: ColorApp.primaryA3,
+      fontWeight: FontWeight.w700,
       fontFamily: 'Source Sans Pro');
 }

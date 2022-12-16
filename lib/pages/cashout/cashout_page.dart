@@ -4,6 +4,7 @@ import 'package:agent_mobile_app/helper/shadow.dart';
 import 'package:agent_mobile_app/helper/themes_colors.dart';
 import 'package:agent_mobile_app/helper/themse_fonts.dart';
 import 'package:agent_mobile_app/pages/auth_page/widgets/widget_form_input.dart';
+import 'package:agent_mobile_app/pages/cashout/otp_regitration.dart';
 import 'package:agent_mobile_app/widget_reusable/widget_appbar_default.dart';
 import 'package:agent_mobile_app/widget_reusable/widget_button.dart';
 import 'package:flutter/material.dart';
@@ -33,7 +34,7 @@ class CashoutPage extends StatelessWidget {
               icon,
               height: 50,
             ),
-            SizedBox(
+            const SizedBox(
               height: 24,
             ),
             Column(
@@ -43,7 +44,7 @@ class CashoutPage extends StatelessWidget {
                   'Masukkan Nomor Rekening',
                   style: FontStyle.subtitle2,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 8,
                 ),
                 Row(
@@ -58,7 +59,7 @@ class CashoutPage extends StatelessWidget {
                         controller: _noRek,
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 8,
                     ),
                     Expanded(
@@ -76,7 +77,7 @@ class CashoutPage extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 16,
             ),
             Container(
@@ -90,7 +91,7 @@ class CashoutPage extends StatelessWidget {
                     icon,
                     height: 30,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 12,
                   ),
                   Text(
@@ -100,13 +101,13 @@ class CashoutPage extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 16,
             ),
             Expanded(
                 child: GridView.builder(
               itemCount: 12,
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
                   mainAxisSpacing: 16,
                   childAspectRatio: 2.2,
@@ -116,7 +117,7 @@ class CashoutPage extends StatelessWidget {
                     context: context, price: '50', totalPrice: '52.000');
               },
             )),
-            SizedBox(
+            const SizedBox(
               height: 16,
             ),
             ButtonCustom.buttonPrimary(
@@ -159,7 +160,7 @@ class CashoutPage extends StatelessWidget {
                     price,
                     style: FontStyle.headline5SemiBold,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 8,
                   ),
                   Text(
@@ -223,16 +224,16 @@ class CashoutPage extends StatelessWidget {
 
                   detailPayment(desc: 'Jumlah Tarik Tunai', value: 'Rp50.000'),
                   detailPayment(desc: 'Biaya Admin', value: 'Rp2.000'),
-                  Divider(
+                  const Divider(
                     thickness: 1,
                   ),
                   detailPayment(desc: 'Total Pembayaran', value: 'Rp52.000'),
-                  SizedBox(height: 8),
+                  const SizedBox(height: 8),
                   Text(
                     'Metode Pembayaran',
                     style: FontStyle.subtitle2,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 24,
                   ),
                   Row(
@@ -248,7 +249,7 @@ class CashoutPage extends StatelessWidget {
                       ),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 24,
                   ),
                   Container(
@@ -263,7 +264,7 @@ class CashoutPage extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Image.asset('assets/icons/info.png'),
-                          SizedBox(
+                          const SizedBox(
                             width: 16,
                           ),
                           Expanded(
@@ -276,13 +277,13 @@ class CashoutPage extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 16,
                   ),
-                  Divider(
+                  const Divider(
                     thickness: 1,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 4,
                   ),
                   Text.rich(
@@ -299,11 +300,14 @@ class CashoutPage extends StatelessWidget {
                     ),
                     textAlign: TextAlign.center,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 24,
                   ),
                   ButtonCustom.buttonPrimary(
-                      onTap: () {},
+                      onTap: () {
+                        RouteWidget.push(
+                            context: context, page: OtpRegistration());
+                      },
                       colorBtn: ColorApp.primaryA3,
                       text: 'KONFIRMASI')
                 ],
@@ -330,7 +334,7 @@ class CashoutPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     height: 40,
                   ),
                   Text(
@@ -345,7 +349,7 @@ class CashoutPage extends StatelessWidget {
                       obscureText: false,
                       hintText: 'Masukkan Nominalmu',
                       controller: _nominalCashout),
-                  SizedBox(
+                  const SizedBox(
                     height: 8,
                   ),
                   Row(
@@ -360,16 +364,19 @@ class CashoutPage extends StatelessWidget {
                       ),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 64,
                   ),
                   Row(
                     children: [
                       Expanded(child: button(context: context)),
-                      SizedBox(
+                      const SizedBox(
                         width: 16,
                       ),
-                      Expanded(child: secondButton(context: context)),
+                      Expanded(
+                          child: secondButton(
+                        context: context,
+                      )),
                     ],
                   )
                 ],
@@ -420,7 +427,7 @@ class CashoutPage extends StatelessWidget {
         ),
       ),
       onTap: () {
-        _dialogRedeem(context);
+        RouteWidget.push(context: context, page: OtpRegistration());
       },
     );
   }

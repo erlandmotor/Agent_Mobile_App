@@ -52,7 +52,7 @@ class DetailTransactionPage extends StatelessWidget {
                   ),
                   Image.asset(
                     image,
-                    height: MediaQuery.of(context).size.height * 0.13,
+                    height: 50,
                   ),
                   const SizedBox(
                     height: 20,
@@ -210,6 +210,13 @@ class DetailTransactionPage extends StatelessWidget {
 
                   const SizedBox(
                     height: 28,
+                  ),
+                  ButtonCustom.buttonPrimary(
+                      onTap: () {},
+                      colorBtn: ColorApp.primaryA3,
+                      text: 'Selesai'),
+                  SizedBox(
+                    height: 16,
                   ),
                   ButtonCustom.buttonSeccondary(
                       onTap: () {
