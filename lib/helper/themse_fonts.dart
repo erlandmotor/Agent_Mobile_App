@@ -40,6 +40,22 @@ class FontStyle {
     fontFamily: 'Source Sans Pro',
   );
 
+  static TextStyle buttonBlue = TextStyle(
+    fontSize: 15,
+    color: ColorApp.primaryB3,
+    fontWeight: FontWeight.w600,
+    letterSpacing: 1.25,
+    fontFamily: 'Source Sans Pro',
+  );
+
+  static TextStyle buttonBlack = TextStyle(
+    fontSize: 15,
+    color: ColorApp.secondary00,
+    fontWeight: FontWeight.w600,
+    letterSpacing: 1.25,
+    fontFamily: 'Source Sans Pro',
+  );
+
   static TextStyle secondButton = TextStyle(
     fontSize: 15,
     color: ColorApp.secondaryB2,
@@ -49,6 +65,14 @@ class FontStyle {
   );
   static TextStyle subtitle1SemiBold = const TextStyle(
     fontSize: 17,
+    fontWeight: FontWeight.w600,
+    letterSpacing: 0.15,
+    fontFamily: 'Source Sans Pro',
+  );
+
+  static TextStyle subtitle1SemiBoldBlue = TextStyle(
+    fontSize: 17,
+    color: ColorApp.primaryA3,
     fontWeight: FontWeight.w600,
     letterSpacing: 0.15,
     fontFamily: 'Source Sans Pro',
@@ -71,6 +95,13 @@ class FontStyle {
   );
 
   static TextStyle caption = const TextStyle(
+    fontSize: 13,
+    letterSpacing: 0.4,
+    fontFamily: 'Source Sans Pro',
+  );
+
+  static TextStyle captionNeutral = TextStyle(
+    color: ColorApp.secondaryB2,
     fontSize: 13,
     letterSpacing: 0.4,
     fontFamily: 'Source Sans Pro',

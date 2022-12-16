@@ -1,4 +1,5 @@
 import 'package:agent_mobile_app/helper/margin_layout.dart';
+import 'package:agent_mobile_app/helper/routes.dart';
 import 'package:agent_mobile_app/helper/shadow.dart';
 import 'package:agent_mobile_app/helper/themes_colors.dart';
 import 'package:agent_mobile_app/helper/themse_fonts.dart';
@@ -12,6 +13,7 @@ class CashoutPage extends StatelessWidget {
 
   final String icon;
   TextEditingController _noRek = TextEditingController();
+  TextEditingController _nominalCashout = TextEditingController();
 
   bool filled = false;
 
@@ -119,7 +121,7 @@ class CashoutPage extends StatelessWidget {
             ),
             ButtonCustom.buttonPrimary(
                 onTap: () {
-                  _dialogRedeem(context);
+                  _dialogNominal(context);
                 },
                 colorBtn: ColorApp.primaryA3,
                 text: 'Pilih Jumlah Nominal Sendiri')
@@ -173,7 +175,7 @@ class CashoutPage extends StatelessWidget {
             ),
           )),
       onTap: () {
-        // RouteWidget.push(context: context, page: CheckoutPage());
+        _dialogRedeem(context);
       },
     );
   }
@@ -190,7 +192,7 @@ class CashoutPage extends StatelessWidget {
               color: Colors.white,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
+                // mainAxisSize: MainAxisSize.min,
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -225,11 +227,200 @@ class CashoutPage extends StatelessWidget {
                     thickness: 1,
                   ),
                   detailPayment(desc: 'Total Pembayaran', value: 'Rp52.000'),
+                  SizedBox(height: 8),
+                  Text(
+                    'Metode Pembayaran',
+                    style: FontStyle.subtitle2,
+                  ),
+                  SizedBox(
+                    height: 24,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Deposit',
+                        style: FontStyle.subtitle1SemiBoldBlue,
+                      ),
+                      Text(
+                        'Rp6.000',
+                        style: FontStyle.subtitle2SemiBold,
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 24,
+                  ),
+                  Container(
+                    height: 64,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(6),
+                        color: ColorApp.primaryDF.withOpacity(0.2)),
+                    child: Padding(
+                      padding: Marginlayout.marginAll,
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Image.asset('assets/icons/info.png'),
+                          SizedBox(
+                            width: 16,
+                          ),
+                          Expanded(
+                            child: Text(
+                              'Jumlah total pembayaran akan ditahan sampai transaksi berhasil atau kadaluwarsa',
+                              style: FontStyle.caption,
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 16,
+                  ),
+                  Divider(
+                    thickness: 1,
+                  ),
+                  SizedBox(
+                    height: 4,
+                  ),
+                  Text.rich(
+                    TextSpan(
+                      children: <InlineSpan>[
+                        TextSpan(
+                            text: 'Dengan Mengkonfimasi, kamu setuju dengan',
+                            style: FontStyle.caption),
+                        TextSpan(
+                            text: ' Syarat & Ketentuan ',
+                            style: FontStyle.captionBlue),
+                        TextSpan(text: 'kami', style: FontStyle.caption)
+                      ],
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  SizedBox(
+                    height: 24,
+                  ),
+                  ButtonCustom.buttonPrimary(
+                      onTap: () {},
+                      colorBtn: ColorApp.primaryA3,
+                      text: 'KONFIRMASI')
                 ],
               ),
             ),
           ],
         );
+      },
+    );
+  }
+
+  Future _dialogNominal(BuildContext context) async {
+    return showModalBottomSheet<void>(
+      context: context,
+      isDismissible: false,
+      builder: (BuildContext context) {
+        return Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              padding: const EdgeInsets.all(16),
+              color: Colors.white,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  SizedBox(
+                    height: 40,
+                  ),
+                  Text(
+                    'JUMLAH NOMINAL',
+                    style: FontStyle.buttonBlack,
+                  ),
+                  const SizedBox(
+                    height: 8,
+                  ),
+                  //NOTE Data Deskripsi
+                  WidgetFormInputThird(
+                      obscureText: false,
+                      hintText: 'Masukkan Nominalmu',
+                      controller: _nominalCashout),
+                  SizedBox(
+                    height: 8,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Nominal Tari Tunai Kelipatan Rp50.000',
+                        style: FontStyle.captionNeutral,
+                      ),
+                      Image.asset(
+                        'assets/icons/info2.png',
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 64,
+                  ),
+                  Row(
+                    children: [
+                      Expanded(child: button(context: context)),
+                      SizedBox(
+                        width: 16,
+                      ),
+                      Expanded(child: secondButton(context: context)),
+                    ],
+                  )
+                ],
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  static Widget button({
+    required BuildContext context,
+  }) {
+    return InkWell(
+      child: Container(
+        height: 52,
+        decoration: BoxDecoration(
+            border: Border.all(color: ColorApp.primaryA3, width: 2),
+            borderRadius: BorderRadius.circular(6),
+            color: ColorApp.secondaryFF),
+        child: Center(
+          child: Text(
+            'BATAL',
+            style: FontStyle.buttonBlue,
+          ),
+        ),
+      ),
+      onTap: () {
+        Navigator.pop(context);
+      },
+    );
+  }
+
+  Widget secondButton({
+    required BuildContext context,
+  }) {
+    return InkWell(
+      child: Container(
+        height: 52,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(6), color: ColorApp.primaryA3),
+        child: Center(
+          child: Text(
+            'LANJUT',
+            style: FontStyle.button,
+          ),
+        ),
+      ),
+      onTap: () {
+        _dialogRedeem(context);
       },
     );
   }
