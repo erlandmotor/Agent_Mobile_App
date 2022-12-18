@@ -6,7 +6,6 @@ import 'package:agent_mobile_app/helper/themse_fonts.dart';
 import 'package:agent_mobile_app/pages/account/cpassword_account_page.dart.dart';
 import 'package:agent_mobile_app/pages/account/setting_pricesell_page.dart';
 import 'package:agent_mobile_app/pages/account/widgets/dialog_create_refferal.dart';
-import 'package:agent_mobile_app/pages/auth_page/forgot_password_page.dart';
 import 'package:agent_mobile_app/pages/poin_page/poin_rewards_page.dart';
 import 'package:agent_mobile_app/providers/profile/account_provider.dart';
 import 'package:agent_mobile_app/widget_reusable/widget_button.dart';
@@ -34,6 +33,7 @@ class _AccountPageState extends State<AccountPage> {
       return Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           backgroundColor: ColorApp.primaryA3,
           elevation: 0,
           title: Text(
@@ -43,7 +43,6 @@ class _AccountPageState extends State<AccountPage> {
         ),
         body: ListView(
           padding: Marginlayout.marginAll,
-          physics: const BouncingScrollPhysics(),
           children: [
             ListTile(
                 contentPadding: const EdgeInsets.only(

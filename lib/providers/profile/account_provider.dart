@@ -5,7 +5,6 @@ import 'package:agent_mobile_app/models/users_profile_model.dart';
 import 'package:agent_mobile_app/pages/auth_page/login_page.dart';
 import 'package:agent_mobile_app/services/service_api.dart';
 import 'package:agent_mobile_app/widget_reusable/snacbar_error.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -60,6 +59,7 @@ class AccountProvider extends ChangeNotifier {
         "mobile_number": noHandphone,
       });
       if (response['code'] == 200 && response['data'] != null) {
+        await getUserData();
         SnackbarCustom().succesSnacbar(contextNav.currentContext!,
             message: 'Berhasil melakukan perubahan');
         Navigator.pop(contextNav.currentContext!);
@@ -92,7 +92,7 @@ class AccountProvider extends ChangeNotifier {
             message: 'Berhasil perbarui kata sandi');
         _invalidOldPass.value = false;
         Navigator.pop(contextNav.currentContext!);
-      } else if (response['code'] == 400 && response['data'] == null) {
+      } else if (response['code'] == 401 && response['data'] == null) {
         _invalidOldPass.value = true;
       } else {
         _invalidOldPass.value = false;

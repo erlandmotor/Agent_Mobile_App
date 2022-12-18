@@ -107,6 +107,7 @@ class RewardsProviders extends ChangeNotifier {
       );
 
       if (message['code'] == 201) {
+        Navigator.pop(contextNav.currentContext!);
         RouteWidget.push(
             context: contextNav.currentContext!,
             page: const CheckDetailRedeemPage());

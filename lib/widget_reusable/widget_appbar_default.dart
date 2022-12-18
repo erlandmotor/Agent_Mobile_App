@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 /// class ini kumpulan appbar custom yang dapat dipanggil berkali kali
 class CustomAppBar {
-  static PreferredSizeWidget appBarDefault(BuildContext context,
+  static AppBar appBarDefault(BuildContext context,
       {required Color backgroundColor,
       required Color colorComponen,
       List<Widget>? action,
@@ -28,7 +28,7 @@ class CustomAppBar {
     );
   }
 
-  static PreferredSizeWidget appBarDefaultSecond(BuildContext context,
+  static AppBar appBarDefaultSecond(BuildContext context,
       {required Color backgroundColor,
       required Color colorComponen,
       List<Widget>? action,
@@ -52,7 +52,7 @@ class CustomAppBar {
     );
   }
 
-  static PreferredSizeWidget appBarWithTabBar(BuildContext context,
+  static AppBar appBarWithTabBar(BuildContext context,
       {required Color backgroundColor,
       required Color colorComponen,
       List<Widget>? tabBar,
@@ -93,7 +93,7 @@ class CustomAppBar {
     );
   }
 
-  static PreferredSizeWidget appBarWithTabBarSecond(BuildContext context,
+  static AppBar appBarWithTabBarSecond(BuildContext context,
       {required Color backgroundColor,
       required Color colorComponen,
       List<Widget>? tabBar,

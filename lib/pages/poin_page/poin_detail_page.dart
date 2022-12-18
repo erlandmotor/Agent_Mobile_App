@@ -121,14 +121,45 @@ class _RewardDetailPageState extends State<RewardDetailPage> {
                 height: 16,
               ),
               Form(
-                key: _numbuerKey,
-                child: WidgetFormInput(
-                  obscureText: false,
-                  hintText: '08**********',
-                  controller: _inputNumber,
-                  iconPrefix: 'assets/icons/call.png',
-                ),
-              ),
+                  key: _numbuerKey,
+                  child: Padding(
+                    padding: const EdgeInsets.only(bottom: 16),
+                    child: TextFormField(
+                      controller: _inputNumber,
+                      validator: (String? error) {
+                        if (error!.isEmpty) {
+                          return 'Field ini tidak boleh kosong*';
+                        }
+                      },
+                      keyboardType: TextInputType.number,
+                      cursorColor: ColorApp.primaryA3,
+                      decoration: InputDecoration(
+                        contentPadding: const EdgeInsets.symmetric(
+                            vertical: 16, horizontal: 10),
+                        isCollapsed: true,
+                        focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: ColorApp.primaryA3)),
+                        prefixIcon: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 16, vertical: 14),
+                          child: Image.asset(
+                            'assets/icons/call.png',
+                            height: 12,
+                          ),
+                        ),
+                        hintText: '08**********',
+                        fillColor: ColorApp.primaryA3,
+                        focusColor: ColorApp.primaryA3,
+                        hoverColor: ColorApp.primaryA3,
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(6),
+                            borderSide:
+                                BorderSide(color: ColorApp.secondaryEA)),
+                        hintStyle: FontStyle.body2
+                            .copyWith(color: ColorApp.secondaryB2),
+                      ),
+                    ),
+                  )),
               // Padding(
               //   padding: const EdgeInsets.only(top: 10.0),
               //   child: Text(
@@ -148,11 +179,12 @@ class _RewardDetailPageState extends State<RewardDetailPage> {
                       return ButtonCustom.buttonLoading();
                     } else {
                       return ButtonCustom.buttonPrimary(
-                        onTap: () {
+                        onTap: () async {
                           if (_numbuerKey.currentState!.validate() == true) {
-                            context
+                            await context
                                 .read<RewardsProviders>()
                                 .redeemReward(id: widget.id);
+                            _inputNumber.clear();
                           }
                         },
                         // colorBtn: ColorApp.secondaryB2,

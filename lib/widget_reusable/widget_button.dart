@@ -6,7 +6,7 @@ import 'package:dropdown_below/dropdown_below.dart';
 
 /// class ini berisi kumpulan widget reusable button
 class ButtonCustom {
-  static Widget buttonPrimary({
+  static ClipRRect buttonPrimary({
     required Function() onTap,
     required Color colorBtn,
     required String text,
@@ -34,7 +34,7 @@ class ButtonCustom {
     );
   }
 
-  static Widget buttonPrimarySecond({
+  static ClipRRect buttonPrimarySecond({
     required Function() onTap,
     required Color colorBtn,
     required String text,
@@ -64,7 +64,7 @@ class ButtonCustom {
 
   /// function ini menampilkan widget button dimana tedapat icon pada bagian kiri dan text pada bagian tengah
   /// button tidak memiliki brackground hanya memiliki border
-  static Widget buttonSeccondary({
+  static InkWell buttonSeccondary({
     required Function() onTap,
     required String text,
   }) {
@@ -87,7 +87,7 @@ class ButtonCustom {
     );
   }
 
-  static Widget buttonLoading() {
+  static Container buttonLoading() {
     return Container(
         height: 45,
         alignment: Alignment.center,
@@ -102,7 +102,7 @@ class ButtonCustom {
         ));
   }
 
-  static Widget dropDownMenu({
+  static Container dropDownMenu({
     // required Color dropdownColor,
     // required bool isExpanded,
     // required String value,
@@ -147,7 +147,7 @@ class ButtonCustom {
     );
   }
 
-  static Widget homePageMenu({
+  static Column homePageMenu({
     required String image,
     required String title,
     required Function() onTap,
@@ -156,6 +156,7 @@ class ButtonCustom {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         InkWell(
+          onTap: onTap,
           focusColor: Colors.transparent,
           splashColor: Colors.transparent,
           child: Container(

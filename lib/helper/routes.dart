@@ -62,6 +62,6 @@ class RouteWidget {
             );
           },
         ),
-        (route) => false);
+        (route) => true);
   }
 }

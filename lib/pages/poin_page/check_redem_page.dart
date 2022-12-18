@@ -67,7 +67,7 @@ class CheckDetailRedeemPage extends StatelessWidget {
                   height: 16,
                 ),
                 ButtonCustom.buttonSeccondary(
-                    onTap: () => RouteWidget.pushReplacment(
+                    onTap: () => RouteWidget.pushAndRemoveUntil(
                         context: context, page: const PoinRewardPage()),
                     text: 'Kembali ke halaman koin')
               ],
