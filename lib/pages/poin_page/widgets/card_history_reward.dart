@@ -5,7 +5,15 @@ import 'package:agent_mobile_app/helper/themse_fonts.dart';
 import 'package:flutter/material.dart';
 
 class CardHistoryReward extends StatelessWidget {
-  const CardHistoryReward({Key? key}) : super(key: key);
+  final String name, type, poin, date, time;
+  const CardHistoryReward(
+      {Key? key,
+      required this.name,
+      required this.type,
+      required this.poin,
+      required this.date,
+      required this.time})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,23 +32,22 @@ class CardHistoryReward extends StatelessWidget {
           child: const Icon(Icons.phone_android_rounded),
         ),
         title: Text(
-          'Transaksi Paket Data 5GB, 7hr',
+          type == 'spend' ? 'Tukar $name' : 'Transaksi $name',
           style: FontStyle.caption.copyWith(fontWeight: FontWeight.w600),
         ),
-        subtitle: Text('Transaksi Paket Data 5GB, 7hr',
-            style: FontStyle.caption.copyWith(fontSize: 10)),
+        subtitle: Text(date, style: FontStyle.caption.copyWith(fontSize: 10)),
         trailing: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              '07:30 WIB',
+              time,
               style: FontStyle.caption.copyWith(fontSize: 10),
             ),
             Row(
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  '+50 Koin',
+                  type == 'spend' ? '-$poin Koin' : '+$poin Koin',
                   style:
                       FontStyle.caption.copyWith(fontWeight: FontWeight.w600),
                 ),

@@ -22,6 +22,7 @@ class HistoryTransaction extends StatelessWidget {
         child: Scaffold(
             appBar: AppBar(
                 backgroundColor: ColorApp.primaryA3,
+                automaticallyImplyLeading: false,
                 elevation: 3,
                 title: Text(
                   'Riwayat Transaksi',

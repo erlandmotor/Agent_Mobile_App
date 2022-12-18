@@ -1,5 +1,6 @@
 import 'package:agent_mobile_app/helper/api_url.dart';
 import 'package:agent_mobile_app/helper/routes.dart';
+import 'package:agent_mobile_app/main.dart';
 import 'package:agent_mobile_app/models/signup_model.dart';
 import 'package:agent_mobile_app/pages/auth_page/verification_otp_page.dart';
 import 'package:agent_mobile_app/services/service_api.dart';
@@ -14,7 +15,7 @@ class SignUpProviders extends ChangeNotifier {
 
   final ServiceApi _api = ServiceApi();
 
-  Future createAccount(BuildContext context,
+  Future createAccount(
       {required String name,
       required String email,
       required String password}) async {
@@ -32,7 +33,7 @@ class SignUpProviders extends ChangeNotifier {
       if (response['code'] == 201 && response['errors'] == null) {
         _emailAlredy.value = false;
         RouteWidget.push(
-            context: context,
+            context: contextNav.currentContext!,
             page: VerificationCodePage(
               email: email,
             ));

@@ -60,7 +60,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 child: ButtonCustom.buttonPrimary(
                   onTap: () {
                     if (_formKey.currentState!.validate() == true) {
-                      context.read<AccountProvider>().editProfile(context,
+                      context.read<AccountProvider>().editProfile(
                           name: _textName.text, noHandphone: _textEmail.text);
                     }
                   },

@@ -119,7 +119,6 @@ class ChangePasswordPage extends StatelessWidget {
                                 context
                                     .read<ForgotPaswordProvider>()
                                     .validateForgotPass(
-                                      context,
                                       email: email,
                                       password: _confirmPassword.text,
                                       token: _token.text,

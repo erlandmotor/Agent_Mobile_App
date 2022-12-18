@@ -2,7 +2,7 @@ import 'package:agent_mobile_app/helper/margin_layout.dart';
 import 'package:agent_mobile_app/helper/routes.dart';
 import 'package:agent_mobile_app/helper/themes_colors.dart';
 import 'package:agent_mobile_app/helper/themse_fonts.dart';
-import 'package:agent_mobile_app/pages/poin_page/poin_reward_page.dart';
+import 'package:agent_mobile_app/pages/poin_page/poin_rewards_page.dart';
 import 'package:agent_mobile_app/widget_reusable/widget_button.dart';
 import 'package:flutter/material.dart';
 
