@@ -34,6 +34,34 @@ class ButtonCustom {
     );
   }
 
+  static Widget buttonPrimarySecond({
+    required Function() onTap,
+    required Color colorBtn,
+    required String text,
+  }) {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(6),
+      child: Material(
+        color: colorBtn,
+        child: SizedBox(
+          height: 52,
+          width: double.infinity,
+          child: InkWell(
+            onTap: onTap,
+            splashColor: colorBtn,
+            highlightColor: const Color(0XFF012243),
+            child: Center(
+              child: Text(
+                text,
+                style: FontStyle.secondButton,
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
   /// function ini menampilkan widget button dimana tedapat icon pada bagian kiri dan text pada bagian tengah
   /// button tidak memiliki brackground hanya memiliki border
   static Widget buttonSeccondary({

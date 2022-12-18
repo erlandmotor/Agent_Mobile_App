@@ -200,6 +200,7 @@ class DetailTransactionPage extends StatelessWidget {
                     'Total',
                     style: FontStyle.heading1,
                   ),
+ 
                   trailing: Text(
                     '-100 Koin',
                     style: FontStyle.heading1,

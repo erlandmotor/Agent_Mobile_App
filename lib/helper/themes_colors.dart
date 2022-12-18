@@ -12,6 +12,9 @@ class ColorApp {
   /// aquamarine
   static Color primaryDF = const Color(0XFF40B0DF);
 
+  /// aqua
+  static Color primaryF0 = const Color(0XFFE2E8F0);
+
   /// black
   static Color secondary00 = const Color(0XFF000000);
 
