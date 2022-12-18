@@ -1,29 +1,32 @@
 import 'dart:async';
 import 'package:agent_mobile_app/helper/api_url.dart';
 import 'package:agent_mobile_app/helper/spref.dart';
+import 'package:agent_mobile_app/main.dart';
+import 'package:agent_mobile_app/widget_reusable/error_request_api/dialog_bad_request.dart';
+import 'package:agent_mobile_app/widget_reusable/error_request_api/dialog_timeout_api.dart';
 import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ServiceApi {
   final Dio _dio = Dio();
 
-  Future get({required String url}) async {
+  Future get({required String url, Map<String, dynamic>? parameter}) async {
     try {
       final response = await _dio
           .get(ApiUrl.proBaseUrl + url,
+              queryParameters: parameter,
               options: Options(
                   headers: {'Authorization': 'Bearer ${await getToken()}'}))
           .timeout(const Duration(minutes: 1));
       return response.data;
     } on DioError catch (e) {
       if (e.response!.statusCode! >= 500) {
-        // widgetBadRequest(FormKey().mNavigation.currentContext!);
+        widgetBadRequest(contextNav.currentContext!);
       } else {
         return e.response!.data;
       }
     } on TimeoutException {
-      // dialogTimeOutService(context);
-      print('Jaringan Terputus, Periksa Koneksi Kamu Ya');
+      dialogTimeOutService(contextNav.currentContext!);
     }
   }
 
@@ -40,13 +43,12 @@ class ServiceApi {
       return response.data;
     } on DioError catch (e) {
       if (e.response!.statusCode! >= 500) {
-        // widgetBadRequest(FormKey().mNavigation.currentContext!);
+        widgetBadRequest(contextNav.currentContext!);
       } else {
         return e.response!.data;
       }
     } on TimeoutException {
-      // dialogTimeOutService(FormKey().mNavigation.currentContext!);
-      print('Jaringan Terputus, Periksa Koneksi Kamu Ya');
+      dialogTimeOutService(contextNav.currentContext!);
     }
   }
 
@@ -64,14 +66,12 @@ class ServiceApi {
       return response.data;
     } on DioError catch (e) {
       if (e.response!.statusCode! >= 500) {
-        // widgetBadRequest(FormKey().mNavigation.currentContext!);
+        widgetBadRequest(contextNav.currentContext!);
       } else {
-        print(e.response!.data);
         return e.response!.data;
       }
     } on TimeoutException {
-      // dialogTimeOutService(FormKey().mNavigation.currentContext!);
-      print('Jaringan Terputus, Periksa Koneksi Kamu Ya');
+      dialogTimeOutService(contextNav.currentContext!);
     }
   }
 

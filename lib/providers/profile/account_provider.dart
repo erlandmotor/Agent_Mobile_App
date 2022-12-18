@@ -1,5 +1,6 @@
 import 'package:agent_mobile_app/helper/api_url.dart';
 import 'package:agent_mobile_app/helper/routes.dart';
+import 'package:agent_mobile_app/main.dart';
 import 'package:agent_mobile_app/models/users_profile_model.dart';
 import 'package:agent_mobile_app/pages/auth_page/login_page.dart';
 import 'package:agent_mobile_app/services/service_api.dart';
@@ -49,7 +50,7 @@ class AccountProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future editProfile(BuildContext context,
+  Future editProfile(
       {required String name, required String noHandphone}) async {
     _isUpdate.value = true;
     try {
@@ -59,24 +60,23 @@ class AccountProvider extends ChangeNotifier {
         "mobile_number": noHandphone,
       });
       if (response['code'] == 200 && response['data'] != null) {
-        SnackbarCustom()
-            .succesSnacbar(context, message: 'Berhasil melakukan perubahan');
-        Navigator.pop(context);
+        SnackbarCustom().succesSnacbar(contextNav.currentContext!,
+            message: 'Berhasil melakukan perubahan');
+        Navigator.pop(contextNav.currentContext!);
       } else {
-        SnackbarCustom()
-            .erorrSnacbar(context, message: 'Gagal melakukan perubahan!');
+        SnackbarCustom().erorrSnacbar(contextNav.currentContext!,
+            message: 'Gagal melakukan perubahan!');
       }
 
       _isUpdate.value = false;
     } catch (e) {
-      SnackbarCustom()
-          .erorrSnacbar(context, message: 'Gagal melakukan perubahan!');
+      SnackbarCustom().erorrSnacbar(contextNav.currentContext!,
+          message: 'Gagal melakukan perubahan!');
       _isUpdate.value = false;
     }
   }
 
-  Future changePassword(
-    BuildContext context, {
+  Future changePassword({
     required String oldPassword,
     required String newPassword,
   }) async {
@@ -88,23 +88,22 @@ class AccountProvider extends ChangeNotifier {
         "new_password": newPassword,
       });
       if (response['code'] == 200 && response['data'] != null) {
-        SnackbarCustom()
-            .succesSnacbar(context, message: 'Berhasil perbarui kata sandi');
+        SnackbarCustom().succesSnacbar(contextNav.currentContext!,
+            message: 'Berhasil perbarui kata sandi');
         _invalidOldPass.value = false;
-        Navigator.pop(context);
+        Navigator.pop(contextNav.currentContext!);
       } else if (response['code'] == 400 && response['data'] == null) {
         _invalidOldPass.value = true;
       } else {
         _invalidOldPass.value = false;
-        SnackbarCustom()
-            .erorrSnacbar(context, message: 'Gagal perbarui kata sandi');
-        print(response);
+        SnackbarCustom().erorrSnacbar(contextNav.currentContext!,
+            message: 'Gagal perbarui kata sandi');
       }
 
       _loadUpdatePass.value = false;
     } catch (e) {
-      SnackbarCustom()
-          .erorrSnacbar(context, message: 'Gagal perbarui kata sandi');
+      SnackbarCustom().erorrSnacbar(contextNav.currentContext!,
+          message: 'Gagal perbarui kata sandi');
       _invalidOldPass.value = false;
       _loadUpdatePass.value = false;
     }

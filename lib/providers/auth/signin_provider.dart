@@ -1,6 +1,7 @@
 import 'package:agent_mobile_app/helper/api_url.dart';
 import 'package:agent_mobile_app/helper/routes.dart';
 import 'package:agent_mobile_app/helper/spref.dart';
+import 'package:agent_mobile_app/main.dart';
 import 'package:agent_mobile_app/models/signin_model.dart';
 import 'package:agent_mobile_app/pages/current_pages.dart';
 import 'package:agent_mobile_app/services/service_api.dart';
@@ -17,8 +18,7 @@ class SigninProvider extends ChangeNotifier {
   final ValueNotifier<bool> _invalidLoging = ValueNotifier<bool>(false);
   ValueNotifier<bool> get invalidLoging => _invalidLoging;
 
-  Future signIn(
-    BuildContext context, {
+  Future signIn({
     required String email,
     required String password,
   }) async {
@@ -38,7 +38,8 @@ class SigninProvider extends ChangeNotifier {
         _invalidLoging.value = false;
         pref.setString(SPrefKey.token, message['data']['access_token']);
         pref.setString(SPrefKey.refreshToken, message['data']['refresh_token']);
-        RouteWidget.push(context: context, page: CurrentPages());
+        RouteWidget.push(
+            context: contextNav.currentContext!, page: CurrentPages());
       } else if (message['code'] == 401) {
         _invalidLoging.value = true;
       } else {
@@ -46,6 +47,7 @@ class SigninProvider extends ChangeNotifier {
       }
       _isLoading.value = false;
     } catch (e) {
+      print(e);
       _isLoading.value = false;
     }
     notifyListeners();

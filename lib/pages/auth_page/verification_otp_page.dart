@@ -280,7 +280,6 @@ class VerificationCodePage extends StatelessWidget {
                   return ButtonCustom.buttonPrimary(
                     onTap: () async {
                       await context.read<VePinsProvider>().verificationData(
-                            context,
                             email: email,
                             otp:
                                 '${_pin1.text}${_pin2.text}${_pin3.text}${_pin4.text}',

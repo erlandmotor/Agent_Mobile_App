@@ -181,7 +181,6 @@ class RegisterPage extends StatelessWidget {
                                 await context
                                     .read<SignUpProviders>()
                                     .createAccount(
-                                      context,
                                       name: _usernameInput.text,
                                       email: _emailInput.text,
                                       password: _passwordInput.text,
