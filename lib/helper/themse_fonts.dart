@@ -167,12 +167,6 @@ class FontStyle {
       fontWeight: FontWeight.w600,
       fontFamily: 'Source Sans Pro');
 
-  static TextStyle headline5SemiBold = TextStyle(
-      fontSize: 26,
-      color: ColorApp.secondaryFF,
-      fontWeight: FontWeight.w600,
-      fontFamily: 'Source Sans Pro');
-
   static TextStyle headline6 = TextStyle(
       fontSize: 22,
       color: ColorApp.secondary00,
@@ -212,7 +206,6 @@ class FontStyle {
   static TextStyle subtitle2Blue = TextStyle(
       fontSize: 15,
       color: ColorApp.primaryB3,
-
       fontWeight: FontWeight.w400,
       fontFamily: 'Source Sans Pro');
 

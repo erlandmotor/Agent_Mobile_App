@@ -70,7 +70,6 @@ class HomePage extends StatelessWidget {
                 ),
                 headersHome(context)
               ],
- 
             ),
           ),
           preferredSize: Size.fromHeight(

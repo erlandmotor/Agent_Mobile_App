@@ -285,38 +285,6 @@ class WidgetFormInputThird extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      controller: controller,
-      obscureText: obscureText,
-      validator: (String? error) => 'Field ini tidak boleh kosong',
-      cursorColor: ColorApp.primaryA3,
-      decoration: InputDecoration(
-        contentPadding:
-            const EdgeInsets.symmetric(vertical: 16, horizontal: 10),
-        isCollapsed: true,
-        suffixIcon: iconSuffix == null
-            ? const SizedBox()
-            : InkWell(
-                onTap: onTapSuffix,
-                child: Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                  child: Image.asset(
-                    iconSuffix!,
-                    color: colorSuffix,
-                    height: 12,
-                  ),
-                ),
-              ),
-        hintText: hintText,
-        fillColor: ColorApp.primaryA3,
-        focusColor: ColorApp.primaryA3,
-        hoverColor: ColorApp.primaryA3,
-        // border: OutlineInputBorder(
-        //     borderRadius: BorderRadius.circular(6),
-        //     borderSide: BorderSide(color: ColorApp.secondaryEA)),
-        hintStyle: FontStyle.body2.copyWith(color: ColorApp.secondaryB2),
-
     return Padding(
       padding: const EdgeInsets.only(bottom: 16),
       child: TextFormField(

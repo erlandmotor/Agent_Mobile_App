@@ -53,8 +53,7 @@ class CashoutPage extends StatelessWidget {
                   children: [
                     Expanded(
                       flex: 6,
-                      child: WidgetFormInputSecond(
-                        obscureText: false,
+                      child: WidgetFormOnlyInput(
                         hintText: 'Nomor Rekening',
                         controller: _noRek,
                       ),
