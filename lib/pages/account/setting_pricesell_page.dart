@@ -18,25 +18,25 @@ class SettingPriceSellPage extends StatelessWidget {
             dialogListOperator(context, controllerInput: _inputSearch);
           },
           image: 'assets/icons/pulsa.png',
-          desc: 'Pulsa'),
+          title: 'Pulsa'),
       ButtonCustom.homePageMenu(
-          onTap: () {}, image: 'assets/icons/paket.png', desc: 'Paket Data'),
+          onTap: () {}, image: 'assets/icons/paket.png', title: 'Paket Data'),
       ButtonCustom.homePageMenu(
           onTap: () {},
           image: 'assets/icons/voucher.png',
-          desc: 'Voucher Game'),
+          title: 'Voucher Game'),
       ButtonCustom.homePageMenu(
           onTap: () {},
           image: 'assets/icons/listrik.png',
-          desc: 'Token Listrik'),
+          title: 'Token Listrik'),
       ButtonCustom.homePageMenu(
           onTap: () {},
           image: 'assets/icons/wallet.png',
-          desc: 'Top-Up E-Wallet'),
+          title: 'Top-Up E-Wallet'),
       ButtonCustom.homePageMenu(
-          onTap: () {}, image: 'assets/icons/pdam.png', desc: 'PDAM'),
+          onTap: () {}, image: 'assets/icons/pdam.png', title: 'PDAM'),
       ButtonCustom.homePageMenu(
-          onTap: () {}, image: 'assets/icons/bpjs.png', desc: 'BPJS'),
+          onTap: () {}, image: 'assets/icons/bpjs.png', title: 'BPJS'),
     ];
     return Scaffold(
       appBar: CustomAppBar.appBarDefault(
