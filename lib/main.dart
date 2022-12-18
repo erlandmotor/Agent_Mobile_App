@@ -1,3 +1,12 @@
+import 'package:agent_mobile_app/pages/desc_product/check_out_page.dart';
+import 'package:agent_mobile_app/pages/desc_product/desc_transaction_page.dart';
+import 'package:agent_mobile_app/pages/desc_product/e-wallet/e-wallet.dart';
+import 'package:agent_mobile_app/pages/desc_product/e-wallet/e_wallet_list.dart';
+import 'package:agent_mobile_app/pages/desc_product/e-wallet/e_wallet_page.dart';
+
+import 'package:agent_mobile_app/pages/desc_product/paket_data/paket_data.dart';
+import 'package:agent_mobile_app/pages/desc_product/pulsa/pulsa_page.dart';
+import 'package:agent_mobile_app/pages/detail_transaction/detail_transaction_page.dart';
 import 'package:agent_mobile_app/pages/splash_screen.dart';
 import 'package:agent_mobile_app/providers/auth/forgot_password_provider.dart';
 import 'package:agent_mobile_app/providers/auth/signin_provider.dart';

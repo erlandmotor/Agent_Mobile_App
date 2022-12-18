@@ -50,4 +50,16 @@ class CustomShadow {
       blurRadius: 25,
     )
   ];
+  static List<BoxShadow> product = [
+    BoxShadow(
+      color: ColorApp.primaryA3.withOpacity(0.01),
+      offset: const Offset(0, 1),
+      blurRadius: 2,
+    ),
+    BoxShadow(
+      color: ColorApp.primaryA3.withOpacity(0.1),
+      offset: const Offset(0, 20),
+      blurRadius: 25,
+    )
+  ];
 }

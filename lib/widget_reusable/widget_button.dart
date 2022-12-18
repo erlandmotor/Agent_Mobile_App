@@ -1,8 +1,11 @@
+import 'package:agent_mobile_app/helper/routes.dart';
 import 'package:agent_mobile_app/helper/themes_colors.dart';
 import 'package:agent_mobile_app/helper/themse_fonts.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:agent_mobile_app/pages/desc_product/check_out_page.dart';
 import 'package:flutter/material.dart';
 import 'package:dropdown_below/dropdown_below.dart';
+import 'package:agent_mobile_app/helper/shadow.dart';
 
 /// class ini berisi kumpulan widget reusable button
 class ButtonCustom {
@@ -44,7 +47,7 @@ class ButtonCustom {
       child: Material(
         color: colorBtn,
         child: SizedBox(
-          height: 52,
+          height: 45,
           width: double.infinity,
           child: InkWell(
             onTap: onTap,
@@ -102,7 +105,138 @@ class ButtonCustom {
         ));
   }
 
-  static Container dropDownMenu({
+  static Widget buttonSecondaryWithIcon({
+    required Function() onTap,
+    required String text,
+    required String icon,
+  }) {
+    return Container(
+      height: 45,
+      alignment: Alignment.center,
+      width: double.infinity,
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(6),
+          border: Border.all(color: ColorApp.secondaryEA)),
+      child: InkWell(
+        onTap: onTap,
+        splashColor: ColorApp.secondaryEA,
+        highlightColor: ColorApp.secondaryEA,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Text(
+              text,
+              style: FontStyle.subtitle2.copyWith(color: ColorApp.secondary00),
+            ),
+            Image.asset(icon)
+          ],
+        ),
+      ),
+    );
+  }
+
+  static Widget listProductPulsa({
+    required BuildContext context,
+    required String descProduct,
+    required String expired,
+    required String price,
+  }) {
+    return InkWell(
+      child: Container(
+        width: double.infinity,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(6),
+            color: ColorApp.secondaryFF,
+            boxShadow: CustomShadow.md),
+        child: ListTile(
+          title: Padding(
+            padding: const EdgeInsets.only(bottom: 8.0),
+            child: Text(
+              descProduct,
+              style: FontStyle.subtitle2SemiBold,
+            ),
+          ),
+          subtitle: Text(
+            expired,
+            style: FontStyle.caption,
+          ),
+          trailing: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(bottom: 8.0),
+                child: Text(
+                  "Rp. " + price,
+                  style: FontStyle.subtitle1SemiBoldBlue,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+      onTap: () {
+        RouteWidget.push(context: context, page: CheckoutPage());
+      },
+    );
+  }
+
+  static Widget listProductCheckout({
+    required String descPayment,
+    required String total,
+    required String desc,
+    required String icon,
+    TextStyle? textStyle,
+    String action = '',
+    bool text = false,
+    required Function() onTap,
+  }) {
+    return ListTile(
+      contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 16),
+      // visualDensity: VisualDensity(vertical: ),
+      leading: CircleAvatar(
+        backgroundColor: ColorApp.primaryA3,
+        child: Image.asset(icon),
+      ),
+      title: Text(
+        descPayment,
+        style: FontStyle.captionTransaction,
+      ),
+      subtitle: Column(
+        // mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            "Rp." + total,
+            style: FontStyle.caption,
+          ),
+          SizedBox(
+            height: 4,
+          ),
+          Text(
+            desc,
+            style: textStyle,
+          )
+        ],
+      ),
+      trailing: text == true
+          ? Text(
+              action,
+              style: FontStyle.captionBold,
+            )
+          : Image(image: AssetImage(action)),
+      // image == null
+      //     ? Image.asset(image!)
+      //     : Text(
+      //         action,
+      //         style: FontStyle.captionBold,
+      //       ),
+
+      onTap: onTap,
+    );
+  }
+
+  static Widget dropDownMenu({
     // required Color dropdownColor,
     // required bool isExpanded,
     // required String value,

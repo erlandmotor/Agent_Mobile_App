@@ -356,7 +356,7 @@ class CashoutPage extends StatelessWidget {
                     children: [
                       Text(
                         'Nominal Tari Tunai Kelipatan Rp50.000',
-                        style: FontStyle.captionNeutral,
+                        style: FontStyle.caption,
                       ),
                       Image.asset(
                         'assets/icons/info2.png',
