@@ -5,14 +5,31 @@ import 'package:agent_mobile_app/helper/themes_colors.dart';
 import 'package:agent_mobile_app/helper/themse_fonts.dart';
 import 'package:agent_mobile_app/pages/auth_page/widgets/widget_form_input.dart';
 import 'package:agent_mobile_app/pages/poin_page/check_redem_page.dart';
+import 'package:agent_mobile_app/providers/reward/reward_providers.dart';
 import 'package:agent_mobile_app/widget_reusable/widget_appbar_default.dart';
 import 'package:agent_mobile_app/widget_reusable/widget_button.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
-class RewardDetailPage extends StatelessWidget {
-  RewardDetailPage({Key? key}) : super(key: key);
+class RewardDetailPage extends StatefulWidget {
+  final String id;
+  const RewardDetailPage({Key? key, required this.id}) : super(key: key);
+
+  @override
+  State<RewardDetailPage> createState() => _RewardDetailPageState();
+}
+
+class _RewardDetailPageState extends State<RewardDetailPage> {
   final GlobalKey<FormState> _numbuerKey = GlobalKey<FormState>();
+
   final TextEditingController _inputNumber = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    context.read<RewardsProviders>().detailReward(id: widget.id);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,24 +66,27 @@ class RewardDetailPage extends StatelessWidget {
           ),
           Padding(
             padding: Marginlayout.marginhorizontal,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _overViewReward(context),
-                Text(
-                  'Deskripsi',
-                  style: FontStyle.subtitle1SemiBold,
-                ),
-                const SizedBox(
-                  height: 16,
-                ),
-                //NOTE Data Deskripsi
-                Text(
-                  'Khusus buat kamu yang ingin dapat tambahan pulsa dari DIGO. Yuk buruan redeem sekarang juga keburu selesai rewardnya.',
-                  style: FontStyle.subtitle2,
-                ),
-              ],
-            ),
+            child: Consumer<RewardsProviders>(
+                builder: (context, dataDetail, _) => ListView(
+                      // crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        _overViewReward(context, dataDetail: dataDetail),
+                        Text(
+                          'Deskripsi',
+                          style: FontStyle.subtitle1SemiBold,
+                        ),
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        //NOTE Data Deskripsi
+                        Text(
+                          dataDetail.loadingDetail == true
+                              ? 'Loading...'
+                              : dataDetail.dataDetail.description!,
+                          style: FontStyle.subtitle2,
+                        ),
+                      ],
+                    )),
           ),
         ],
       ),
@@ -100,11 +120,14 @@ class RewardDetailPage extends StatelessWidget {
               const SizedBox(
                 height: 16,
               ),
-              WidgetFormInput(
-                obscureText: false,
-                hintText: '08**********',
-                controller: _inputNumber,
-                iconPrefix: 'assets/icons/call.png',
+              Form(
+                key: _numbuerKey,
+                child: WidgetFormInput(
+                  obscureText: false,
+                  hintText: '08**********',
+                  controller: _inputNumber,
+                  iconPrefix: 'assets/icons/call.png',
+                ),
               ),
               // Padding(
               //   padding: const EdgeInsets.only(top: 10.0),
@@ -117,14 +140,28 @@ class RewardDetailPage extends StatelessWidget {
               const SizedBox(
                 height: 70,
               ),
-              ButtonCustom.buttonPrimary(
-                onTap: () => RouteWidget.push(
-                    context: context, page: const CheckDetailRedeemPage()),
-                // colorBtn: ColorApp.secondaryB2,
-                // text: 'Oups, dikoin kamu belum cukup',
-                colorBtn: ColorApp.primaryA3,
-                text: 'Redeem Sekarang',
-              ),
+              ValueListenableBuilder<bool>(
+                  valueListenable:
+                      context.read<RewardsProviders>().processRedeem,
+                  builder: (context, load, _) {
+                    if (load == true) {
+                      return ButtonCustom.buttonLoading();
+                    } else {
+                      return ButtonCustom.buttonPrimary(
+                        onTap: () {
+                          if (_numbuerKey.currentState!.validate() == true) {
+                            context
+                                .read<RewardsProviders>()
+                                .redeemReward(id: widget.id);
+                          }
+                        },
+                        // colorBtn: ColorApp.secondaryB2,
+                        // text: 'Oups, dikoin kamu belum cukup',
+                        colorBtn: ColorApp.primaryA3,
+                        text: 'Redeem Sekarang',
+                      );
+                    }
+                  }),
               const SizedBox(
                 height: 16,
               ),
@@ -139,7 +176,8 @@ class RewardDetailPage extends StatelessWidget {
     );
   }
 
-  Widget _overViewReward(BuildContext context) {
+  Widget _overViewReward(BuildContext context,
+      {required RewardsProviders dataDetail}) {
     return Container(
         margin: EdgeInsets.only(
             bottom: 24, top: MediaQuery.of(context).size.height * 0.2),
@@ -156,7 +194,11 @@ class RewardDetailPage extends StatelessWidget {
             Row(
               children: [
                 Text(
-                  'Paket Data',
+                  dataDetail.loadingDetail == true
+                      ? 'Loading...'
+                      : dataDetail.dataDetail.category!.name! != ''
+                          ? dataDetail.dataDetail.category!.name!
+                          : '-',
                   style: FontStyle.caption,
                 ),
                 const Spacer(),
@@ -169,13 +211,15 @@ class RewardDetailPage extends StatelessWidget {
                   width: 4,
                 ),
                 Text(
-                  '100 Koin',
+                  '${dataDetail.loadingDetail == true ? 'Loading...' : dataDetail.dataDetail.requiredPoint} Koin',
                   style: FontStyle.subtitle1SemiBold,
                 ),
               ],
             ),
             Text(
-              'Pulsa 25.000',
+              dataDetail.loadingDetail == true
+                  ? 'Loading...'
+                  : dataDetail.dataDetail.name!,
               style: FontStyle.heading1,
             ),
             const SizedBox(
@@ -194,7 +238,12 @@ class RewardDetailPage extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  '31 Desember 2022',
+                  dataDetail.loadingDetail == true
+                      ? 'Loading...'
+                      : dataDetail.dataDetail.validUntil! != ''
+                          ? context.read<RewardsProviders>().parseDate(
+                              dataDetail.dataDetail.validUntil!, 'dd MMMM yyyy')
+                          : '-',
                   style: FontStyle.subtitle2,
                 ),
               ],

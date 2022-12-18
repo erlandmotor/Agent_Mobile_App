@@ -17,6 +17,7 @@ class FaqPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: ColorApp.primaryA3,
+        automaticallyImplyLeading: false,
         title: Text(
           'Anda Butuh Bantuan ?',
           style: FontStyle.headline5SemiBold,
