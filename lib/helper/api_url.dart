@@ -21,4 +21,7 @@ class ApiUrl {
 
   //redeems
   static String redeems = 'redeems';
+
+  //FAQ
+  static String faqs = 'faqs';
 }

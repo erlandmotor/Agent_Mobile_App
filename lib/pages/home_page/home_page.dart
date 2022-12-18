@@ -8,8 +8,14 @@ import 'package:agent_mobile_app/pages/poin_page/poin_rewards_page.dart';
 import 'package:agent_mobile_app/widget_reusable/widget_button.dart';
 import 'package:flutter/material.dart';
 
-class HomePage extends StatelessWidget {
-  HomePage({super.key});
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
   final List<Widget> _menuPrabayar = [
     ButtonCustom.homePageMenu(
         onTap: () {}, image: 'assets/icons/pulsa.png', title: 'Pulsa'),
@@ -130,7 +136,7 @@ class HomePage extends StatelessWidget {
         ));
   }
 
-  Widget headersHome(BuildContext context) {
+  Container headersHome(BuildContext context) {
     return Container(
       height: 143,
       margin: Marginlayout.marginhorizontal

@@ -208,57 +208,45 @@ class WidgetFormInputEmail extends StatelessWidget {
 class WidgetFormInputFaq extends StatelessWidget {
   final bool obscureText;
   final String hintText;
-  final Color? colorSuffix;
+  final String iconPrefix;
+  final Function(String value) onChange;
   final TextEditingController controller;
-  final Function()? onTapSuffix;
-  final String? iconSuffix;
-  final String? iconPrefix;
   const WidgetFormInputFaq({
     Key? key,
     required this.obscureText,
     required this.hintText,
     required this.controller,
-    this.colorSuffix,
-    this.onTapSuffix,
-    this.iconSuffix,
-    this.iconPrefix,
+    required this.onChange,
+    required this.iconPrefix,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      controller: controller,
-      obscureText: obscureText,
-      validator: (String? error) => 'Field ini tidak boleh kosong',
-      cursorColor: ColorApp.primaryA3,
-      decoration: InputDecoration(
-        contentPadding:
-            const EdgeInsets.symmetric(vertical: 16, horizontal: 10),
-        isCollapsed: true,
-        focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: ColorApp.primaryA3)),
-        suffixIcon: iconSuffix == null
-            ? const SizedBox()
-            : InkWell(
-                onTap: onTapSuffix,
-                child: Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                  child: Image.asset(
-                    iconSuffix!,
-                    color: colorSuffix,
-                    height: 12,
-                  ),
-                ),
-              ),
-        hintText: hintText,
-        fillColor: ColorApp.primaryA3,
-        focusColor: ColorApp.primaryA3,
-        hoverColor: ColorApp.primaryA3,
-        border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(6),
-            borderSide: BorderSide(color: ColorApp.secondaryEA)),
-        hintStyle: FontStyle.body2.copyWith(color: ColorApp.secondaryB2),
+    return Container(
+      decoration: BoxDecoration(
+          color: Colors.white, borderRadius: BorderRadius.circular(6)),
+      child: TextFormField(
+        controller: controller,
+        obscureText: obscureText,
+        validator: (String? error) => 'Field ini tidak boleh kosong',
+        cursorColor: ColorApp.primaryA3,
+        onChanged: onChange,
+        decoration: InputDecoration(
+          isDense: false,
+          contentPadding:
+              const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+          focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: ColorApp.primaryA3)),
+          hintText: hintText,
+          prefixIcon: Image.asset(
+            iconPrefix,
+            height: 12,
+          ),
+          fillColor: ColorApp.primaryA3,
+          focusColor: ColorApp.primaryA3,
+          hoverColor: ColorApp.primaryA3,
+          hintStyle: FontStyle.body2.copyWith(color: ColorApp.secondaryB2),
+        ),
       ),
     );
   }

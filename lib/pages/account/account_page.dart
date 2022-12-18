@@ -56,7 +56,9 @@ class _AccountPageState extends State<AccountPage> {
                   backgroundColor: ColorApp.primaryA3,
                   child: Text(
                     data.isLoading == false
-                        ? data.dataAccount.name![0].toUpperCase()
+                        ? data.dataAccount.name != ''
+                            ? data.dataAccount.name![0].toUpperCase()
+                            : ''
                         : '',
                     style: FontStyle.subtitle1SemiBold,
                   ),
@@ -182,7 +184,10 @@ class _AccountPageState extends State<AccountPage> {
                                     width: 16,
                                   ),
                                   Text(
-                                    '100',
+                                    data.isLoading == false
+                                        ? data.dataAccount.userCoin!.amount
+                                            .toString()
+                                        : '•••',
                                     style: FontStyle.subtitle1SemiBold,
                                   )
                                 ],

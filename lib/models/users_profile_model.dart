@@ -1,19 +1,11 @@
-import 'dart:convert';
-
-AccountModel accountModelFromJson(String str) =>
-    AccountModel.fromJson(json.decode(str));
-
-String accountModelToJson(AccountModel data) => json.encode(data.toJson());
-
 class AccountModel {
   AccountModel({
-    required this.id,
-    required this.name,
-    required this.email,
-    required this.mobileNumber,
-    required this.createdAt,
-    required this.updatedAt,
-    required this.role,
+    this.id,
+    this.name,
+    this.email,
+    this.mobileNumber,
+    this.userCoin,
+    this.credit,
   });
 
   String? id;
@@ -22,53 +14,39 @@ class AccountModel {
   String? mobileNumber;
   String? createdAt;
   String? updatedAt;
-  Role? role;
+  Credit? userCoin;
+  Credit? credit;
 
   factory AccountModel.fromJson(Map<String, dynamic> json) => AccountModel(
-        id: json["id"].toString(),
-        name: json["name"].toString(),
+        id: json["id"] ?? '',
+        name: json["name"] ?? '',
         email: json["email"] ?? '',
         mobileNumber: json["mobile_number"] ?? '',
-        createdAt: json["created_at"] ?? '',
-        updatedAt: json["updated_at"] ?? '',
-        role: Role.fromJson(json["role"] ?? {}),
+        userCoin: json["user_coin"] != null
+            ? Credit.fromJson(json["user_coin"])
+            : Credit.fromJson({}),
+        credit: json["credit"] != null
+            ? Credit.fromJson(json["credit"])
+            : Credit.fromJson({}),
       );
-
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "name": name,
-        "email": email,
-        "mobile_number": mobileNumber,
-        "created_at": createdAt,
-        "updated_at": updatedAt,
-        "role": role!.toJson(),
-      };
 }
 
-class Role {
-  Role({
-    required this.id,
-    required this.name,
-    required this.createdAt,
-    required this.updatedAt,
+class Credit {
+  Credit({
+    this.id,
+    this.amount,
   });
 
-  String? id;
-  String? name;
-  String? createdAt;
-  String? updatedAt;
+  int? id;
+  int? amount;
 
-  factory Role.fromJson(Map<String, dynamic> json) => Role(
-        id: json["id"].toString(),
-        name: json["name"] ?? '',
-        createdAt: json["created_at"] ?? '',
-        updatedAt: json["updated_at"] ?? '',
+  factory Credit.fromJson(Map<String, dynamic> json) => Credit(
+        id: json["id"] ?? 0,
+        amount: json["amount"] ?? 0,
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
-        "name": name,
-        "created_at": createdAt,
-        "updated_at": updatedAt,
+        "amount": amount,
       };
 }
