@@ -30,8 +30,7 @@ class _RewardDetailPageState extends State<RewardDetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false, // this is new
-      // resizeToAvoidBottomPadding: false, // this
+      resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
       appBar: CustomAppBar.appBarDefault(
         context,

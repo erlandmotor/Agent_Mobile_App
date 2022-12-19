@@ -1,15 +1,13 @@
-import 'package:agent_mobile_app/helper/routes.dart';
 import 'package:agent_mobile_app/helper/shadow.dart';
 import 'package:agent_mobile_app/helper/themes_colors.dart';
 import 'package:agent_mobile_app/helper/themse_fonts.dart';
-import 'package:agent_mobile_app/pages/auth_page/widgets/widget_form_input.dart';
-import 'package:agent_mobile_app/pages/desc_product/desc_transaction_page.dart';
 import 'package:agent_mobile_app/pages/desc_product/widget_reusable/dialog_succes.dart';
 import 'package:agent_mobile_app/providers/buyer_prov/payment_provider.dart';
 import 'package:agent_mobile_app/providers/product_prov/product_providers.dart';
 import 'package:agent_mobile_app/providers/profile/account_provider.dart';
 import 'package:agent_mobile_app/widget_reusable/widget_appbar_default.dart';
 import 'package:agent_mobile_app/widget_reusable/widget_button.dart';
+import 'package:agent_mobile_app/widget_reusable/widget_text_error.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -29,6 +27,9 @@ class CheckoutPage extends StatefulWidget {
 class _CheckoutPageState extends State<CheckoutPage> {
   final TextEditingController codeController = TextEditingController();
   final ValueNotifier<String> _paymentMethod = ValueNotifier<String>('');
+  final GlobalKey<FormState> _codePromo = GlobalKey<FormState>();
+
+  final ValueNotifier<bool> _invalidPromo = ValueNotifier<bool>(false);
 
   @override
   void initState() {
@@ -61,14 +62,39 @@ class _CheckoutPageState extends State<CheckoutPage> {
                   height: 8,
                 ),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Expanded(
                       flex: 7,
-                      child: WidgetFormOnlyInput(
-                        hintText: 'Masukkan Kode',
-                        controller: codeController,
+                      child: Form(
+                        key: _codePromo,
+                        child: TextFormField(
+                          controller: codeController,
+                          validator: (String? error) {
+                            if (error!.isEmpty) {
+                              return 'Form ini tidak boleh kosong*';
+                            }
+                          },
+                          cursorColor: ColorApp.primaryA3,
+                          decoration: InputDecoration(
+                            contentPadding: const EdgeInsets.symmetric(
+                                vertical: 12, horizontal: 10),
+                            isCollapsed: true,
+                            focusedBorder: OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: ColorApp.primaryA3)),
+                            hintText: 'Masukkan Kode',
+                            fillColor: ColorApp.primaryA3,
+                            focusColor: ColorApp.primaryA3,
+                            hoverColor: ColorApp.primaryA3,
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(6),
+                                borderSide:
+                                    BorderSide(color: ColorApp.secondaryEA)),
+                            hintStyle: FontStyle.body2
+                                .copyWith(color: ColorApp.secondaryB2),
+                          ),
+                        ),
                       ),
                     ),
                     const SizedBox(
@@ -77,12 +103,26 @@ class _CheckoutPageState extends State<CheckoutPage> {
                     Expanded(
                       flex: 3,
                       child: ButtonCustom.buttonPrimary(
-                          onTap: () {},
+                          onTap: () {
+                            if (_codePromo.currentState!.validate() == true) {
+                              _invalidPromo.value = true;
+                            }
+                          },
                           colorBtn: ColorApp.primaryA3,
                           text: 'Gunakan'),
                     )
                   ],
                 ),
+                ValueListenableBuilder<bool>(
+                    valueListenable: _invalidPromo,
+                    builder: (context, invalid, _) {
+                      if (invalid == true) {
+                        return const TextError(
+                            message: 'Kode Promo tidak ditemukan*');
+                      } else {
+                        return const SizedBox();
+                      }
+                    }),
                 const SizedBox(
                   height: 32,
                 ),

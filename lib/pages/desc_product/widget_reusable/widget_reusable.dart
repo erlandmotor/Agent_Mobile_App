@@ -40,6 +40,8 @@ class ReusableWidget {
                       validator: (String? error) {
                         if (error!.isEmpty) {
                           return 'Field ini tidak boleh kosong*';
+                        } else if (error.startsWith('+62') == false) {
+                          return 'Format harus +62*';
                         }
                       },
                       keyboardType: TextInputType.number,

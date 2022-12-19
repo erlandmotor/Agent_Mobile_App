@@ -3,6 +3,7 @@ import 'package:agent_mobile_app/helper/routes.dart';
 import 'package:agent_mobile_app/helper/shadow.dart';
 import 'package:agent_mobile_app/helper/themes_colors.dart';
 import 'package:agent_mobile_app/helper/themse_fonts.dart';
+import 'package:agent_mobile_app/pages/current_pages.dart';
 import 'package:agent_mobile_app/pages/desc_product/check_out_page.dart';
 import 'package:agent_mobile_app/pages/desc_product/widget_reusable/widget_reusable.dart';
 import 'package:agent_mobile_app/providers/product_prov/product_providers.dart';
@@ -32,11 +33,22 @@ class _PaketDataPageState extends State<PaketDataPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: CustomAppBar.appBarDefault(context,
           backgroundColor: ColorApp.primaryA3,
           colorComponen: ColorApp.secondaryFF,
           title: 'Paket Data',
-          action: [Image.asset('assets/icons/question.png')]),
+          action: [
+            IconButton(
+                onPressed: () {
+                  RouteWidget.push(
+                      context: context,
+                      page: const CurrentPages(
+                        index: 2,
+                      ));
+                },
+                icon: Image.asset('assets/icons/question.png'))
+          ]),
       body: Stack(
         children: [
           Container(

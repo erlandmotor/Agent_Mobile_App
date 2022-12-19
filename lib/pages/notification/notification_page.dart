@@ -1,13 +1,25 @@
 import 'package:agent_mobile_app/helper/margin_layout.dart';
 import 'package:agent_mobile_app/helper/themes_colors.dart';
 import 'package:agent_mobile_app/helper/themse_fonts.dart';
-import 'package:agent_mobile_app/widget_reusable/widget_appbar_default.dart';
+import 'package:agent_mobile_app/providers/notification_prov/notification_provider.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class NotificationPage extends StatelessWidget {
-  NotificationPage({super.key});
+class NotificationPage extends StatefulWidget {
+  const NotificationPage({super.key});
 
+  @override
+  State<NotificationPage> createState() => _NotificationPageState();
+}
+
+class _NotificationPageState extends State<NotificationPage> {
   final List _buttonBar = ['Semua', 'Promo', 'Informasi'];
+  @override
+  void initState() {
+    super.initState();
+    context.read<NotificationDataProvider>().getData();
+  }
 
   int notifikasi = 0;
 
@@ -15,118 +27,160 @@ class NotificationPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: _buttonBar.length,
-      child: Scaffold(
-        backgroundColor: ColorApp.secondaryFF,
-        appBar: CustomAppBar.appBarWithTabBarSecond(context,
+      child: Builder(builder: (context) {
+        final TabController tabController = DefaultTabController.of(context)!;
+        tabController.addListener(() {
+          if (tabController.index == 0) {
+            context.read<NotificationDataProvider>().filterDataNotif(query: '');
+          } else if (tabController.index == 1) {
+            context
+                .read<NotificationDataProvider>()
+                .filterDataNotif(query: 'promo');
+          } else {
+            context
+                .read<NotificationDataProvider>()
+                .filterDataNotif(query: 'informasi');
+          }
+        });
+        return Scaffold(
             backgroundColor: ColorApp.secondaryFF,
-            colorComponen: ColorApp.secondary00,
-            title: 'Notifikasi',
-            tabBar: [
-              Text(_buttonBar[0]),
-              Text(_buttonBar[1]),
-              Text(_buttonBar[2]),
-            ]),
-        body: Column(
-            // crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              notifikasi != 0
-                  ? Column(
-                      children: [
-                        Image.asset(
-                            'assets/ilustration/nothingNotification.png'),
-                        SizedBox(
-                          height: 16,
-                        ),
-                        Text(
-                          'Belum ada notificasi buatmu',
-                          style: FontStyle.headline6,
-                        ),
-                        SizedBox(
-                          height: 8,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 50),
-                          child: Text(
-                            'Kalau ada informasia atau promo terbaru buat mu, bisa dicek disini',
-                            style: FontStyle.caption,
-                            textAlign: TextAlign.center,
-                          ),
-                        )
+            appBar: AppBar(
+              backgroundColor: ColorApp.primaryA3,
+              elevation: 0,
+              leading: InkWell(
+                onTap: () => Navigator.pop(context),
+                child: Icon(
+                  Icons.arrow_back_ios_new_rounded,
+                  color: ColorApp.secondaryFF,
+                ),
+              ),
+              titleSpacing: 0,
+              bottom: PreferredSize(
+                preferredSize: const Size.fromHeight(50),
+                child: Material(
+                  color: Colors.white,
+                  child: SizedBox(
+                    height: 45,
+                    child: TabBar(
+                      tabs: [
+                        Text(_buttonBar[0]),
+                        Text(_buttonBar[1]),
+                        Text(_buttonBar[2]),
                       ],
-                    )
-                  : Expanded(
-                      child: ListView.builder(
-                        itemCount: 1,
-                        itemBuilder: (context, index) => notificationWidget(
-                            time: '9 Jam lalu',
-                            title:
-                                'Ayo buruan lakukan transaksi pembelian pulsa, akan ada diskon 20%',
-                            desc:
-                                'dengan menggunakan diskon 20%, kamu bisa mendapatkan'),
+                      labelStyle: FontStyle.subtitle1SemiBold
+                          .copyWith(color: Colors.blue),
+                      labelColor: Colors.blue,
+                      indicatorColor: Colors.blue,
+                    ),
+                  ),
+                ),
+              ),
+              title: Text(
+                'Notifikasi',
+                style: FontStyle.heading1.copyWith(color: ColorApp.secondaryFF),
+              ),
+            ),
+            body:
+                Consumer<NotificationDataProvider>(builder: (context, data, _) {
+              if (data.isLoading == true) {
+                return const Center(
+                  child: CupertinoActivityIndicator(
+                    radius: 16,
+                  ),
+                );
+              } else {
+                if (data.dataNotification.isNotEmpty) {
+                  return ListView.builder(
+                    itemCount: data.dataNotification.length,
+                    itemBuilder: (context, index) => notificationWidget(
+                        time: '9 Jam lalu',
+                        title: data.dataNotification[index].title!,
+                        desc: data.dataNotification[index].desc!,
+                        type: data.dataNotification[index].type!),
+                  );
+                } else {
+                  return Column(
+                    children: [
+                      Image.asset(
+                        'assets/ilustration/nothingNotification.png',
+                        width: MediaQuery.of(context).size.height * 0.5,
                       ),
-                    )
-            ]),
-      ),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      Text(
+                        'Belum ada notificasi buatmu',
+                        style: FontStyle.headline6,
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 50),
+                        child: Text(
+                          'Kalau ada informasia atau promo terbaru buat mu, bisa dicek disini',
+                          style: FontStyle.caption,
+                          textAlign: TextAlign.center,
+                        ),
+                      )
+                    ],
+                  );
+                }
+              }
+            }));
+      }),
     );
   }
 
   Container notificationWidget(
-      {required String time, required String title, required String desc}) {
+      {required String time,
+      required String title,
+      required String desc,
+      required String type}) {
     return Container(
       padding: Marginlayout.marginAll,
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Expanded(
-                flex: 4,
-                child: Row(
-                  children: [
-                    Image.asset('assets/icons/promo.png'),
-                    SizedBox(
-                      width: 8,
-                    ),
-                    Text(
-                      'Promo',
-                      style: FontStyle.subtitle2,
-                    ),
-                  ],
-                ),
+              type.toLowerCase() == 'Promo'.toLowerCase()
+                  ? Image.asset('assets/icons/promo.png')
+                  : const Opacity(opacity: 0),
+              const SizedBox(
+                width: 8,
               ),
-              Expanded(
-                flex: 1,
-                child: Text(
-                  time,
-                  style: FontStyle.captionBlue,
-                ),
+              Text(
+                type.toLowerCase() == 'Promo'.toLowerCase()
+                    ? 'Promo'
+                    : 'Informasi',
+                style: FontStyle.subtitle2,
+              ),
+              const Spacer(),
+              Text(
+                time,
+                style: FontStyle.captionBlue,
               )
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 5,
           ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 25),
-            child: Column(
-              children: [
-                Text(
-                  title,
-                  style: FontStyle.subtitle2SemiBold,
-                ),
-                SizedBox(
-                  height: 8,
-                ),
-                Text(
-                  desc,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: FontStyle.caption,
-                )
-              ],
-            ),
+          Text(
+            title,
+            style: FontStyle.subtitle2SemiBold,
           ),
-          SizedBox(
+          const SizedBox(
+            height: 8,
+          ),
+          Text(
+            desc,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: FontStyle.caption,
+          ),
+          const SizedBox(
             height: 8,
           ),
           Divider(

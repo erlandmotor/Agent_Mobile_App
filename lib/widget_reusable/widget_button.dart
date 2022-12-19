@@ -1,11 +1,8 @@
-import 'package:agent_mobile_app/helper/routes.dart';
 import 'package:agent_mobile_app/helper/themes_colors.dart';
 import 'package:agent_mobile_app/helper/themse_fonts.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:agent_mobile_app/pages/desc_product/check_out_page.dart';
 import 'package:flutter/material.dart';
 import 'package:dropdown_below/dropdown_below.dart';
-import 'package:agent_mobile_app/helper/shadow.dart';
 
 /// class ini berisi kumpulan widget reusable button
 class ButtonCustom {

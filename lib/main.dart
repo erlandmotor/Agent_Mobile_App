@@ -14,6 +14,7 @@ import 'package:agent_mobile_app/providers/auth/signup_provider.dart';
 import 'package:agent_mobile_app/providers/auth/verification_otp_provider.dart';
 import 'package:agent_mobile_app/providers/buyer_prov/payment_provider.dart';
 import 'package:agent_mobile_app/providers/faq_prov/faq_providers.dart';
+import 'package:agent_mobile_app/providers/notification_prov/notification_provider.dart';
 import 'package:agent_mobile_app/providers/product_prov/product_providers.dart';
 import 'package:agent_mobile_app/providers/profile/account_provider.dart';
 import 'package:agent_mobile_app/providers/reward/reward_providers.dart';
@@ -61,6 +62,8 @@ class MyApp extends StatelessWidget {
             create: (context) => PaymentMethodProvider()),
         ChangeNotifierProvider<TransactionProviders>(
             create: (context) => TransactionProviders()),
+        ChangeNotifierProvider<NotificationDataProvider>(
+            create: (context) => NotificationDataProvider()),
       ],
       child: MaterialApp(
         navigatorKey: contextNav,

@@ -9,8 +9,8 @@ import 'package:flutter/material.dart';
 class CashoutList extends StatelessWidget {
   CashoutList({super.key});
 
-  List<String> cashoutList = ['BNI', 'BCA', 'BRI', 'Mandiri'];
-  List<String> icon = [
+  final List<String> cashoutList = ['BNI', 'BCA', 'BRI', 'Mandiri'];
+  final List<String> icon = [
     'assets/logo/bni.png',
     'assets/logo/bca.png',
     'assets/logo/bri.png',
@@ -34,7 +34,7 @@ class CashoutList extends StatelessWidget {
               'Pilih Bank',
               style: FontStyle.subtitle1SemiBold,
             ),
-            SizedBox(
+            const SizedBox(
               height: 16,
             ),
             Expanded(

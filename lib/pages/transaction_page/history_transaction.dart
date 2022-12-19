@@ -101,11 +101,8 @@ class _HistoryTransactionState extends State<HistoryTransaction> {
                                 context: context,
                                 page: DetailTransactionPage(
                                   image: 'assets/icons/wallet.png',
-                                  price: '- ${context
-                                      .read<ProductProviders>()
-                                      .formateQurency(
-                                          angka: data
-                                              .listTransaction[index].amount!)}',
+                                  price:
+                                      '- ${context.read<ProductProviders>().formateQurency(angka: data.listTransaction[index].amount!)}',
                                   desc:
                                       'Pembelian ${data.listTransaction[index].product!.description!}',
                                   methodPayment: Text(

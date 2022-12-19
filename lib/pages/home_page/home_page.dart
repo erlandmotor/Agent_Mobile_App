@@ -6,6 +6,7 @@ import 'package:agent_mobile_app/main.dart';
 import 'package:agent_mobile_app/pages/cashout/cashout_page.dart';
 import 'package:agent_mobile_app/pages/desc_product/paket_data/paket_data_page.dart';
 import 'package:agent_mobile_app/pages/desc_product/pulsa/pulsa_page.dart';
+import 'package:agent_mobile_app/pages/notification/notification_page.dart';
 import 'package:agent_mobile_app/pages/poin_page/poin_rewards_page.dart';
 import 'package:agent_mobile_app/providers/product_prov/product_providers.dart';
 import 'package:agent_mobile_app/providers/profile/account_provider.dart';
@@ -89,10 +90,14 @@ class _HomePageState extends State<HomePage> {
                   'assets/logo2.png',
                 )),
             actions: [
-              Image.asset(
-                'assets/icons/notifications.png',
-                height: 24,
-              ),
+              IconButton(
+                onPressed: () => RouteWidget.push(
+                    context: context, page: NotificationPage()),
+                icon: Image.asset(
+                  'assets/icons/notifications.png',
+                  height: 24,
+                ),
+              )
             ],
             flexibleSpace: Stack(
               children: <Widget>[

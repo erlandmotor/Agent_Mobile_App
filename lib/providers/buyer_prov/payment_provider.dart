@@ -6,6 +6,15 @@ import 'package:flutter/foundation.dart';
 
 class PaymentMethodProvider extends ChangeNotifier {
   final ServiceApi _serviceApi = ServiceApi();
+  Future createTransaction() async {
+    try {
+      final Map<String, dynamic> message =
+          await _serviceApi.get(url: ApiUrl.transaction);
+      if (message['code'] == 200 && message['errors'] == null) {
+      } else {}
+    } catch (e) {}
+    notifyListeners();
+  }
 
   Future paymentCredit({required int id}) async {
     try {
@@ -13,7 +22,16 @@ class PaymentMethodProvider extends ChangeNotifier {
         urlPath: ApiUrl.credit,
         body: {"transaction_id": id},
       );
-      print(message);
+      if (message['code'] == 200 && message['message']) {
+      } else if (message['code'] == 500 &&
+          message['errors'][0]['value'] == 'record not found') {
+        SnackbarCustom().erorrSnacbar(contextNav.currentContext!,
+            message: 'Transaksi Gagal, Coba ulangi nanti');
+      } else if (message['code'] == 500 &&
+          message['errors'][0]['value'] == 'not enough credit') {
+        SnackbarCustom().erorrSnacbar(contextNav.currentContext!,
+            message: 'Transaksi Gagal, Saldo anda tidak cukup');
+      }
     } catch (e) {
       SnackbarCustom()
           .erorrSnacbar(contextNav.currentContext!, message: 'Transaksi Gagal');

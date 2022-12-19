@@ -28,6 +28,7 @@ class TransactionProviders extends ChangeNotifier {
         for (var item in message['data']) {
           _listTransaction.add(TransactionModel.fromJson(item));
         }
+        _listTransaction.reversed;
       } else {
         _listTransaction = [];
       }
