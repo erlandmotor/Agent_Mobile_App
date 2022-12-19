@@ -105,23 +105,29 @@ class RewardsProviders extends ChangeNotifier {
         urlPath: ApiUrl.redeems,
         body: redeemModelToJson(RedeemModel(rewardId: int.parse(id))),
       );
+      print(message);
 
       if (message['code'] == 201) {
         Navigator.pop(contextNav.currentContext!);
         RouteWidget.push(
             context: contextNav.currentContext!,
             page: const CheckDetailRedeemPage());
+      } else if (message['code'] == 500 &&
+          message['errors'][0]['value'] == 'not enough point') {
+        Navigator.pop(contextNav.currentContext!);
+        SnackbarCustom().erorrSnacbar(contextNav.currentContext!,
+            message: 'Koin belum mencukupi untuk ambil hadiah kamu*');
       } else {
         Navigator.pop(contextNav.currentContext!);
         SnackbarCustom().erorrSnacbar(contextNav.currentContext!,
-            message: 'Gagal melakukan transaksi');
+            message: 'Gagal melakukan transaksi*');
       }
       _processRedeem.value = false;
     } catch (e) {
       _processRedeem.value = false;
       Navigator.pop(contextNav.currentContext!);
       SnackbarCustom().erorrSnacbar(contextNav.currentContext!,
-          message: 'Gagal melakukan transaksi');
+          message: 'Gagal melakukan transaksi*');
     }
   }
 

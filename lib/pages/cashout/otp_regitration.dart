@@ -129,7 +129,7 @@ class OtpRegistration extends StatelessWidget {
               ),
               textAlign: TextAlign.center,
             ),
-            SizedBox(
+            const SizedBox(
               height: 24,
             ),
             Padding(
@@ -139,7 +139,43 @@ class OtpRegistration extends StatelessWidget {
                     RouteWidget.push(
                         context: context,
                         page: DetailTransactionPage(
-                            image: 'assets/icons/success.png'));
+                            image: 'assets/icons/success.png',
+                            price: '',
+                            // context
+                            //           .read<ProductProviders>()
+                            //           .formateQurency(
+                            //               angka: data
+                            //                   .listTransaction[index].amount!),
+                            desc: '',
+                            // 'Pembelian ${data.listTransaction[index].amount!}',
+                            methodPayment: Text(
+                              'Saldo Digo',
+                              style: FontStyle.subtitle2SemiBold,
+                            ),
+                            status: '',
+                            // data.listTransaction[index].status! ==
+                            //         'SUCCEEDED'
+                            //     ? 'Berhasil'
+                            //     : data.listTransaction[index].status! ==
+                            //             'PENDING'
+                            //         ? 'Pending'
+                            //         : 'Gagal',
+                            date: '',
+                            // context
+                            //     .read<RewardsProviders>()
+                            //     .parseDate(
+                            //         data.listTransaction[index]
+                            //             .createdAt!,
+                            //         'dd MMMM yyyy'),
+                            time: '',
+                            // '${context.read<RewardsProviders>().parseDate(data.listTransaction[index].createdAt!, 'hh:mm')}  ${DateTime.parse(data.listTransaction[index].createdAt!).toLocal().timeZoneName} ',
+                            total: ','
+                            // context
+                            //     .read<ProductProviders>()
+                            //     .formateQurency(
+                            //         angka: data
+                            //             .listTransaction[index].amount!),
+                            ));
                   },
                   colorBtn: ColorApp.primaryA3,
                   text: 'Verifikasi'),

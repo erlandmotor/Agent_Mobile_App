@@ -99,28 +99,7 @@ class LoginPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Flexible(
-                      child: CheckboxListTile(
-                        contentPadding: EdgeInsets.zero,
-                        controlAffinity: ListTileControlAffinity.leading,
-                        dense: true,
-                        visualDensity: VisualDensity.compact,
-                        value: false,
-                        onChanged: (value) {},
-                        activeColor: ColorApp.primaryA3,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(2),
-                        ),
-                        side:
-                            BorderSide(color: ColorApp.secondaryEA, width: 1.5),
-                        title: Text(
-                          'Ingat saya',
-                          style: FontStyle.body1.copyWith(
-                              color: ColorApp.secondary00,
-                              fontWeight: FontWeight.w400),
-                        ),
-                      ),
-                    ),
+                    const Spacer(),
                     InkWell(
                       onTap: () {
                         RouteWidget.push(

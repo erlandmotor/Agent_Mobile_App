@@ -59,6 +59,7 @@ class CardPoinReward extends StatelessWidget {
                   Expanded(
                     child: Text(
                       name,
+                      maxLines: 1,
                       style: FontStyle.subtitle2SemiBold,
                     ),
                   ),

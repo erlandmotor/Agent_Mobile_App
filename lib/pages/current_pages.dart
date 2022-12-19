@@ -6,14 +6,27 @@ import 'package:agent_mobile_app/pages/home_page/home_page.dart';
 import 'package:agent_mobile_app/pages/transaction_page/history_transaction.dart';
 import 'package:flutter/material.dart';
 
-class CurrentPages extends StatelessWidget {
-  CurrentPages({Key? key}) : super(key: key);
-  final ValueNotifier<int> _indexPage = ValueNotifier(0);
+class CurrentPages extends StatefulWidget {
+  final int index;
+  const CurrentPages({Key? key, this.index = 0}) : super(key: key);
+
+  @override
+  State<CurrentPages> createState() => _CurrentPagesState();
+}
+
+class _CurrentPagesState extends State<CurrentPages> {
+  @override
+  void initState() {
+    super.initState();
+    _indexPage.value = widget.index;
+  }
+
+  final ValueNotifier<int> _indexPage = ValueNotifier<int>(0);
 
   final List<Widget> _itemPages = [
-    HomePage(),
-    HistoryTransaction(),
-    FaqPage(),
+    const HomePage(),
+    const HistoryTransaction(),
+    const FaqPage(),
     const AccountPage()
   ];
 

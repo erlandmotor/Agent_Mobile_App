@@ -1,8 +1,8 @@
 import 'package:agent_mobile_app/helper/margin_layout.dart';
 import 'package:agent_mobile_app/helper/routes.dart';
 import 'package:agent_mobile_app/helper/shadow.dart';
+import 'package:agent_mobile_app/helper/themes_colors.dart';
 import 'package:agent_mobile_app/helper/themse_fonts.dart';
-import 'package:agent_mobile_app/pages/auth_page/widgets/widget_form_input.dart';
 import 'package:agent_mobile_app/widget_reusable/widget_button.dart';
 
 import 'package:flutter/material.dart';
@@ -30,8 +30,49 @@ class ReusableWidget {
             const SizedBox(
               height: 8,
             ),
-            WidgetFormOnlyInput(
-                hintText: 'Contoh : 08571287123', controller: controller!),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 16),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: TextFormField(
+                      controller: controller,
+                      validator: (String? error) {
+                        if (error!.isEmpty) {
+                          return 'Field ini tidak boleh kosong*';
+                        }
+                      },
+                      keyboardType: TextInputType.number,
+                      cursorColor: ColorApp.primaryA3,
+                      decoration: InputDecoration(
+                        contentPadding: const EdgeInsets.symmetric(
+                            vertical: 10, horizontal: 10),
+                        isCollapsed: true,
+                        focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: ColorApp.primaryA3)),
+                        hintText: 'Contoh : 08571287123',
+                        fillColor: ColorApp.primaryA3,
+                        focusColor: ColorApp.primaryA3,
+                        hoverColor: ColorApp.primaryA3,
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(6),
+                            borderSide:
+                                BorderSide(color: ColorApp.secondaryEA)),
+                        hintStyle: FontStyle.body2
+                            .copyWith(color: ColorApp.secondaryB2),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  const Icon(
+                    Icons.perm_contact_calendar,
+                    size: 24,
+                  )
+                ],
+              ),
+            ),
           ],
         ));
   }
@@ -45,6 +86,7 @@ class ReusableWidget {
         ),
         Text(
           'Masukkan Nomor yang ingin diisi pulsanya',
+          textAlign: TextAlign.center,
           style: FontStyle.subtitle1,
         )
       ],

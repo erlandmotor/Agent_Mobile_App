@@ -50,17 +50,13 @@ class _HistoryPoinPageState extends State<HistoryPoinPage> {
           children: [
             //NOTE: Penambahan
 
-            ListView.builder(
-                itemCount: 2,
-                padding:
-                    Marginlayout.marginhorizontal.copyWith(bottom: 16, top: 16),
-                itemBuilder: (context, index) => const CardHistoryReward(
-                      name: 'Paket Data 5GB, 7hr',
-                      type: 'save',
-                      poin: '50',
-                      date: '--',
-                      time: '',
-                    )),
+            Center(
+              child: Text(
+                'Belum ada koin tambahan',
+                style: FontStyle.subtitle2SemiBold
+                    .copyWith(color: ColorApp.secondaryB2),
+              ),
+            ),
             //NOTE: Pengurangan
             Consumer<RewardsProviders>(builder: (context, history, _) {
               if (history.dataHistory.isEmpty) {

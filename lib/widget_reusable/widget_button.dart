@@ -135,64 +135,17 @@ class ButtonCustom {
     );
   }
 
-  static Widget listProductPulsa({
-    required BuildContext context,
-    required String descProduct,
-    required String expired,
-    required String price,
-  }) {
-    return InkWell(
-      child: Container(
-        width: double.infinity,
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(6),
-            color: ColorApp.secondaryFF,
-            boxShadow: CustomShadow.md),
-        child: ListTile(
-          title: Padding(
-            padding: const EdgeInsets.only(bottom: 8.0),
-            child: Text(
-              descProduct,
-              style: FontStyle.subtitle2SemiBold,
-            ),
-          ),
-          subtitle: Text(
-            expired,
-            style: FontStyle.caption,
-          ),
-          trailing: Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(bottom: 8.0),
-                child: Text(
-                  "Rp. " + price,
-                  style: FontStyle.subtitle1SemiBoldBlue,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-      onTap: () {
-        RouteWidget.push(context: context, page: CheckoutPage());
-      },
-    );
-  }
-
   static Widget listProductCheckout({
     required String descPayment,
     required String total,
-    required String desc,
+    required Widget desc,
     required String icon,
-    TextStyle? textStyle,
     String action = '',
     bool text = false,
     required Function() onTap,
   }) {
     return ListTile(
-      contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 16),
-      // visualDensity: VisualDensity(vertical: ),
+      contentPadding: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
       leading: CircleAvatar(
         backgroundColor: ColorApp.primaryA3,
         child: Image.asset(icon),
@@ -202,21 +155,14 @@ class ButtonCustom {
         style: FontStyle.captionTransaction,
       ),
       subtitle: Column(
-        // mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
-            "Rp." + total,
+            total,
             style: FontStyle.caption,
           ),
-          SizedBox(
-            height: 4,
-          ),
-          Text(
-            desc,
-            style: textStyle,
-          )
+          desc
         ],
       ),
       trailing: text == true
@@ -225,23 +171,12 @@ class ButtonCustom {
               style: FontStyle.captionBold,
             )
           : Image(image: AssetImage(action)),
-      // image == null
-      //     ? Image.asset(image!)
-      //     : Text(
-      //         action,
-      //         style: FontStyle.captionBold,
-      //       ),
-
       onTap: onTap,
     );
   }
 
   static Widget dropDownMenu({
-    // required Color dropdownColor,
-    // required bool isExpanded,
-    // required String value,
     required List<String> listItems,
-    // required void Function(Object?)? onChange,
     required String hint,
   }) {
     return Container(

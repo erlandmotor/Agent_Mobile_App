@@ -74,7 +74,12 @@ class EWalletList extends StatelessWidget {
             ),
           )),
       onTap: () {
-        RouteWidget.push(context: context, page: CheckoutPage());
+        RouteWidget.push(
+            context: context,
+            page: const CheckoutPage(
+              id: 0,
+              numberPhone: '',
+            ));
       },
     );
   }

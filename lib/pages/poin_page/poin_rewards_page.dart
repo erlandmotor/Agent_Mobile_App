@@ -3,10 +3,10 @@ import 'package:agent_mobile_app/helper/routes.dart';
 import 'package:agent_mobile_app/helper/shadow.dart';
 import 'package:agent_mobile_app/helper/themes_colors.dart';
 import 'package:agent_mobile_app/helper/themse_fonts.dart';
-import 'package:agent_mobile_app/models/rewards_model.dart';
 import 'package:agent_mobile_app/pages/poin_page/history_poin_page.dart';
 import 'package:agent_mobile_app/pages/poin_page/poin_detail_page.dart';
 import 'package:agent_mobile_app/pages/poin_page/widgets/card_reward.dart';
+import 'package:agent_mobile_app/providers/profile/account_provider.dart';
 import 'package:agent_mobile_app/providers/reward/reward_providers.dart';
 import 'package:agent_mobile_app/widget_reusable/widget_appbar_default.dart';
 import 'package:flutter/cupertino.dart';
@@ -25,6 +25,7 @@ class _PoinRewardPageState extends State<PoinRewardPage> {
   void initState() {
     super.initState();
     context.read<RewardsProviders>().getDataRewards();
+    context.read<AccountProvider>().getUserData();
   }
 
   Widget _headersPoin(BuildContext context) {
@@ -47,10 +48,15 @@ class _PoinRewardPageState extends State<PoinRewardPage> {
                     fit: BoxFit.fill, height: 20, width: 20),
                 minLeadingWidth: 0,
                 dense: true,
-                title: Text('100 Koin', style: FontStyle.heading1),
+                title: Consumer<AccountProvider>(
+                    builder: (context, data, _) => Text(
+                        data.isLoading == true
+                            ? 'Loading...'
+                            : '${data.dataAccount.userCoin!.amount} Koin',
+                        style: FontStyle.heading1)),
                 trailing: IconButton(
                   onPressed: () => RouteWidget.push(
-                      context: context, page: HistoryPoinPage()),
+                      context: context, page: const HistoryPoinPage()),
                   icon: const Icon(Icons.arrow_forward_ios_sharp),
                   color: ColorApp.secondary00,
                 ),
@@ -220,7 +226,6 @@ class _PoinRewardPageState extends State<PoinRewardPage> {
                         );
                       } else {
                         return ListView.builder(
-                          reverse: true,
                           padding: Marginlayout.marginhorizontal,
                           scrollDirection: Axis.horizontal,
                           itemCount: dataReward.dataRewards.length,

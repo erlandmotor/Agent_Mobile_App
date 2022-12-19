@@ -57,9 +57,44 @@ class CheckDetailRedeemPage extends StatelessWidget {
                 ButtonCustom.buttonPrimary(
                   onTap: () => RouteWidget.push(
                       context: context,
-                      page: const DetailTransactionPage(
-                        image: 'assets/ilustration/success.png',
-                      )),
+                      page: DetailTransactionPage(
+                          image: 'assets/ilustration/success.png',
+                          price: '',
+                          // context
+                          //           .read<ProductProviders>()
+                          //           .formateQurency(
+                          //               angka: data
+                          //                   .listTransaction[index].amount!),
+                          desc: '',
+                          // 'Pembelian ${data.listTransaction[index].amount!}',
+                          methodPayment: Text(
+                            'Saldo Digo',
+                            style: FontStyle.subtitle2SemiBold,
+                          ),
+                          status: '',
+                          // data.listTransaction[index].status! ==
+                          //         'SUCCEEDED'
+                          //     ? 'Berhasil'
+                          //     : data.listTransaction[index].status! ==
+                          //             'PENDING'
+                          //         ? 'Pending'
+                          //         : 'Gagal',
+                          date: '',
+                          // context
+                          //     .read<RewardsProviders>()
+                          //     .parseDate(
+                          //         data.listTransaction[index]
+                          //             .createdAt!,
+                          //         'dd MMMM yyyy'),
+                          time: '',
+                          // '${context.read<RewardsProviders>().parseDate(data.listTransaction[index].createdAt!, 'hh:mm')}  ${DateTime.parse(data.listTransaction[index].createdAt!).toLocal().timeZoneName} ',
+                          total: ','
+                          // context
+                          //     .read<ProductProviders>()
+                          //     .formateQurency(
+                          //         angka: data
+                          //             .listTransaction[index].amount!),
+                          )),
                   colorBtn: ColorApp.primaryA3,
                   text: 'Cek Detail Penukaran',
                 ),

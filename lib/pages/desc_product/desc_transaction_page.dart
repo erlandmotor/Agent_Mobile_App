@@ -1,5 +1,4 @@
 import 'package:agent_mobile_app/helper/margin_layout.dart';
-import 'package:agent_mobile_app/helper/routes.dart';
 import 'package:agent_mobile_app/helper/themes_colors.dart';
 import 'package:agent_mobile_app/helper/themse_fonts.dart';
 import 'package:agent_mobile_app/widget_reusable/widget_appbar_default.dart';
@@ -7,7 +6,7 @@ import 'package:agent_mobile_app/widget_reusable/widget_button.dart';
 import 'package:flutter/material.dart';
 
 class DescTransactionProductPage extends StatefulWidget {
-  DescTransactionProductPage({Key? key}) : super(key: key);
+  const DescTransactionProductPage({Key? key}) : super(key: key);
 
   @override
   State<DescTransactionProductPage> createState() =>
@@ -18,13 +17,6 @@ class _DescTransactionProductPageState
     extends State<DescTransactionProductPage> {
   @override
   void initState() {
-    Future.delayed(Duration.zero, () {
-      showDialog(
-        context: context,
-        builder: (context) => ShowDialog(),
-      );
-    });
-
     super.initState();
   }
 
@@ -116,7 +108,7 @@ class _DescTransactionProductPageState
                     ),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 4,
                 ),
                 // NOTE: Satatus Pembayaran
@@ -124,7 +116,7 @@ class _DescTransactionProductPageState
                 // NOTE: Waktu
                 detailTransaction(desc: 'Waktu', value: '14.06 WIB'),
                 // NOTE: Tanggal
-                SizedBox(
+                const SizedBox(
                   height: 8,
                 ),
                 Row(
@@ -193,7 +185,7 @@ class _DescTransactionProductPageState
                     onTap: () {},
                     colorBtn: ColorApp.primaryA3,
                     text: 'SELESAI'),
-                SizedBox(
+                const SizedBox(
                   height: 16,
                 ),
                 ButtonCustom.buttonSeccondary(
@@ -222,78 +214,6 @@ class _DescTransactionProductPageState
       trailing: Text(
         value,
         style: FontStyle.subtitle2SemiBold,
-      ),
-    );
-  }
-}
-
-class ShowDialog extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Dialog(
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(6),
-          color: ColorApp.secondaryFF,
-        ),
-        padding: Marginlayout.marginhorizontal,
-        height: 328,
-        child: Padding(
-          padding: Marginlayout.marginAll,
-          child: Column(
-            children: [
-              Image.asset(
-                'assets/icons/success.png',
-                height: 72,
-              ),
-              SizedBox(
-                height: 24,
-              ),
-              Text(
-                'Hore!',
-                style: FontStyle.headline6SemiBold,
-              ),
-              SizedBox(
-                height: 8,
-              ),
-              Text(
-                'Kamu mendapatkan',
-                style: FontStyle.subtitle2,
-              ),
-              SizedBox(
-                height: 8,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.asset('assets/icons/coin.png'),
-                  SizedBox(
-                    width: 8,
-                  ),
-                  Text(
-                    '10 Koin',
-                    style: FontStyle.subtitle2SemiBold,
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 16,
-              ),
-              ButtonCustom.buttonPrimary(
-                  onTap: () {},
-                  colorBtn: ColorApp.primaryA3,
-                  text: 'Cek Detail Koin'),
-              SizedBox(
-                height: 8,
-              ),
-              ButtonCustom.buttonSeccondary(
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                  text: 'Kembali ke Detail Transaksi')
-            ],
-          ),
-        ),
       ),
     );
   }

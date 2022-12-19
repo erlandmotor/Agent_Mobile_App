@@ -20,11 +20,7 @@ class ServiceApi {
           .timeout(const Duration(minutes: 1));
       return response.data;
     } on DioError catch (e) {
-      if (e.response!.statusCode! >= 500) {
-        widgetBadRequest(contextNav.currentContext!);
-      } else {
-        return e.response!.data;
-      }
+      return e.response!.data;
     } on TimeoutException {
       dialogTimeOutService(contextNav.currentContext!);
     }
@@ -42,11 +38,7 @@ class ServiceApi {
               headers: {'Authorization': 'Bearer ${await getToken()}'}));
       return response.data;
     } on DioError catch (e) {
-      if (e.response!.statusCode! >= 500) {
-        widgetBadRequest(contextNav.currentContext!);
-      } else {
-        return e.response!.data;
-      }
+      return e.response!.data;
     } on TimeoutException {
       dialogTimeOutService(contextNav.currentContext!);
     }
@@ -65,11 +57,7 @@ class ServiceApi {
 
       return response.data;
     } on DioError catch (e) {
-      if (e.response!.statusCode! >= 500) {
-        widgetBadRequest(contextNav.currentContext!);
-      } else {
-        return e.response!.data;
-      }
+      return e.response!.data;
     } on TimeoutException {
       dialogTimeOutService(contextNav.currentContext!);
     }

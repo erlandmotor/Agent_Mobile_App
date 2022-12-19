@@ -1,15 +1,11 @@
 import 'package:agent_mobile_app/helper/margin_layout.dart';
-import 'package:agent_mobile_app/helper/routes.dart';
 import 'package:agent_mobile_app/helper/shadow.dart';
 import 'package:agent_mobile_app/helper/themes_colors.dart';
 import 'package:agent_mobile_app/helper/themse_fonts.dart';
-import 'package:agent_mobile_app/pages/auth_page/widgets/widget_form_input.dart';
-import 'package:agent_mobile_app/pages/poin_page/check_redem_page.dart';
 import 'package:agent_mobile_app/providers/reward/reward_providers.dart';
 import 'package:agent_mobile_app/widget_reusable/widget_appbar_default.dart';
 import 'package:agent_mobile_app/widget_reusable/widget_button.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class RewardDetailPage extends StatefulWidget {
@@ -34,6 +30,8 @@ class _RewardDetailPageState extends State<RewardDetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false, // this is new
+      // resizeToAvoidBottomPadding: false, // this
       backgroundColor: Colors.white,
       appBar: CustomAppBar.appBarDefault(
         context,
@@ -97,30 +95,32 @@ class _RewardDetailPageState extends State<RewardDetailPage> {
     return showModalBottomSheet<void>(
       context: context,
       isDismissible: false,
+      isScrollControlled: true,
+      backgroundColor: Colors.white,
       builder: (BuildContext context) {
-        return Container(
+        return ListView(
+          shrinkWrap: true,
           padding: const EdgeInsets.all(16),
-          color: Colors.white,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                'Redeem Poin',
-                style: FontStyle.subtitle1SemiBold,
-              ),
-              const SizedBox(
-                height: 16,
-              ),
-              //NOTE Data Deskripsi
-              Text(
-                'Masukan Nomor Handphone Terlebih dahulu sebelum anda melakukan Redeem poin.',
-                style: FontStyle.subtitle2,
-              ),
-              const SizedBox(
-                height: 16,
-              ),
-              Form(
+          children: [
+            Text(
+              'Redeem Poin',
+              style: FontStyle.subtitle1SemiBold,
+            ),
+            const SizedBox(
+              height: 16,
+            ),
+            //NOTE Data Deskripsi
+            Text(
+              'Masukan Nomor Handphone Terlebih dahulu sebelum anda melakukan Redeem poin.',
+              style: FontStyle.subtitle2,
+            ),
+            const SizedBox(
+              height: 16,
+            ),
+            Padding(
+              padding: EdgeInsets.only(
+                  bottom: MediaQuery.of(context).viewInsets.bottom / 2),
+              child: Form(
                   key: _numbuerKey,
                   child: Padding(
                     padding: const EdgeInsets.only(bottom: 16),
@@ -129,6 +129,8 @@ class _RewardDetailPageState extends State<RewardDetailPage> {
                       validator: (String? error) {
                         if (error!.isEmpty) {
                           return 'Field ini tidak boleh kosong*';
+                        } else if (error.startsWith('+62') == false) {
+                          return 'Format harus +62*';
                         }
                       },
                       keyboardType: TextInputType.number,
@@ -147,7 +149,7 @@ class _RewardDetailPageState extends State<RewardDetailPage> {
                             height: 12,
                           ),
                         ),
-                        hintText: '08**********',
+                        hintText: '+62**********',
                         fillColor: ColorApp.primaryA3,
                         focusColor: ColorApp.primaryA3,
                         hoverColor: ColorApp.primaryA3,
@@ -160,49 +162,41 @@ class _RewardDetailPageState extends State<RewardDetailPage> {
                       ),
                     ),
                   )),
-              // Padding(
-              //   padding: const EdgeInsets.only(top: 10.0),
-              //   child: Text(
-              //     '*Nomor HP yang anda masukkan tidak sesuai',
-              //     style: FontStyle.caption
-              //         .copyWith(color: ColorApp.subSecondary21),
-              //   ),
-              // ),
-              const SizedBox(
-                height: 70,
-              ),
-              ValueListenableBuilder<bool>(
-                  valueListenable:
-                      context.read<RewardsProviders>().processRedeem,
-                  builder: (context, load, _) {
-                    if (load == true) {
-                      return ButtonCustom.buttonLoading();
-                    } else {
-                      return ButtonCustom.buttonPrimary(
-                        onTap: () async {
-                          if (_numbuerKey.currentState!.validate() == true) {
-                            await context
-                                .read<RewardsProviders>()
-                                .redeemReward(id: widget.id);
-                            _inputNumber.clear();
-                          }
-                        },
-                        // colorBtn: ColorApp.secondaryB2,
-                        // text: 'Oups, dikoin kamu belum cukup',
-                        colorBtn: ColorApp.primaryA3,
-                        text: 'Redeem Sekarang',
-                      );
-                    }
-                  }),
-              const SizedBox(
-                height: 16,
-              ),
-              ButtonCustom.buttonSeccondary(
-                onTap: () => Navigator.pop(context),
-                text: 'Nanti deh',
-              ),
-            ],
-          ),
+            ),
+
+            const SizedBox(
+              height: 70,
+            ),
+            ValueListenableBuilder<bool>(
+                valueListenable: context.read<RewardsProviders>().processRedeem,
+                builder: (context, load, _) {
+                  if (load == true) {
+                    return ButtonCustom.buttonLoading();
+                  } else {
+                    return ButtonCustom.buttonPrimary(
+                      onTap: () async {
+                        if (_numbuerKey.currentState!.validate() == true) {
+                          await context
+                              .read<RewardsProviders>()
+                              .redeemReward(id: widget.id);
+                          _inputNumber.clear();
+                        }
+                      },
+                      // colorBtn: ColorApp.secondaryB2,
+                      // text: 'Oups, dikoin kamu belum cukup',
+                      colorBtn: ColorApp.primaryA3,
+                      text: 'Redeem Sekarang',
+                    );
+                  }
+                }),
+            const SizedBox(
+              height: 16,
+            ),
+            ButtonCustom.buttonSeccondary(
+              onTap: () => Navigator.pop(context),
+              text: 'Nanti deh',
+            ),
+          ],
         );
       },
     );

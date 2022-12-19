@@ -4,7 +4,7 @@ import 'package:agent_mobile_app/pages/desc_product/e-wallet/e-wallet.dart';
 import 'package:agent_mobile_app/pages/desc_product/e-wallet/e_wallet_list.dart';
 import 'package:agent_mobile_app/pages/desc_product/e-wallet/e_wallet_page.dart';
 
-import 'package:agent_mobile_app/pages/desc_product/paket_data/paket_data.dart';
+import 'package:agent_mobile_app/pages/desc_product/paket_data/paket_data_page.dart';
 import 'package:agent_mobile_app/pages/desc_product/pulsa/pulsa_page.dart';
 import 'package:agent_mobile_app/pages/detail_transaction/detail_transaction_page.dart';
 import 'package:agent_mobile_app/pages/splash_screen.dart';
@@ -12,9 +12,12 @@ import 'package:agent_mobile_app/providers/auth/forgot_password_provider.dart';
 import 'package:agent_mobile_app/providers/auth/signin_provider.dart';
 import 'package:agent_mobile_app/providers/auth/signup_provider.dart';
 import 'package:agent_mobile_app/providers/auth/verification_otp_provider.dart';
+import 'package:agent_mobile_app/providers/buyer_prov/payment_provider.dart';
 import 'package:agent_mobile_app/providers/faq_prov/faq_providers.dart';
+import 'package:agent_mobile_app/providers/product_prov/product_providers.dart';
 import 'package:agent_mobile_app/providers/profile/account_provider.dart';
 import 'package:agent_mobile_app/providers/reward/reward_providers.dart';
+import 'package:agent_mobile_app/providers/transaction_prov/transaction_provider.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -52,6 +55,12 @@ class MyApp extends StatelessWidget {
             create: (context) => RewardsProviders()),
         ChangeNotifierProvider<FAQProviders>(
             create: (context) => FAQProviders()),
+        ChangeNotifierProvider<ProductProviders>(
+            create: (context) => ProductProviders()),
+        ChangeNotifierProvider<PaymentMethodProvider>(
+            create: (context) => PaymentMethodProvider()),
+        ChangeNotifierProvider<TransactionProviders>(
+            create: (context) => TransactionProviders()),
       ],
       child: MaterialApp(
         navigatorKey: contextNav,

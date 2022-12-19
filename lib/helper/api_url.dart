@@ -24,4 +24,16 @@ class ApiUrl {
 
   //FAQ
   static String faqs = 'faqs';
+  //product
+  static String products = 'products';
+
+  //peyment
+  static String credit = 'payment/pay/credit';
+  static String dana = 'payment/pay/dana';
+  static String ovo = 'payment/pay/ovo';
+  static String shopeePay = 'payment/pay/shopeepay';
+
+  // transaction
+  static String transaction = '/transactions';
+
 }
