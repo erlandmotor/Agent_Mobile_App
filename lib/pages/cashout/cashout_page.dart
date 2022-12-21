@@ -1,31 +1,44 @@
 import 'package:agent_mobile_app/helper/margin_layout.dart';
 import 'package:agent_mobile_app/helper/routes.dart';
-import 'package:agent_mobile_app/helper/shadow.dart';
 import 'package:agent_mobile_app/helper/themes_colors.dart';
 import 'package:agent_mobile_app/helper/themse_fonts.dart';
 import 'package:agent_mobile_app/pages/auth_page/widgets/widget_form_input.dart';
 import 'package:agent_mobile_app/pages/cashout/otp_regitration.dart';
 import 'package:agent_mobile_app/widget_reusable/widget_appbar_default.dart';
 import 'package:agent_mobile_app/widget_reusable/widget_button.dart';
+import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class CashoutPage extends StatelessWidget {
   CashoutPage({super.key, required this.icon});
 
   final String icon;
-  TextEditingController _noRek = TextEditingController();
-  TextEditingController _nominalCashout = TextEditingController();
+  final TextEditingController _noRek = TextEditingController();
+  final TextEditingController _nominalCashout = TextEditingController();
+
+  final ValueNotifier<bool> _approveAmount = ValueNotifier<bool>(true);
 
   bool filled = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: ColorApp.secondaryFF,
       appBar: CustomAppBar.appBarDefaultSecond(context,
           backgroundColor: ColorApp.primaryA3,
           colorComponen: ColorApp.secondaryFF,
           title: 'Tarik Tunai'),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+        child: ButtonCustom.buttonPrimary(
+            onTap: () {
+              _dialogNominal(context);
+            },
+            colorBtn: ColorApp.primaryA3,
+            text: 'Pilih Jumlah Nominal Sendiri'),
+      ),
       body: Padding(
         padding: Marginlayout.marginAll,
         child: Column(
@@ -116,15 +129,6 @@ class CashoutPage extends StatelessWidget {
                     context: context, price: '50', totalPrice: '52.000');
               },
             )),
-            const SizedBox(
-              height: 16,
-            ),
-            ButtonCustom.buttonPrimary(
-                onTap: () {
-                  _dialogNominal(context);
-                },
-                colorBtn: ColorApp.primaryA3,
-                text: 'Pilih Jumlah Nominal Sendiri')
           ],
         ),
       ),
@@ -305,7 +309,11 @@ class CashoutPage extends StatelessWidget {
                   ButtonCustom.buttonPrimary(
                       onTap: () {
                         RouteWidget.push(
-                            context: context, page: OtpRegistration());
+                            context: context,
+                            page: OtpRegistration(
+                              amount: int.parse(
+                                  _nominalCashout.text.replaceAll('.', '')),
+                            ));
                       },
                       colorBtn: ColorApp.primaryA3,
                       text: 'KONFIRMASI')
@@ -322,64 +330,94 @@ class CashoutPage extends StatelessWidget {
     return showModalBottomSheet<void>(
       context: context,
       isDismissible: false,
+      isScrollControlled: true,
+      backgroundColor: Colors.white,
       builder: (BuildContext context) {
-        return Column(
-          mainAxisSize: MainAxisSize.min,
+        return ListView(
+          padding: const EdgeInsets.all(16),
+          shrinkWrap: true,
           children: [
-            Container(
-              padding: const EdgeInsets.all(16),
-              color: Colors.white,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  const SizedBox(
-                    height: 40,
-                  ),
-                  Text(
-                    'JUMLAH NOMINAL',
-                    style: FontStyle.buttonBlack,
-                  ),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  //NOTE Data Deskripsi
-                  WidgetFormInputThird(
-                      obscureText: false,
-                      hintText: 'Masukkan Nominalmu',
-                      controller: _nominalCashout),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Nominal Tari Tunai Kelipatan Rp50.000',
-                        style: FontStyle.caption,
-                      ),
-                      Image.asset(
-                        'assets/icons/info2.png',
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 64,
-                  ),
-                  Row(
-                    children: [
-                      Expanded(child: button(context: context)),
-                      const SizedBox(
-                        width: 16,
-                      ),
-                      Expanded(
-                          child: secondButton(
-                        context: context,
-                      )),
-                    ],
-                  )
+            const SizedBox(
+              height: 20,
+            ),
+            Text(
+              'JUMLAH NOMINAL',
+              style: FontStyle.buttonBlack,
+            ),
+            const SizedBox(
+              height: 8,
+            ),
+            //NOTE Data Deskripsi
+            Padding(
+              padding: EdgeInsets.only(
+                  bottom: MediaQuery.of(context).viewInsets.bottom * 0.7),
+              child: TextFormField(
+                controller: _nominalCashout,
+                validator: (String? error) => 'Field ini tidak boleh kosong',
+                cursorColor: ColorApp.primaryA3,
+                keyboardType: TextInputType.number,
+                inputFormatters: [
+                  FilteringTextInputFormatter.digitsOnly,
+                  CurrencyTextInputFormatter(
+                      locale: 'id_ID', decimalDigits: 0, symbol: ''),
                 ],
+                decoration: InputDecoration(
+                  isDense: false,
+                  contentPadding:
+                      const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                  focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: ColorApp.primaryA3)),
+                  hintText: 'Masukkan Nominalmu',
+                  fillColor: ColorApp.primaryA3,
+                  focusColor: ColorApp.primaryA3,
+                  hoverColor: ColorApp.primaryA3,
+                  hintStyle:
+                      FontStyle.body2.copyWith(color: ColorApp.secondaryB2),
+                ),
               ),
+            ),
+
+            const SizedBox(
+              height: 8,
+            ),
+            ValueListenableBuilder<bool>(
+                valueListenable: _approveAmount,
+                builder: (context, valide, _) {
+                  if (valide == false) {
+                    return Text(
+                      'Nominal Tari Tunai Kelipatan Rp50.000 *',
+                      style: FontStyle.caption
+                          .copyWith(color: ColorApp.subSecondary21),
+                    );
+                  } else {
+                    return Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Nominal Tari Tunai Kelipatan Rp50.000',
+                          style: FontStyle.caption,
+                        ),
+                        Image.asset(
+                          'assets/icons/info2.png',
+                        ),
+                      ],
+                    );
+                  }
+                }),
+            const SizedBox(
+              height: 70,
+            ),
+            Row(
+              children: [
+                Expanded(child: button(context: context)),
+                const SizedBox(
+                  width: 16,
+                ),
+                Expanded(
+                    child: secondButton(
+                  context: context,
+                )),
+              ],
             ),
           ],
         );
@@ -426,7 +464,17 @@ class CashoutPage extends StatelessWidget {
         ),
       ),
       onTap: () {
-        RouteWidget.push(context: context, page: OtpRegistration());
+        if (int.parse(_nominalCashout.text.replaceAll('.', '')) % 50000 == 0) {
+          _approveAmount.value = true;
+          Navigator.pop(context);
+          RouteWidget.push(
+              context: context,
+              page: OtpRegistration(
+                amount: int.parse(_nominalCashout.text.replaceAll('.', '')),
+              ));
+        } else {
+          _approveAmount.value = false;
+        }
       },
     );
   }

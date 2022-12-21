@@ -77,11 +77,36 @@ class ButtonCustom {
         alignment: Alignment.center,
         width: double.infinity,
         decoration: BoxDecoration(
+            color: Colors.white,
             borderRadius: BorderRadius.circular(6),
             border: Border.all(color: ColorApp.secondaryEA)),
         child: Text(
           text,
           style: FontStyle.button.copyWith(color: ColorApp.secondary00),
+        ),
+      ),
+    );
+  }
+
+  static InkWell buttonSeccondaryBor({
+    required Function() onTap,
+    required String text,
+  }) {
+    return InkWell(
+      onTap: onTap,
+      splashColor: ColorApp.secondaryEA,
+      highlightColor: ColorApp.secondaryEA,
+      child: Container(
+        height: 45,
+        alignment: Alignment.center,
+        width: double.infinity,
+        decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(6),
+            border: Border.all(color: Colors.blue)),
+        child: Text(
+          text,
+          style: FontStyle.button.copyWith(color: Colors.blue),
         ),
       ),
     );
@@ -102,7 +127,7 @@ class ButtonCustom {
         ));
   }
 
-  static Widget buttonSecondaryWithIcon({
+  static Container buttonSecondaryWithIcon({
     required Function() onTap,
     required String text,
     required String icon,
@@ -132,7 +157,7 @@ class ButtonCustom {
     );
   }
 
-  static Widget listProductCheckout({
+  static ListTile listProductCheckout({
     required String descPayment,
     required String total,
     required Widget desc,
@@ -213,19 +238,17 @@ class ButtonCustom {
     );
   }
 
-  static Column homePageMenu({
+  static InkWell homePageMenu({
     required String image,
     required String title,
     required Function() onTap,
   }) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        InkWell(
-          onTap: onTap,
-          focusColor: Colors.transparent,
-          splashColor: Colors.transparent,
-          child: Container(
+    return InkWell(
+      onTap: onTap,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Container(
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
             decoration: BoxDecoration(
                 color: Colors.white,
@@ -237,16 +260,16 @@ class ButtonCustom {
               height: 20,
             ),
           ),
-        ),
-        Expanded(
-          child: Text(
-            title,
-            maxLines: 2,
-            style: FontStyle.caption,
-            textAlign: TextAlign.center,
-          ),
-        )
-      ],
+          Expanded(
+            child: Text(
+              title,
+              maxLines: 2,
+              style: FontStyle.caption,
+              textAlign: TextAlign.center,
+            ),
+          )
+        ],
+      ),
     );
   }
 }

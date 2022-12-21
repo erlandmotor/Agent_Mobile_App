@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "503746011421",
+    "project_id": "digital-outlet-f8e24",
+    "storage_bucket": "digital-outlet-f8e24.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:503746011421:android:6e74146a8f0757c06ac1f4",
+        "android_client_info": {
+          "package_name": "com.example.agent_mobile_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "503746011421-9kmefd919s613rom9rm04fu9sa9ir5al.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB4YA8PyTLIqBFUisSO6KRwG39e--VoWEA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "503746011421-9kmefd919s613rom9rm04fu9sa9ir5al.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

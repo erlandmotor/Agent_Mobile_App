@@ -54,6 +54,7 @@ class CardPoinReward extends StatelessWidget {
                 children: [
                   Text(
                     category != '' ? category : '-',
+                    maxLines: 1,
                     style: FontStyle.caption,
                   ),
                   Expanded(

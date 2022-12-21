@@ -132,8 +132,6 @@ class WidgetFormInputEmail extends StatelessWidget {
   final String hintText;
   final Color? colorSuffix;
   final TextEditingController controller;
-  final Function()? onTapSuffix;
-  final String? iconSuffix;
   final String? iconPrefix;
   const WidgetFormInputEmail({
     Key? key,
@@ -141,8 +139,6 @@ class WidgetFormInputEmail extends StatelessWidget {
     required this.hintText,
     required this.controller,
     this.colorSuffix,
-    this.onTapSuffix,
-    this.iconSuffix,
     this.iconPrefix,
   }) : super(key: key);
 
@@ -177,20 +173,7 @@ class WidgetFormInputEmail extends StatelessWidget {
                   ),
                 )
               : const Opacity(opacity: 0),
-          suffixIcon: iconSuffix == null
-              ? const SizedBox()
-              : InkWell(
-                  onTap: onTapSuffix,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 16, vertical: 12),
-                    child: Image.asset(
-                      iconSuffix!,
-                      color: colorSuffix,
-                      height: 12,
-                    ),
-                  ),
-                ),
+         
           hintText: hintText,
           fillColor: ColorApp.primaryA3,
           focusColor: ColorApp.primaryA3,

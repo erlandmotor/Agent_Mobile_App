@@ -1,25 +1,17 @@
-import 'package:agent_mobile_app/pages/desc_product/check_out_page.dart';
-import 'package:agent_mobile_app/pages/desc_product/desc_transaction_page.dart';
-import 'package:agent_mobile_app/pages/desc_product/e-wallet/e-wallet.dart';
-import 'package:agent_mobile_app/pages/desc_product/e-wallet/e_wallet_list.dart';
-import 'package:agent_mobile_app/pages/desc_product/e-wallet/e_wallet_page.dart';
-
-import 'package:agent_mobile_app/pages/desc_product/paket_data/paket_data_page.dart';
-import 'package:agent_mobile_app/pages/desc_product/pulsa/pulsa_page.dart';
-import 'package:agent_mobile_app/pages/detail_transaction/detail_transaction_page.dart';
 import 'package:agent_mobile_app/pages/splash_screen.dart';
 import 'package:agent_mobile_app/providers/auth/forgot_password_provider.dart';
 import 'package:agent_mobile_app/providers/auth/signin_provider.dart';
 import 'package:agent_mobile_app/providers/auth/signup_provider.dart';
 import 'package:agent_mobile_app/providers/auth/verification_otp_provider.dart';
 import 'package:agent_mobile_app/providers/buyer_prov/payment_provider.dart';
+import 'package:agent_mobile_app/providers/downloaod_provider.dart';
 import 'package:agent_mobile_app/providers/faq_prov/faq_providers.dart';
 import 'package:agent_mobile_app/providers/notification_prov/notification_provider.dart';
 import 'package:agent_mobile_app/providers/product_prov/product_providers.dart';
 import 'package:agent_mobile_app/providers/profile/account_provider.dart';
 import 'package:agent_mobile_app/providers/reward/reward_providers.dart';
 import 'package:agent_mobile_app/providers/transaction_prov/transaction_provider.dart';
-
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/date_symbol_data_local.dart';
@@ -27,6 +19,7 @@ import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   await initializeDateFormatting('id_ID', null);
@@ -64,6 +57,8 @@ class MyApp extends StatelessWidget {
             create: (context) => TransactionProviders()),
         ChangeNotifierProvider<NotificationDataProvider>(
             create: (context) => NotificationDataProvider()),
+        ChangeNotifierProvider<DownloadProvider>(
+            create: (context) => DownloadProvider()),
       ],
       child: MaterialApp(
         navigatorKey: contextNav,

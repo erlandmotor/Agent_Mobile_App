@@ -28,7 +28,7 @@ class VerificationCodePage extends StatelessWidget {
         context,
         backgroundColor: Colors.white,
         colorComponen: ColorApp.secondary00,
-        title: 'Lupa Kata Sandi',
+        title: 'Verifikasi Kode OTP',
       ),
       body: ListView(
         padding: Marginlayout.marginhorizontal,

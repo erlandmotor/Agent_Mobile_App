@@ -30,7 +30,6 @@ class SignUpProviders extends ChangeNotifier {
                 password: password,
                 mobileNumber: "+628123456789"),
           ));
-      print(response);
       if (response['code'] == 201 && response['errors'] == null) {
         _emailAlredy.value = false;
         RouteWidget.push(

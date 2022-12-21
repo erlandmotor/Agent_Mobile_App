@@ -2,6 +2,7 @@ import 'package:agent_mobile_app/helper/margin_layout.dart';
 import 'package:agent_mobile_app/helper/shadow.dart';
 import 'package:agent_mobile_app/helper/themes_colors.dart';
 import 'package:agent_mobile_app/helper/themse_fonts.dart';
+import 'package:agent_mobile_app/providers/profile/account_provider.dart';
 import 'package:agent_mobile_app/providers/reward/reward_providers.dart';
 import 'package:agent_mobile_app/widget_reusable/widget_appbar_default.dart';
 import 'package:agent_mobile_app/widget_reusable/widget_button.dart';
@@ -9,7 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class RewardDetailPage extends StatefulWidget {
-  final String id;
+  final int id;
   const RewardDetailPage({Key? key, required this.id}) : super(key: key);
 
   @override
@@ -19,12 +20,13 @@ class RewardDetailPage extends StatefulWidget {
 class _RewardDetailPageState extends State<RewardDetailPage> {
   final GlobalKey<FormState> _numbuerKey = GlobalKey<FormState>();
 
-  final TextEditingController _inputNumber = TextEditingController();
+  final TextEditingController _inputNumber = TextEditingController(text: '+62');
 
   @override
   void initState() {
     super.initState();
-    context.read<RewardsProviders>().detailReward(id: widget.id);
+    context.read<RewardsProviders>().detailReward(id: widget.id.toString());
+    context.read<AccountProvider>().getUserData();
   }
 
   @override
@@ -39,15 +41,31 @@ class _RewardDetailPageState extends State<RewardDetailPage> {
         title: 'Detail Reward',
       ),
       bottomNavigationBar: Padding(
-        padding: Marginlayout.marginhorizontal.copyWith(bottom: 40),
-        child: ButtonCustom.buttonPrimary(
-          onTap: () => _dialogRedeem(context),
-          // colorBtn: ColorApp.secondaryB2,
-          // text: 'Oups, dikoin kamu belum cukup',
-          colorBtn: ColorApp.primaryA3,
-          text: 'Redeem Sekarang',
-        ),
-      ),
+          padding: Marginlayout.marginhorizontal.copyWith(bottom: 40),
+          child: Consumer2<AccountProvider, RewardsProviders>(
+            builder: (context, dataAccount, dataReward, _) =>
+                ButtonCustom.buttonPrimary(
+              onTap: () {
+                if (dataAccount.isLoading == false &&
+                    dataAccount.dataAccount.userCoin!.amount! >=
+                        dataReward.dataDetail.requiredPoint!) {
+                  _dialogRedeem(context);
+                }
+              },
+              colorBtn: dataAccount.isLoading == true
+                  ? ColorApp.secondaryB2
+                  : dataAccount.dataAccount.userCoin!.amount! <
+                          dataReward.dataDetail.requiredPoint!
+                      ? ColorApp.secondaryB2
+                      : ColorApp.primaryA3,
+              text: dataAccount.isLoading == true
+                  ? '••••••••'
+                  : dataAccount.dataAccount.userCoin!.amount! <
+                          dataReward.dataDetail.requiredPoint!
+                      ? 'Oups, dikoin kamu belum cukup'
+                      : 'Redeem Sekarang',
+            ),
+          )),
       body: Stack(
         children: [
           Container(
@@ -65,7 +83,6 @@ class _RewardDetailPageState extends State<RewardDetailPage> {
             padding: Marginlayout.marginhorizontal,
             child: Consumer<RewardsProviders>(
                 builder: (context, dataDetail, _) => ListView(
-                      // crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         _overViewReward(context, dataDetail: dataDetail),
                         Text(
@@ -130,6 +147,8 @@ class _RewardDetailPageState extends State<RewardDetailPage> {
                           return 'Field ini tidak boleh kosong*';
                         } else if (error.startsWith('+62') == false) {
                           return 'Format harus +62*';
+                        } else if (error.length < 13) {
+                          return 'panjang nomor harus 12*';
                         }
                       },
                       keyboardType: TextInputType.number,
@@ -181,8 +200,6 @@ class _RewardDetailPageState extends State<RewardDetailPage> {
                           _inputNumber.clear();
                         }
                       },
-                      // colorBtn: ColorApp.secondaryB2,
-                      // text: 'Oups, dikoin kamu belum cukup',
                       colorBtn: ColorApp.primaryA3,
                       text: 'Redeem Sekarang',
                     );

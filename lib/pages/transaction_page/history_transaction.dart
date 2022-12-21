@@ -38,7 +38,7 @@ class _HistoryTransactionState extends State<HistoryTransaction> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-        length: tabItem.length,
+        length: 3,
         child: Scaffold(
             appBar: AppBar(
                 backgroundColor: ColorApp.primaryA3,
@@ -49,9 +49,9 @@ class _HistoryTransactionState extends State<HistoryTransaction> {
                   style: FontStyle.headingPage,
                 ),
                 bottom: PreferredSize(
-                  preferredSize: const Size.fromHeight(50),
-                  child: Material(
-                    child: SizedBox(
+                    preferredSize: const Size.fromHeight(50),
+                    child: Material(
+                        child: SizedBox(
                       height: 50,
                       child: TabBar(
                           physics: const BouncingScrollPhysics(),
@@ -63,9 +63,7 @@ class _HistoryTransactionState extends State<HistoryTransaction> {
                             (index) => ButtonCustom.dropDownMenu(
                                 listItems: productItems, hint: tabItem[index]),
                           )),
-                    ),
-                  ),
-                )),
+                    )))),
             body: Consumer<TransactionProviders>(builder: (context, data, _) {
               if (data.isloading == true) {
                 return const Center(

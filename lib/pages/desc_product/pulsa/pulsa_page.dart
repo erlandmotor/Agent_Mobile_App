@@ -20,6 +20,7 @@ class PulsaPage extends StatefulWidget {
 
 class _PulsaPageState extends State<PulsaPage> {
   final TextEditingController _inputNumber = TextEditingController(text: '+62');
+  final GlobalKey<FormState> _keyForm = GlobalKey<FormState>();
   @override
   void initState() {
     super.initState();
@@ -38,7 +39,7 @@ class _PulsaPageState extends State<PulsaPage> {
           action: [
             IconButton(
                 onPressed: () {
-                  RouteWidget.push(
+                  RouteWidget.pushReplacment(
                       context: context,
                       page: const CurrentPages(
                         index: 2,
@@ -64,8 +65,11 @@ class _PulsaPageState extends State<PulsaPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                ReusableWidget.overViewReward(
-                    context: context, controller: _inputNumber),
+                Form(
+                  key: _keyForm,
+                  child: ReusableWidget.overViewReward(
+                      context: context, controller: _inputNumber),
+                ),
                 _inputNumber.text != ''
                     ? Expanded(
                         child: Column(
@@ -91,14 +95,19 @@ class _PulsaPageState extends State<PulsaPage> {
                                               boxShadow: CustomShadow.md),
                                           child: ListTile(
                                             onTap: () {
-                                              RouteWidget.push(
-                                                  context: context,
-                                                  page: CheckoutPage(
-                                                    id: data.dataProducts[index]
-                                                        .id!,
-                                                    numberPhone:
-                                                        _inputNumber.text,
-                                                  ));
+                                              if (_keyForm.currentState!
+                                                      .validate() ==
+                                                  true) {
+                                                RouteWidget.push(
+                                                    context: context,
+                                                    page: CheckoutPage(
+                                                      id: data
+                                                          .dataProducts[index]
+                                                          .id!,
+                                                      numberPhone:
+                                                          _inputNumber.text,
+                                                    ));
+                                              }
                                             },
                                             title: Text(
                                               data.dataProducts[index].name!,

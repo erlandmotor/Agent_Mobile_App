@@ -1,10 +1,10 @@
 import 'package:agent_mobile_app/helper/shadow.dart';
 import 'package:agent_mobile_app/helper/themes_colors.dart';
 import 'package:agent_mobile_app/helper/themse_fonts.dart';
-import 'package:agent_mobile_app/pages/desc_product/widget_reusable/dialog_succes.dart';
 import 'package:agent_mobile_app/providers/buyer_prov/payment_provider.dart';
 import 'package:agent_mobile_app/providers/product_prov/product_providers.dart';
 import 'package:agent_mobile_app/providers/profile/account_provider.dart';
+import 'package:agent_mobile_app/widget_reusable/snacbar_error.dart';
 import 'package:agent_mobile_app/widget_reusable/widget_appbar_default.dart';
 import 'package:agent_mobile_app/widget_reusable/widget_button.dart';
 import 'package:agent_mobile_app/widget_reusable/widget_text_error.dart';
@@ -26,7 +26,8 @@ class CheckoutPage extends StatefulWidget {
 
 class _CheckoutPageState extends State<CheckoutPage> {
   final TextEditingController codeController = TextEditingController();
-  final ValueNotifier<String> _paymentMethod = ValueNotifier<String>('');
+  final ValueNotifier<Map<String, dynamic>> _paymentMethod =
+      ValueNotifier<Map<String, dynamic>>({});
   final GlobalKey<FormState> _codePromo = GlobalKey<FormState>();
 
   final ValueNotifier<bool> _invalidPromo = ValueNotifier<bool>(false);
@@ -70,6 +71,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                         key: _codePromo,
                         child: TextFormField(
                           controller: codeController,
+                          keyboardType: TextInputType.number,
                           validator: (String? error) {
                             if (error!.isEmpty) {
                               return 'Form ini tidak boleh kosong*';
@@ -162,8 +164,10 @@ class _CheckoutPageState extends State<CheckoutPage> {
                             onTap: () {
                               context
                                   .read<PaymentMethodProvider>()
-                                  .paymentCredit(
-                                      id: dataProduct.dataDetail.id!);
+                                  .createTransaction(
+                                      id: dataProduct.dataDetail.id!,
+                                      type: 'credit',
+                                      number: widget.numberPhone);
                             }),
                       )
                     : const Opacity(opacity: 0),
@@ -183,13 +187,24 @@ class _CheckoutPageState extends State<CheckoutPage> {
                                 .read<ProductProviders>()
                                 .formateQurency(
                                     angka: dataProduct.dataDetail.price!),
-                            desc: ValueListenableBuilder<String>(
+                            desc: ValueListenableBuilder<Map<String, dynamic>>(
                                 valueListenable: _paymentMethod,
                                 builder: (context, data, _) {
-                                  if (data != '') {
-                                    return Image.asset(
-                                      data,
-                                      height: 24,
+                                  if (data['img'] != null) {
+                                    return Row(
+                                      children: [
+                                        Image.asset(
+                                          data['img'],
+                                          height: 24,
+                                        ),
+                                        const SizedBox(
+                                          width: 8,
+                                        ),
+                                        Text(
+                                          data['name'],
+                                          style: FontStyle.caption,
+                                        )
+                                      ],
                                     );
                                   } else {
                                     return Text(
@@ -267,29 +282,46 @@ class _CheckoutPageState extends State<CheckoutPage> {
                 const SizedBox(
                   height: 46,
                 ),
-                ValueListenableBuilder<String>(
+                ValueListenableBuilder<Map<String, dynamic>>(
                     valueListenable: _paymentMethod,
                     builder: (context, data, _) {
-                      if (data != '') {
-                        return ButtonCustom.buttonPrimarySecond(
-                          onTap: () {
-                            showDialog(
-                              context: context,
-                              builder: (context) => ShowDialog(
-                                poin: dataProduct.dataDetail.coins.toString(),
-                              ),
-                            );
-                          },
-                          text: 'BAYAR',
-                          colorBtn: ColorApp.primaryA3,
-                        );
-                      } else {
-                        return ButtonCustom.buttonPrimarySecond(
-                          onTap: () {},
-                          text: 'BAYAR',
-                          colorBtn: ColorApp.secondaryEA,
-                        );
-                      }
+                      return ValueListenableBuilder(
+                          valueListenable:
+                              context.read<PaymentMethodProvider>().isLoading,
+                          builder: (context, loadBuy, _) {
+                            if (loadBuy == true) {
+                              return ButtonCustom.buttonLoading();
+                            } else {
+                              return ButtonCustom.buttonPrimarySecond(
+                                onTap: () async {
+                                  if (data['img'] != null) {
+                                    if (data['name'].toString().toLowerCase() ==
+                                            'dana'.toLowerCase() ||
+                                        data['name'].toString().toLowerCase() ==
+                                            'ovo'.toLowerCase() ||
+                                        data['name'].toString().toLowerCase() ==
+                                            'Shopee Pay'.toLowerCase()) {
+                                      context
+                                          .read<PaymentMethodProvider>()
+                                          .createTransaction(
+                                            id: widget.id,
+                                            type: data['name'],
+                                            number: widget.numberPhone,
+                                          );
+                                    } else {
+                                      SnackbarCustom().erorrSnacbar(context,
+                                          message:
+                                              'Metode Pembayaran ${data['name']} belum tersedia');
+                                    }
+                                  }
+                                },
+                                text: 'BAYAR',
+                                colorBtn: data['img'] != null
+                                    ? ColorApp.primaryA3
+                                    : ColorApp.secondaryEA,
+                              );
+                            }
+                          });
                     }),
                 const SizedBox(
                   height: 32,
@@ -372,21 +404,30 @@ class _CheckoutPageState extends State<CheckoutPage> {
                       icon: 'assets/logo/dana.png',
                       paymentMethod: 'DANA',
                       ontap: () {
-                        _paymentMethod.value = 'assets/logo/dana.png';
+                        _paymentMethod.value = {
+                          'img': 'assets/logo/dana.png',
+                          'name': 'DANA'
+                        };
                         Navigator.pop(context);
                       }),
                   paymentMethod(
                       icon: 'assets/logo/shopeepay.png',
                       paymentMethod: 'Shopee Pay',
                       ontap: () {
-                        _paymentMethod.value = 'assets/logo/shopeepay.png';
+                        _paymentMethod.value = {
+                          'img': 'assets/logo/shopeepay.png',
+                          'name': 'Shopee Pay'
+                        };
                         Navigator.pop(context);
                       }),
                   paymentMethod(
                       icon: 'assets/logo/ovo.png',
                       paymentMethod: 'OVO',
                       ontap: () {
-                        _paymentMethod.value = 'assets/logo/ovo.png';
+                        _paymentMethod.value = {
+                          'img': 'assets/logo/ovo.png',
+                          'name': 'OVO'
+                        };
                         Navigator.pop(context);
                       }),
                   const SizedBox(
@@ -400,28 +441,40 @@ class _CheckoutPageState extends State<CheckoutPage> {
                       icon: 'assets/logo/bni.png',
                       paymentMethod: 'BNI',
                       ontap: () {
-                        _paymentMethod.value = 'assets/logo/bni.png';
+                        _paymentMethod.value = {
+                          'img': 'assets/logo/bni.png',
+                          'name': 'BNI'
+                        };
                         Navigator.pop(context);
                       }),
                   paymentMethod(
                       icon: 'assets/logo/bca.png',
                       paymentMethod: 'BCA',
                       ontap: () {
-                        _paymentMethod.value = 'assets/logo/bca.png';
+                        _paymentMethod.value = {
+                          'img': 'assets/logo/bca.png',
+                          'name': 'BCA'
+                        };
                         Navigator.pop(context);
                       }),
                   paymentMethod(
                       icon: 'assets/logo/mandiri.png',
                       paymentMethod: 'Mandiri',
                       ontap: () {
-                        _paymentMethod.value = 'assets/logo/mandiri.png';
+                        _paymentMethod.value = {
+                          'img': 'assets/logo/mandiri.png',
+                          'name': 'Mandiri'
+                        };
                         Navigator.pop(context);
                       }),
                   paymentMethod(
                       icon: 'assets/logo/bri.png',
                       paymentMethod: 'BRI',
                       ontap: () {
-                        _paymentMethod.value = 'assets/logo/bri.png';
+                        _paymentMethod.value = {
+                          'img': 'assets/logo/bri.png',
+                          'name': 'BRI'
+                        };
                         Navigator.pop(context);
                       }),
                 ],

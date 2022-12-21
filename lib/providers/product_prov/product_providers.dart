@@ -27,7 +27,7 @@ class ProductProviders extends ChangeNotifier {
           await _serviceApi.get(url: ApiUrl.products);
       if (message['code'] == 200) {
         for (var item in message['data']) {
-          if (item['category']['name'] == query) {
+          if (item['category']['name'].toString().toLowerCase().contains(query.toLowerCase())) {
             _dataProducts.add(ProductsModel.fromJson(item));
           }
         }
@@ -39,6 +39,7 @@ class ProductProviders extends ChangeNotifier {
       _dataProducts = [];
       _isloading = false;
     }
+    notifyListeners();
   }
 
   Future detailProduct({required int id}) async {
@@ -58,6 +59,7 @@ class ProductProviders extends ChangeNotifier {
       ;
       _loadingDetail = false;
     }
+    notifyListeners();
   }
 
   String formateQurency({required int angka}) {

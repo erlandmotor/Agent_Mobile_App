@@ -2,17 +2,21 @@ import 'package:agent_mobile_app/helper/margin_layout.dart';
 import 'package:agent_mobile_app/helper/routes.dart';
 import 'package:agent_mobile_app/helper/themes_colors.dart';
 import 'package:agent_mobile_app/helper/themse_fonts.dart';
+import 'package:agent_mobile_app/models/transaction_model.dart';
 import 'package:agent_mobile_app/pages/detail_transaction/detail_transaction_page.dart';
-import 'package:agent_mobile_app/widget_reusable/widget_appbar_default.dart';
+import 'package:agent_mobile_app/providers/product_prov/product_providers.dart';
 import 'package:agent_mobile_app/widget_reusable/widget_button.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class OtpRegistration extends StatelessWidget {
-  const OtpRegistration({super.key});
+  final int amount;
+  const OtpRegistration({super.key, required this.amount});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: PreferredSize(
           child: AppBar(
             backgroundColor: Colors.white,
@@ -39,13 +43,12 @@ class OtpRegistration extends StatelessWidget {
                   fit: BoxFit.fill,
                 ),
                 Align(
-                  alignment: Alignment.topLeft,
+                  alignment: Alignment.bottomLeft,
                   child: Padding(
-                    padding: Marginlayout.marginhorizontal.copyWith(
-                        top: MediaQuery.of(context).size.height * 0.17),
+                    padding: const EdgeInsets.all(16),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         Text(
                           'Jumlah yang dibayarkan',
@@ -55,7 +58,8 @@ class OtpRegistration extends StatelessWidget {
                           height: 8,
                         ),
                         Text(
-                          'Rp52.000',
+                          '${context.read<ProductProviders>().formateQurency(angka: amount)}',
+                          maxLines: 1,
                           style: FontStyle.headline5SemiBoldWhite,
                         )
                       ],
@@ -66,7 +70,7 @@ class OtpRegistration extends StatelessWidget {
             ),
           ),
           preferredSize:
-              Size.fromHeight(MediaQuery.of(context).size.height * 0.20)),
+              Size.fromHeight(MediaQuery.of(context).size.height * 0.22)),
       body: Padding(
         padding: const EdgeInsets.only(top: 32.0),
         child: Column(
@@ -139,43 +143,44 @@ class OtpRegistration extends StatelessWidget {
                     RouteWidget.push(
                         context: context,
                         page: DetailTransactionPage(
-                            image: 'assets/icons/success.png',
-                            price: '',
-                            // context
-                            //           .read<ProductProviders>()
-                            //           .formateQurency(
-                            //               angka: data
-                            //                   .listTransaction[index].amount!),
-                            desc: '',
-                            // 'Pembelian ${data.listTransaction[index].amount!}',
-                            methodPayment: Text(
-                              'Saldo Digo',
-                              style: FontStyle.subtitle2SemiBold,
-                            ),
-                            status: '',
-                            // data.listTransaction[index].status! ==
-                            //         'SUCCEEDED'
-                            //     ? 'Berhasil'
-                            //     : data.listTransaction[index].status! ==
-                            //             'PENDING'
-                            //         ? 'Pending'
-                            //         : 'Gagal',
-                            date: '',
-                            // context
-                            //     .read<RewardsProviders>()
-                            //     .parseDate(
-                            //         data.listTransaction[index]
-                            //             .createdAt!,
-                            //         'dd MMMM yyyy'),
-                            time: '',
-                            // '${context.read<RewardsProviders>().parseDate(data.listTransaction[index].createdAt!, 'hh:mm')}  ${DateTime.parse(data.listTransaction[index].createdAt!).toLocal().timeZoneName} ',
-                            total: ','
-                            // context
-                            //     .read<ProductProviders>()
-                            //     .formateQurency(
-                            //         angka: data
-                            //             .listTransaction[index].amount!),
-                            ));
+                          image: 'assets/icons/success.png',
+                          price: '',
+                          // context
+                          //           .read<ProductProviders>()
+                          //           .formateQurency(
+                          //               angka: data
+                          //                   .listTransaction[index].amount!),
+                          desc: '',
+                          // 'Pembelian ${data.listTransaction[index].amount!}',
+                          methodPayment: Text(
+                            'Saldo Digo',
+                            style: FontStyle.subtitle2SemiBold,
+                          ),
+                          status: '',
+                          // data.listTransaction[index].status! ==
+                          //         'SUCCEEDED'
+                          //     ? 'Berhasil'
+                          //     : data.listTransaction[index].status! ==
+                          //             'PENDING'
+                          //         ? 'Pending'
+                          //         : 'Gagal',
+                          date: '',
+                          // context
+                          //     .read<RewardsProviders>()
+                          //     .parseDate(
+                          //         data.listTransaction[index]
+                          //             .createdAt!,
+                          //         'dd MMMM yyyy'),
+                          time: '',
+                          // '${context.read<RewardsProviders>().parseDate(data.listTransaction[index].createdAt!, 'hh:mm')}  ${DateTime.parse(data.listTransaction[index].createdAt!).toLocal().timeZoneName} ',
+                          total: ',',
+
+                          // context
+                          //     .read<ProductProviders>()
+                          //     .formateQurency(
+                          //         angka: data
+                          //             .listTransaction[index].amount!),
+                        ));
                   },
                   colorBtn: ColorApp.primaryA3,
                   text: 'Verifikasi'),

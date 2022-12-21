@@ -77,9 +77,9 @@ class ShowDialog extends StatelessWidget {
               ButtonCustom.buttonSeccondary(
                   onTap: () {
                     Navigator.pop(context);
-                    RouteWidget.push(
-                        context: context,
-                        page: const DescTransactionProductPage());
+                    // RouteWidget.push(
+                    //     context: context,
+                    //     page: const DescTransactionProductPage());
                   },
                   text: 'Detail Transaksi')
             ],

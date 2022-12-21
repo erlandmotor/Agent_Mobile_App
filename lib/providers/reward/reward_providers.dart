@@ -62,7 +62,7 @@ class RewardsProviders extends ChangeNotifier {
     _loadingDetail = true;
     try {
       final Map<String, dynamic> message = await _serviceApi.get(
-        url: ApiUrl.rewards + '/' + id,
+        url: '${ApiUrl.rewards}/$id',
       );
       if (message['code'] == 200) {
         _dataDetail = RewardsModel.fromJson(message['data']);
@@ -98,20 +98,20 @@ class RewardsProviders extends ChangeNotifier {
   }
 
   /// untuk menukarkan reward dengan point
-  Future redeemReward({required String id}) async {
+  Future redeemReward({required int id}) async {
     _processRedeem.value = true;
     try {
       final Map<String, dynamic> message = await _serviceApi.postData(
         urlPath: ApiUrl.redeems,
-        body: redeemModelToJson(RedeemModel(rewardId: int.parse(id))),
+        body: redeemModelToJson(RedeemModel(rewardId: id)),
       );
-      print(message);
-
       if (message['code'] == 201) {
         Navigator.pop(contextNav.currentContext!);
-        RouteWidget.push(
+        RouteWidget.pushReplacment(
             context: contextNav.currentContext!,
-            page: const CheckDetailRedeemPage());
+            page: CheckDetailRedeemPage(
+              id: id,
+            ));
       } else if (message['code'] == 500 &&
           message['errors'][0]['value'] == 'not enough point') {
         Navigator.pop(contextNav.currentContext!);

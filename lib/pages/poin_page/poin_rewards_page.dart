@@ -186,8 +186,7 @@ class _PoinRewardPageState extends State<PoinRewardPage> {
                             onTap: () => RouteWidget.push(
                                 context: context,
                                 page: RewardDetailPage(
-                                  id: dataReward.dataRewards[index].id
-                                      .toString(),
+                                  id: dataReward.dataRewards[index].id!,
                                 )),
                           ),
                         );
@@ -238,8 +237,7 @@ class _PoinRewardPageState extends State<PoinRewardPage> {
                             onTap: () => RouteWidget.push(
                                 context: context,
                                 page: RewardDetailPage(
-                                  id: dataReward.dataRewards[index].id
-                                      .toString(),
+                                  id: dataReward.dataRewards[index].id!,
                                 )),
                           ),
                         );

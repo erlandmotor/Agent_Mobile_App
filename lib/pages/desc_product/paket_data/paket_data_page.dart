@@ -19,9 +19,10 @@ class PaketDataPage extends StatefulWidget {
 }
 
 class _PaketDataPageState extends State<PaketDataPage> {
-  TextEditingController inputNumber = TextEditingController();
+  TextEditingController inputNumber = TextEditingController(text: '+62');
   String desc =
       '''Kuota Utama 18GB, masa aktif 30 hari. Bonus tambahan kuota zona hingga 18GB, jika registrasi paket zona kuota plus Freedom Internet. Info im3.d0/kuotaplusec. Baru! Nelpon sepuasnya ke sesama IM3 Tri, suara lebih jernih didukung jaringan VoLTE. Pembelian paket akan menggantikan paket yang masih aktif''';
+  final GlobalKey<FormState> _keyForm = GlobalKey<FormState>();
 
   @override
   void initState() {
@@ -41,7 +42,7 @@ class _PaketDataPageState extends State<PaketDataPage> {
           action: [
             IconButton(
                 onPressed: () {
-                  RouteWidget.push(
+                  RouteWidget.pushReplacment(
                       context: context,
                       page: const CurrentPages(
                         index: 2,
@@ -62,8 +63,11 @@ class _PaketDataPageState extends State<PaketDataPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                ReusableWidget.overViewReward(
-                    context: context, controller: inputNumber),
+                Form(
+                  key: _keyForm,
+                  child: ReusableWidget.overViewReward(
+                      context: context, controller: inputNumber),
+                ),
                 Expanded(
                     child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -131,13 +135,18 @@ class _PaketDataPageState extends State<PaketDataPage> {
                                                 ],
                                               )),
                                           onTap: () {
-                                            RouteWidget.push(
-                                                context: context,
-                                                page: CheckoutPage(
-                                                  id: dataProduct
-                                                      .dataProducts[index].id!,
-                                                  numberPhone: '',
-                                                ));
+                                            if (_keyForm.currentState!
+                                                    .validate() ==
+                                                true) {
+                                              RouteWidget.push(
+                                                  context: context,
+                                                  page: CheckoutPage(
+                                                    id: dataProduct
+                                                        .dataProducts[index]
+                                                        .id!,
+                                                    numberPhone: inputNumber.text,
+                                                  ));
+                                            }
                                           },
                                         ))))
                   ],

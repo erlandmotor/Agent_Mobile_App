@@ -38,8 +38,8 @@ class SigninProvider extends ChangeNotifier {
         _invalidLoging.value = false;
         pref.setString(SPrefKey.token, message['data']['access_token']);
         pref.setString(SPrefKey.refreshToken, message['data']['refresh_token']);
-        RouteWidget.push(
-            context: contextNav.currentContext!, page: CurrentPages());
+        RouteWidget.pushReplacment(
+            context: contextNav.currentContext!, page: const CurrentPages());
       } else if (message['code'] == 401) {
         _invalidLoging.value = true;
       } else {
@@ -47,7 +47,6 @@ class SigninProvider extends ChangeNotifier {
       }
       _isLoading.value = false;
     } catch (e) {
-      print(e);
       _isLoading.value = false;
     }
     notifyListeners();

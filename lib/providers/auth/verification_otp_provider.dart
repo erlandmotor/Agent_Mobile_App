@@ -37,7 +37,7 @@ class VePinsProvider extends ChangeNotifier {
 
       if (response['code'] == 200 && response['message'] == 'OK') {
         _invalidVerification.value = false;
-        RouteWidget.push(
+        RouteWidget.pushReplacment(
           context: contextNav.currentContext!,
           page: ConfirmSuccesPage(
             image: 'assets/ilustration/success.png',

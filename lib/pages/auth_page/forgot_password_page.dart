@@ -51,7 +51,6 @@ class ForgotPasswordPage extends StatelessWidget {
               controller: _emailInput,
               obscureText: false,
               hintText: 'Masukan email',
-              iconSuffix: null,
               iconPrefix: 'assets/icons/mail.png',
             ),
             // show error texxt email invalid

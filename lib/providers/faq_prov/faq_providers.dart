@@ -21,10 +21,14 @@ class FAQProviders extends ChangeNotifier {
       final Map<String, dynamic> message =
           await _serviceApi.get(url: ApiUrl.faqs);
       if (message['code'] == 200) {
-        _listFaq.add(faqModelFromJson(message['data']));
+        for (var item in message['data']) {
+          _listFaq.add(FaqModel.fromJson(item));
+        }
+        filterDataFaq(query: '');
       } else {
         _listFaq = [];
       }
+      print(_listFaq);
       _isloading = false;
     } catch (e) {
       _isloading = false;
@@ -34,8 +38,10 @@ class FAQProviders extends ChangeNotifier {
   }
 
   void filterDataFaq({required String query}) {
-    List<FaqModel> resultFilter =
-        _listFaq.where((element) => element.question!.contains(query)).toList();
+    List<FaqModel> resultFilter = _listFaq
+        .where((element) =>
+            element.question!.toLowerCase().contains(query.toLowerCase()))
+        .toList();
     if (query != '') {
       _filterFaq = resultFilter;
     } else {

@@ -42,6 +42,8 @@ class ReusableWidget {
                           return 'Field ini tidak boleh kosong*';
                         } else if (error.startsWith('+62') == false) {
                           return 'Format harus +62*';
+                        } else if (error.length <13) {
+                          return 'panjang nomor harus 12*';
                         }
                       },
                       keyboardType: TextInputType.number,

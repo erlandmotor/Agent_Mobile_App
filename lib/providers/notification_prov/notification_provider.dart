@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class NotificationDataProvider extends ChangeNotifier {
-  final List<NotificationModel> _listNotification = [];
+  List<NotificationModel> _listNotification = [];
 
   List<NotificationModel> _dataNotification = [];
   List<NotificationModel> get dataNotification => _dataNotification;
@@ -13,6 +13,7 @@ class NotificationDataProvider extends ChangeNotifier {
   bool get isLoading => _isLoading;
   Future getData() async {
     _isLoading = true;
+    _listNotification = [];
     try {
       var data = await rootBundle
           .loadString('assets/dumy_data/notification_data.json');
@@ -23,6 +24,7 @@ class NotificationDataProvider extends ChangeNotifier {
       filterDataNotif(query: '');
       _isLoading = false;
     } catch (e) {
+      _dataNotification = [];
       _isLoading = false;
     }
     notifyListeners();
@@ -32,8 +34,6 @@ class NotificationDataProvider extends ChangeNotifier {
     List<NotificationModel> resultFilter = _listNotification
         .where((element) => element.type!.toLowerCase() == query.toLowerCase())
         .toList();
-    print(resultFilter);
-    print(query);
     if (query != '') {
       _dataNotification = resultFilter;
     } else {

@@ -3,9 +3,11 @@ import 'package:agent_mobile_app/helper/routes.dart';
 import 'package:agent_mobile_app/helper/themes_colors.dart';
 import 'package:agent_mobile_app/helper/themse_fonts.dart';
 import 'package:agent_mobile_app/pages/current_pages.dart';
+import 'package:agent_mobile_app/providers/downloaod_provider.dart';
 import 'package:agent_mobile_app/widget_reusable/widget_appbar_default.dart';
 import 'package:agent_mobile_app/widget_reusable/widget_button.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class DetailTransactionPage extends StatelessWidget {
   final String image, price, desc, status, date, time, total;
@@ -100,17 +102,6 @@ class DetailTransactionPage extends StatelessWidget {
                     ),
                     const Spacer(),
                     methodPayment
-                    // Image.asset(
-                    //   'assets/icons/coin.png',
-                    //   height: 19,
-                    // ),
-                    // const SizedBox(
-                    //   width: 10,
-                    // ),
-                    // Text(
-                    //   'Koin',
-                    //   style: FontStyle.subtitle2SemiBold,
-                    // ),
                   ],
                 ),
 
@@ -225,7 +216,10 @@ class DetailTransactionPage extends StatelessWidget {
                 ),
                 ButtonCustom.buttonSeccondary(
                     onTap: () {
-                      //TODO:  download file function
+                      context.read<DownloadProvider>().download(
+                          url:
+                              'https://i.pinimg.com/originals/28/86/6a/28866a4d865e8b222b4a682eb7f3b100.jpg',
+                          nameFolder: 'bukti_transaksi.png');
                     },
                     text: 'Unduh Bukti Pembayaran')
               ],
