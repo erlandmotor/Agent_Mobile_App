@@ -28,7 +28,7 @@ class VerificationCodePage extends StatelessWidget {
         context,
         backgroundColor: Colors.white,
         colorComponen: ColorApp.secondary00,
-        title: 'Lupa Kata Sandi',
+        title: 'Verifikasi Kode OTP',
       ),
       body: ListView(
         padding: Marginlayout.marginhorizontal,
@@ -280,7 +280,6 @@ class VerificationCodePage extends StatelessWidget {
                   return ButtonCustom.buttonPrimary(
                     onTap: () async {
                       await context.read<VePinsProvider>().verificationData(
-                            context,
                             email: email,
                             otp:
                                 '${_pin1.text}${_pin2.text}${_pin3.text}${_pin4.text}',

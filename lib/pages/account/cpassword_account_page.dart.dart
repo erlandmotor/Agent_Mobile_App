@@ -133,7 +133,6 @@ class ChangePasswordAccountPage extends StatelessWidget {
                               if (_textPassword.text ==
                                   _textConfirmPassword.text) {
                                 context.read<AccountProvider>().changePassword(
-                                    context,
                                     oldPassword: _textoldPassword.text.trim(),
                                     newPassword:
                                         _textConfirmPassword.text.trim());

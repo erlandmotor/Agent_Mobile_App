@@ -5,7 +5,14 @@ import 'package:flutter/material.dart';
 
 class CardPoinReward extends StatelessWidget {
   final Function()? onTap;
-  const CardPoinReward({Key? key, required this.onTap}) : super(key: key);
+  final String category, name, poin;
+  const CardPoinReward(
+      {Key? key,
+      required this.onTap,
+      required this.category,
+      required this.name,
+      required this.poin})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -46,12 +53,14 @@ class CardPoinReward extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Pulsa',
+                    category != '' ? category : '-',
+                    maxLines: 1,
                     style: FontStyle.caption,
                   ),
                   Expanded(
                     child: Text(
-                      'Pulsa 25.000 ',
+                      name,
+                      maxLines: 1,
                       style: FontStyle.subtitle2SemiBold,
                     ),
                   ),
@@ -66,7 +75,7 @@ class CardPoinReward extends StatelessWidget {
                         width: 4,
                       ),
                       Text(
-                        '100 Koin',
+                        poin,
                         style: FontStyle.caption,
                       ),
                     ],

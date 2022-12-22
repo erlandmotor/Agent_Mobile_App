@@ -51,7 +51,6 @@ class ForgotPasswordPage extends StatelessWidget {
               controller: _emailInput,
               obscureText: false,
               hintText: 'Masukan email',
-              iconSuffix: null,
               iconPrefix: 'assets/icons/mail.png',
             ),
             // show error texxt email invalid
@@ -79,9 +78,9 @@ class ForgotPasswordPage extends StatelessWidget {
                     return ButtonCustom.buttonPrimary(
                         onTap: () {
                           if (_emailKey.currentState!.validate() == true) {
-                            context.read<ForgotPaswordProvider>().sendEmail(
-                                context,
-                                email: _emailInput.text.trim());
+                            context
+                                .read<ForgotPaswordProvider>()
+                                .sendEmail(email: _emailInput.text.trim());
                           }
                         },
                         colorBtn: ColorApp.primaryA3,

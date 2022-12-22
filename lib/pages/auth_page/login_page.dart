@@ -2,7 +2,6 @@ import 'package:agent_mobile_app/helper/margin_layout.dart';
 import 'package:agent_mobile_app/helper/routes.dart';
 import 'package:agent_mobile_app/helper/themes_colors.dart';
 import 'package:agent_mobile_app/helper/themse_fonts.dart';
-import 'package:agent_mobile_app/pages/auth_page/change_password_page.dart';
 import 'package:agent_mobile_app/pages/auth_page/forgot_password_page.dart';
 import 'package:agent_mobile_app/pages/auth_page/register_page.dart';
 import 'package:agent_mobile_app/pages/auth_page/widgets/widget_form_input.dart';
@@ -65,7 +64,6 @@ class LoginPage extends StatelessWidget {
                   controller: _emailInput,
                   obscureText: false,
                   hintText: 'Masukan email',
-                  iconSuffix: null,
                   iconPrefix: 'assets/icons/mail.png',
                 ),
                 AnimatedBuilder(
@@ -99,28 +97,7 @@ class LoginPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Flexible(
-                      child: CheckboxListTile(
-                        contentPadding: EdgeInsets.zero,
-                        controlAffinity: ListTileControlAffinity.leading,
-                        dense: true,
-                        visualDensity: VisualDensity.compact,
-                        value: false,
-                        onChanged: (value) {},
-                        activeColor: ColorApp.primaryA3,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(2),
-                        ),
-                        side:
-                            BorderSide(color: ColorApp.secondaryEA, width: 1.5),
-                        title: Text(
-                          'Ingat saya',
-                          style: FontStyle.body1.copyWith(
-                              color: ColorApp.secondary00,
-                              fontWeight: FontWeight.w400),
-                        ),
-                      ),
-                    ),
+                    const Spacer(),
                     InkWell(
                       onTap: () {
                         RouteWidget.push(
@@ -148,7 +125,7 @@ class LoginPage extends StatelessWidget {
                           onTap: () {
                             if (formKeySignin.currentState!.validate() ==
                                 true) {
-                              context.read<SigninProvider>().signIn(context,
+                              context.read<SigninProvider>().signIn(
                                   email: _emailInput.text.trim(),
                                   password: _passwordInput.text.trim());
                             }

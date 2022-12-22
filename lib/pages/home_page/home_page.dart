@@ -2,17 +2,41 @@ import 'package:agent_mobile_app/helper/margin_layout.dart';
 import 'package:agent_mobile_app/helper/routes.dart';
 import 'package:agent_mobile_app/helper/themes_colors.dart';
 import 'package:agent_mobile_app/helper/themse_fonts.dart';
-import 'package:agent_mobile_app/pages/poin_page/poin_reward_page.dart';
+import 'package:agent_mobile_app/main.dart';
+import 'package:agent_mobile_app/pages/cashout/cashout_page.dart';
+import 'package:agent_mobile_app/pages/desc_product/paket_data/paket_data_page.dart';
+import 'package:agent_mobile_app/pages/desc_product/pulsa/pulsa_page.dart';
+import 'package:agent_mobile_app/pages/notification/notification_page.dart';
+import 'package:agent_mobile_app/pages/poin_page/poin_rewards_page.dart';
+import 'package:agent_mobile_app/providers/product_prov/product_providers.dart';
+import 'package:agent_mobile_app/providers/profile/account_provider.dart';
 import 'package:agent_mobile_app/widget_reusable/widget_button.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class HomePage extends StatelessWidget {
-  HomePage({super.key});
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
   final List<Widget> _menuPrabayar = [
     ButtonCustom.homePageMenu(
-        onTap: () {}, image: 'assets/icons/pulsa.png', title: 'Pulsa'),
+        onTap: () {
+          RouteWidget.push(
+              context: contextNav.currentContext!, page: const PulsaPage());
+        },
+        image: 'assets/icons/pulsa.png',
+        title: 'Pulsa'),
     ButtonCustom.homePageMenu(
-        onTap: () {}, image: 'assets/icons/paket.png', title: 'Paket Data'),
+        onTap: () {
+          RouteWidget.push(
+              context: contextNav.currentContext!, page: PaketDataPage());
+        },
+        image: 'assets/icons/paket.png',
+        title: 'Paket Data'),
     ButtonCustom.homePageMenu(
         onTap: () {},
         image: 'assets/icons/voucher.png',
@@ -30,7 +54,13 @@ class HomePage extends StatelessWidget {
     ButtonCustom.homePageMenu(
         onTap: () {}, image: 'assets/icons/bpjs.png', title: 'BPJS'),
     ButtonCustom.homePageMenu(
-        onTap: () {}, image: 'assets/icons/other.png', title: 'Lainnya'),
+        onTap: () {
+          RouteWidget.push(
+              context: contextNav.currentContext!,
+              page: CashoutPage(icon: 'assets/icons/wallet.png'));
+        },
+        image: 'assets/icons/other.png',
+        title: 'Lainnya'),
   ];
 
   final List<String> _listBanner = [
@@ -38,6 +68,11 @@ class HomePage extends StatelessWidget {
     'assets/banner/promo2.png',
     'assets/banner/promo3.png'
   ];
+  @override
+  void initState() {
+    super.initState();
+    context.read<AccountProvider>().getUserData();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,10 +90,14 @@ class HomePage extends StatelessWidget {
                   'assets/logo2.png',
                 )),
             actions: [
-              Image.asset(
-                'assets/icons/notifications.png',
-                height: 24,
-              ),
+              IconButton(
+                onPressed: () => RouteWidget.push(
+                    context: context, page: NotificationPage()),
+                icon: Image.asset(
+                  'assets/icons/notifications.png',
+                  height: 24,
+                ),
+              )
             ],
             flexibleSpace: Stack(
               children: <Widget>[
@@ -70,7 +109,6 @@ class HomePage extends StatelessWidget {
                 ),
                 headersHome(context)
               ],
- 
             ),
           ),
           preferredSize: Size.fromHeight(
@@ -123,202 +161,216 @@ class HomePage extends StatelessWidget {
         ));
   }
 
-  Widget headersHome(BuildContext context) {
-    return Container(
-      height: 143,
-      margin: Marginlayout.marginhorizontal
-          .copyWith(top: MediaQuery.of(context).size.height * 0.13),
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          color: ColorApp.secondaryEA,
-          boxShadow: const [
-            BoxShadow(
-                color: Colors.grey, blurRadius: 7, offset: Offset(0.0, 0.75))
-          ]),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Expanded(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  child: Container(
-                    margin: const EdgeInsets.fromLTRB(8, 8, 4, 8),
-                    padding: const EdgeInsets.all(8.0),
-                    decoration: BoxDecoration(
-                        color: ColorApp.secondaryFF,
-                        borderRadius: BorderRadius.circular(6)),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.center,
+  Consumer headersHome(BuildContext context) {
+    return Consumer<AccountProvider>(
+        builder: (context, data, _) => Container(
+              height: 143,
+              margin: Marginlayout.marginhorizontal
+                  .copyWith(top: MediaQuery.of(context).size.height * 0.13),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: ColorApp.secondaryEA,
+                  boxShadow: const [
+                    BoxShadow(
+                        color: Colors.grey,
+                        blurRadius: 7,
+                        offset: Offset(0.0, 0.75))
+                  ]),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Expanded(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Flexible(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                'Deposit',
-                                style: FontStyle.caption,
-                              ),
-                              Image.asset(
-                                'assets/icons/plus.png',
-                                height: 16,
-                                width: 16,
-                              )
-                            ],
-                          ),
-                        ),
-                        Flexible(
-                          child: Text(
-                            'Rp6.000',
-                            style: FontStyle.subtitle2SemiBold,
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: Container(
-                    width: double.infinity,
-                    padding: const EdgeInsets.all(8.0),
-                    margin: const EdgeInsets.fromLTRB(4, 8, 8, 8),
-                    decoration: BoxDecoration(
-                      color: ColorApp.secondaryFF,
-                      borderRadius: BorderRadius.circular(6),
-                    ),
-                    child: Center(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          Flexible(
-                            child: Image.asset(
-                              'assets/icons/qr.png',
-                              height: 24,
-                              width: 24,
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          Center(
-                            child: Text(
-                              'QR Code',
-                              style: FontStyle.subtitle2SemiBold,
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                )
-              ],
-            ),
-          ),
-          Expanded(
-            child: Row(
-              children: [
-                Expanded(
-                  child: Container(
-                    padding: const EdgeInsets.all(8.0),
-                    decoration: BoxDecoration(
-                      borderRadius: const BorderRadius.only(
-                        bottomLeft: Radius.circular(10),
-                      ),
-                      color: ColorApp.secondaryFF,
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Flexible(
-                          child: Text(
-                            'Level Digo',
-                            style: FontStyle.subtitle2,
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 8,
-                        ),
-                        Flexible(
-                          child: Row(
-                            children: [
-                              Image.asset(
-                                'assets/icons/medal.png',
-                                height: 20,
-                                width: 20,
-                              ),
-                              const SizedBox(
-                                width: 16,
-                              ),
-                              Text(
-                                'Newbie',
-                                style: FontStyle.subtitle1SemiBold,
-                              )
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-                const VerticalDivider(
-                  width: 2,
-                ),
-                Expanded(
-                  child: InkWell(
-                    onTap: () => RouteWidget.push(
-                        context: context, page: const PoinRewardPage()),
-                    child: Container(
-                      padding: const EdgeInsets.all(8.0),
-                      decoration: BoxDecoration(
-                        borderRadius: const BorderRadius.only(
-                            bottomRight: Radius.circular(10)),
-                        color: ColorApp.secondaryFF,
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Flexible(
-                            child: Text(
-                              'Koin Digo',
-                              style: FontStyle.subtitle2,
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 8,
-                          ),
-                          Flexible(
-                            child: Row(
+                        Expanded(
+                          child: Container(
+                            margin: const EdgeInsets.fromLTRB(8, 8, 4, 8),
+                            padding: const EdgeInsets.all(8.0),
+                            decoration: BoxDecoration(
+                                color: ColorApp.secondaryFF,
+                                borderRadius: BorderRadius.circular(6)),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Image.asset(
-                                  'assets/icons/coin.png',
-                                  height: 20,
-                                  width: 20,
+                                Flexible(
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        'Deposit',
+                                        style: FontStyle.caption,
+                                      ),
+                                      Image.asset(
+                                        'assets/icons/plus.png',
+                                        height: 16,
+                                        width: 16,
+                                      )
+                                    ],
+                                  ),
                                 ),
-                                const SizedBox(
-                                  width: 16,
-                                ),
-                                Text(
-                                  '100',
-                                  style: FontStyle.subtitle1SemiBold,
+                                Flexible(
+                                  child: Text(
+                                    data.isLoading == true
+                                        ? '...'
+                                        : context
+                                            .read<ProductProviders>()
+                                            .formateQurency(
+                                                angka: data.dataAccount.credit!
+                                                    .amount!),
+                                    style: FontStyle.subtitle2SemiBold,
+                                  ),
                                 )
                               ],
                             ),
-                          )
-                        ],
-                      ),
+                          ),
+                        ),
+                        Expanded(
+                          child: Container(
+                            width: double.infinity,
+                            padding: const EdgeInsets.all(8.0),
+                            margin: const EdgeInsets.fromLTRB(4, 8, 8, 8),
+                            decoration: BoxDecoration(
+                              color: ColorApp.secondaryFF,
+                              borderRadius: BorderRadius.circular(6),
+                            ),
+                            child: Center(
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                                children: [
+                                  Flexible(
+                                    child: Image.asset(
+                                      'assets/icons/qr.png',
+                                      height: 24,
+                                      width: 24,
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    width: 10,
+                                  ),
+                                  Center(
+                                    child: Text(
+                                      'QR Code',
+                                      style: FontStyle.subtitle2SemiBold,
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                        )
+                      ],
                     ),
                   ),
-                ),
-              ],
-            ),
-          )
-        ],
-      ),
-    );
+                  Expanded(
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Container(
+                            padding: const EdgeInsets.all(8.0),
+                            decoration: BoxDecoration(
+                              borderRadius: const BorderRadius.only(
+                                bottomLeft: Radius.circular(10),
+                              ),
+                              color: ColorApp.secondaryFF,
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Flexible(
+                                  child: Text(
+                                    'Level Digo',
+                                    style: FontStyle.subtitle2,
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 8,
+                                ),
+                                Flexible(
+                                  child: Row(
+                                    children: [
+                                      Image.asset(
+                                        'assets/icons/medal.png',
+                                        height: 20,
+                                        width: 20,
+                                      ),
+                                      const SizedBox(
+                                        width: 16,
+                                      ),
+                                      Text(
+                                        'Newbie',
+                                        style: FontStyle.subtitle1SemiBold,
+                                      )
+                                    ],
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                        const VerticalDivider(
+                          width: 2,
+                        ),
+                        Expanded(
+                          child: InkWell(
+                            onTap: () => RouteWidget.push(
+                                context: context, page: const PoinRewardPage()),
+                            child: Container(
+                              padding: const EdgeInsets.all(8.0),
+                              decoration: BoxDecoration(
+                                borderRadius: const BorderRadius.only(
+                                    bottomRight: Radius.circular(10)),
+                                color: ColorApp.secondaryFF,
+                              ),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Flexible(
+                                    child: Text(
+                                      'Koin Digo',
+                                      style: FontStyle.subtitle2,
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 8,
+                                  ),
+                                  Flexible(
+                                    child: Row(
+                                      children: [
+                                        Image.asset(
+                                          'assets/icons/coin.png',
+                                          height: 20,
+                                          width: 20,
+                                        ),
+                                        const SizedBox(
+                                          width: 16,
+                                        ),
+                                        Text(
+                                          data.isLoading == true
+                                              ? '...'
+                                              : data
+                                                  .dataAccount.userCoin!.amount
+                                                  .toString(),
+                                          style: FontStyle.subtitle1SemiBold,
+                                        )
+                                      ],
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            ));
   }
 }

@@ -2,7 +2,7 @@
 class ApiUrl {
   // static String proBaseUrl =
   //     'https://virtserver.swaggerhub.com/GERYSASTRAWAN123/DIGO/1.0.0/';
-  static String proBaseUrl = 'http://goapi.kuroyamii.works/';
+  static String proBaseUrl = 'https://goapi.kuroyamii.works/';
   // Auth area
   static String signUp = 'auth/signup';
   static String signIn = 'auth/signin';
@@ -15,4 +15,25 @@ class ApiUrl {
   static String accountProfile = 'users';
   static String changePassword = 'users/change-password';
   static String updateProfile = 'users';
+
+  //redeems
+  static String rewards = 'rewards';
+
+  //redeems
+  static String redeems = 'redeems';
+
+  //FAQ
+  static String faqs = 'faqs';
+  //product
+  static String products = 'products';
+
+  //peyment
+  static String credit = 'payment/pay/credit';
+  static String dana = 'payment/pay/dana';
+  static String ovo = 'payment/pay/ovo';
+  static String shopeePay = 'payment/pay/shopeepay';
+
+  // transaction
+  static String transaction = '/transactions';
+
 }

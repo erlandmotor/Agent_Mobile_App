@@ -60,8 +60,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 child: ButtonCustom.buttonPrimary(
                   onTap: () {
                     if (_formKey.currentState!.validate() == true) {
-                      context.read<AccountProvider>().editProfile(context,
-                          name: _textName.text, noHandphone: _textEmail.text);
+                      context.read<AccountProvider>().editProfile(
+                          name: _textName.text, noHandphone: _textNoPhone.text);
                     }
                   },
                   colorBtn: ColorApp.primaryA3,
@@ -122,9 +122,34 @@ class _EditProfilePageState extends State<EditProfilePage> {
             const SizedBox(
               height: 5,
             ),
-            WidgetFormOnlyInput(
-              hintText: '08*********',
-              controller: _textNoPhone,
+            Padding(
+              padding: const EdgeInsets.only(bottom: 16),
+              child: TextFormField(
+                controller: _textNoPhone,
+                validator: (String? error) {
+                  if (error!.isEmpty) {
+                    return 'Field ini tidak boleh kosong*';
+                  }
+                },
+                keyboardType: TextInputType.number,
+                cursorColor: ColorApp.primaryA3,
+                decoration: InputDecoration(
+                  contentPadding:
+                      const EdgeInsets.symmetric(vertical: 16, horizontal: 10),
+                  isCollapsed: true,
+                  focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: ColorApp.primaryA3)),
+                  hintText: '08**********',
+                  fillColor: ColorApp.primaryA3,
+                  focusColor: ColorApp.primaryA3,
+                  hoverColor: ColorApp.primaryA3,
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(6),
+                      borderSide: BorderSide(color: ColorApp.secondaryEA)),
+                  hintStyle:
+                      FontStyle.body2.copyWith(color: ColorApp.secondaryB2),
+                ),
+              ),
             ),
             Text(
               'Alamat',

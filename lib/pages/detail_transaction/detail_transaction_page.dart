@@ -1,13 +1,27 @@
 import 'package:agent_mobile_app/helper/margin_layout.dart';
+import 'package:agent_mobile_app/helper/routes.dart';
 import 'package:agent_mobile_app/helper/themes_colors.dart';
 import 'package:agent_mobile_app/helper/themse_fonts.dart';
+import 'package:agent_mobile_app/pages/current_pages.dart';
+import 'package:agent_mobile_app/providers/downloaod_provider.dart';
 import 'package:agent_mobile_app/widget_reusable/widget_appbar_default.dart';
 import 'package:agent_mobile_app/widget_reusable/widget_button.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class DetailTransactionPage extends StatelessWidget {
-  final String image;
-  const DetailTransactionPage({Key? key, required this.image})
+  final String image, price, desc, status, date, time, total;
+  final Widget methodPayment;
+  const DetailTransactionPage(
+      {Key? key,
+      required this.image,
+      required this.price,
+      required this.desc,
+      required this.methodPayment,
+      required this.status,
+      required this.date,
+      required this.time,
+      required this.total})
       : super(key: key);
 
   @override
@@ -21,7 +35,11 @@ class DetailTransactionPage extends StatelessWidget {
           action: [
             IconButton(
               onPressed: () {
-                //TODO: push page FAQ
+                RouteWidget.push(
+                    context: context,
+                    page: const CurrentPages(
+                      index: 2,
+                    ));
               },
               icon: Icon(
                 Icons.help_outline_sharp,
@@ -42,21 +60,18 @@ class DetailTransactionPage extends StatelessWidget {
           ),
           Padding(
             padding: Marginlayout.marginhorizontal,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
+            child: ListView(
+              padding: Marginlayout.marginBottom,
               children: [
-                const SizedBox(
-                  height: 16,
-                ),
                 Image.asset(
                   image,
                   height: MediaQuery.of(context).size.height * 0.13,
                 ),
                 const SizedBox(
-                  height: 20,
+                  height: 10,
                 ),
                 Text(
-                  '-100 Koin',
+                  price,
                   textAlign: TextAlign.center,
                   style: FontStyle.heading1,
                 ),
@@ -64,7 +79,7 @@ class DetailTransactionPage extends StatelessWidget {
                   height: 8,
                 ),
                 Text(
-                  'Penukaran Pulsa 25.000',
+                  desc,
                   textAlign: TextAlign.center,
                   style:
                       FontStyle.heading1.copyWith(fontWeight: FontWeight.w400),
@@ -86,17 +101,7 @@ class DetailTransactionPage extends StatelessWidget {
                       style: FontStyle.subtitle2,
                     ),
                     const Spacer(),
-                    Image.asset(
-                      'assets/icons/coin.png',
-                      height: 19,
-                    ),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    Text(
-                      'Koin',
-                      style: FontStyle.subtitle2SemiBold,
-                    ),
+                    methodPayment
                   ],
                 ),
 
@@ -111,7 +116,7 @@ class DetailTransactionPage extends StatelessWidget {
                     style: FontStyle.subtitle2,
                   ),
                   trailing: Text(
-                    'SUKSES',
+                    status,
                     style: FontStyle.subtitle2SemiBold,
                   ),
                 ),
@@ -126,7 +131,7 @@ class DetailTransactionPage extends StatelessWidget {
                     style: FontStyle.subtitle2,
                   ),
                   trailing: Text(
-                    '14.06 WIB',
+                    time,
                     style: FontStyle.subtitle2SemiBold,
                   ),
                 ),
@@ -141,7 +146,7 @@ class DetailTransactionPage extends StatelessWidget {
                     style: FontStyle.subtitle2,
                   ),
                   trailing: Text(
-                    '17 November 2022',
+                    date,
                     style: FontStyle.subtitle2SemiBold,
                   ),
                 ),
@@ -182,7 +187,7 @@ class DetailTransactionPage extends StatelessWidget {
                     style: FontStyle.subtitle2,
                   ),
                   trailing: Text(
-                    '-100 Koin',
+                    total,
                     style: FontStyle.subtitle2SemiBold
                         .copyWith(color: ColorApp.secondaryB2),
                   ),
@@ -201,7 +206,7 @@ class DetailTransactionPage extends StatelessWidget {
                     style: FontStyle.heading1,
                   ),
                   trailing: Text(
-                    '-100 Koin',
+                    total,
                     style: FontStyle.heading1,
                   ),
                 ),
@@ -211,7 +216,10 @@ class DetailTransactionPage extends StatelessWidget {
                 ),
                 ButtonCustom.buttonSeccondary(
                     onTap: () {
-                      //TODO:  download file function
+                      context.read<DownloadProvider>().download(
+                          url:
+                              'https://i.pinimg.com/originals/28/86/6a/28866a4d865e8b222b4a682eb7f3b100.jpg',
+                          nameFolder: 'bukti_transaksi.png');
                     },
                     text: 'Unduh Bukti Pembayaran')
               ],

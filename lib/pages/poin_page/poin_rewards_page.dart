@@ -4,13 +4,29 @@ import 'package:agent_mobile_app/helper/shadow.dart';
 import 'package:agent_mobile_app/helper/themes_colors.dart';
 import 'package:agent_mobile_app/helper/themse_fonts.dart';
 import 'package:agent_mobile_app/pages/poin_page/history_poin_page.dart';
-import 'package:agent_mobile_app/pages/poin_page/reward_detail_page.dart';
+import 'package:agent_mobile_app/pages/poin_page/poin_detail_page.dart';
 import 'package:agent_mobile_app/pages/poin_page/widgets/card_reward.dart';
+import 'package:agent_mobile_app/providers/profile/account_provider.dart';
+import 'package:agent_mobile_app/providers/reward/reward_providers.dart';
 import 'package:agent_mobile_app/widget_reusable/widget_appbar_default.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class PoinRewardPage extends StatelessWidget {
+class PoinRewardPage extends StatefulWidget {
   const PoinRewardPage({Key? key}) : super(key: key);
+
+  @override
+  State<PoinRewardPage> createState() => _PoinRewardPageState();
+}
+
+class _PoinRewardPageState extends State<PoinRewardPage> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<RewardsProviders>().getDataRewards();
+    context.read<AccountProvider>().getUserData();
+  }
 
   Widget _headersPoin(BuildContext context) {
     return Column(
@@ -32,10 +48,15 @@ class PoinRewardPage extends StatelessWidget {
                     fit: BoxFit.fill, height: 20, width: 20),
                 minLeadingWidth: 0,
                 dense: true,
-                title: Text('100 Koin', style: FontStyle.heading1),
+                title: Consumer<AccountProvider>(
+                    builder: (context, data, _) => Text(
+                        data.isLoading == true
+                            ? 'Loading...'
+                            : '${data.dataAccount.userCoin!.amount} Koin',
+                        style: FontStyle.heading1)),
                 trailing: IconButton(
                   onPressed: () => RouteWidget.push(
-                      context: context, page: HistoryPoinPage()),
+                      context: context, page: const HistoryPoinPage()),
                   icon: const Icon(Icons.arrow_forward_ios_sharp),
                   color: ColorApp.secondary00,
                 ),
@@ -72,7 +93,7 @@ class PoinRewardPage extends StatelessWidget {
             children: [
               Flexible(
                 child: ListTile(
-                  contentPadding: EdgeInsets.symmetric(vertical: 5),
+                  contentPadding: const EdgeInsets.symmetric(vertical: 5),
                   minVerticalPadding: 0,
                   dense: true,
                   title: Text(
@@ -133,16 +154,45 @@ class PoinRewardPage extends StatelessWidget {
                 height: 16,
               ),
               SizedBox(
-                height: 190,
-                child: ListView.builder(
-                  padding: Marginlayout.marginhorizontal,
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) => CardPoinReward(
-                    onTap: () => RouteWidget.push(
-                        context: context, page: RewardDetailPage()),
-                  ),
-                ),
-              ),
+                  height: 190,
+                  child: Consumer<RewardsProviders>(
+                      builder: (context, dataReward, _) {
+                    if (dataReward.isLoading == true) {
+                      return Center(
+                          child: CupertinoActivityIndicator(
+                        radius: 12,
+                        color: ColorApp.primaryA3,
+                      ));
+                    } else {
+                      if (dataReward.dataRewards.isEmpty) {
+                        return Center(
+                          child: Text(
+                            'Belum ada penawaran',
+                            style: FontStyle.subtitle2SemiBold
+                                .copyWith(color: ColorApp.secondaryB2),
+                          ),
+                        );
+                      } else {
+                        return ListView.builder(
+                          padding: Marginlayout.marginhorizontal,
+                          scrollDirection: Axis.horizontal,
+                          itemCount: dataReward.dataRewards.length,
+                          itemBuilder: (context, index) => CardPoinReward(
+                            category:
+                                dataReward.dataRewards[index].category!.name!,
+                            name: dataReward.dataRewards[index].name!,
+                            poin: dataReward.dataRewards[index].requiredPoint
+                                .toString(),
+                            onTap: () => RouteWidget.push(
+                                context: context,
+                                page: RewardDetailPage(
+                                  id: dataReward.dataRewards[index].id!,
+                                )),
+                          ),
+                        );
+                      }
+                    }
+                  })),
               //NOTE: list data Reward Lainnya
               Padding(
                 padding: Marginlayout.marginhorizontal.copyWith(top: 16),
@@ -155,16 +205,45 @@ class PoinRewardPage extends StatelessWidget {
                 height: 16,
               ),
               SizedBox(
-                height: 190,
-                child: ListView.builder(
-                  padding: Marginlayout.marginhorizontal,
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) => CardPoinReward(
-                    onTap: () => RouteWidget.push(
-                        context: context, page: RewardDetailPage()),
-                  ),
-                ),
-              ),
+                  height: 190,
+                  child: Consumer<RewardsProviders>(
+                      builder: (context, dataReward, _) {
+                    if (dataReward.isLoading == true) {
+                      return Center(
+                          child: CupertinoActivityIndicator(
+                        radius: 12,
+                        color: ColorApp.primaryA3,
+                      ));
+                    } else {
+                      if (dataReward.dataRewards.isEmpty) {
+                        return Center(
+                          child: Text(
+                            'Belum ada penawaran',
+                            style: FontStyle.subtitle2SemiBold
+                                .copyWith(color: ColorApp.secondaryB2),
+                          ),
+                        );
+                      } else {
+                        return ListView.builder(
+                          padding: Marginlayout.marginhorizontal,
+                          scrollDirection: Axis.horizontal,
+                          itemCount: dataReward.dataRewards.length,
+                          itemBuilder: (context, index) => CardPoinReward(
+                            category:
+                                dataReward.dataRewards[index].category!.name!,
+                            name: dataReward.dataRewards[index].name!,
+                            poin: dataReward.dataRewards[index].requiredPoint
+                                .toString(),
+                            onTap: () => RouteWidget.push(
+                                context: context,
+                                page: RewardDetailPage(
+                                  id: dataReward.dataRewards[index].id!,
+                                )),
+                          ),
+                        );
+                      }
+                    }
+                  })),
             ],
           )
         ],

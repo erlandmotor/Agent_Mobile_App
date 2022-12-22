@@ -1,0 +1,14 @@
+[
+    {
+        "id": 0,
+        "type": "promo",
+        "title": "Ayo buruan lakukan transaksi pembelian pulsa, akan ada diskon 20%",
+        "desc": "dengan menggunakan dikon 20% Kamu bisa mendapatkan potongan harga dan mendapatkan bonus lainnya "
+    },
+    {
+        "id": 1,
+        "type": "informasi",
+        "title": "Welcome To DIGI",
+        "desc": "Hallo Sobat Digi, yuk mulai usaha kamu dan dapatkan banyak hadia menarik lainnya"
+    }
+]

@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:agent_mobile_app/helper/api_url.dart';
 import 'package:agent_mobile_app/helper/routes.dart';
 import 'package:agent_mobile_app/helper/themes_colors.dart';
+import 'package:agent_mobile_app/main.dart';
 import 'package:agent_mobile_app/models/otp_model.dart';
 import 'package:agent_mobile_app/pages/auth_page/login_page.dart';
 import 'package:agent_mobile_app/services/service_api.dart';
@@ -24,8 +25,7 @@ class VePinsProvider extends ChangeNotifier {
   final ValueNotifier<bool> _isLoadResendPin = ValueNotifier<bool>(false);
   ValueNotifier<bool> get isLoadResendPin => _isLoadResendPin;
 
-  Future verificationData(BuildContext context,
-      {required String email, required String otp}) async {
+  Future verificationData({required String email, required String otp}) async {
     try {
       _isLoading.value = true;
       final response = await _api.postData(
@@ -37,8 +37,8 @@ class VePinsProvider extends ChangeNotifier {
 
       if (response['code'] == 200 && response['message'] == 'OK') {
         _invalidVerification.value = false;
-        RouteWidget.push(
-          context: context,
+        RouteWidget.pushReplacment(
+          context: contextNav.currentContext!,
           page: ConfirmSuccesPage(
             image: 'assets/ilustration/success.png',
             title: 'Hore.. Berhasil!',
@@ -47,7 +47,7 @@ class VePinsProvider extends ChangeNotifier {
             buttonAction: ButtonCustom.buttonPrimary(
               onTap: () {
                 RouteWidget.pushAndRemoveUntil(
-                    context: context, page: LoginPage());
+                    context: contextNav.currentContext!, page: LoginPage());
               },
               colorBtn: ColorApp.primaryA3,
               text: 'kembali Ke Login',

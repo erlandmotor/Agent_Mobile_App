@@ -6,7 +6,7 @@ import 'package:dropdown_below/dropdown_below.dart';
 
 /// class ini berisi kumpulan widget reusable button
 class ButtonCustom {
-  static Widget buttonPrimary({
+  static ClipRRect buttonPrimary({
     required Function() onTap,
     required Color colorBtn,
     required String text,
@@ -34,9 +34,37 @@ class ButtonCustom {
     );
   }
 
+  static ClipRRect buttonPrimarySecond({
+    required Function() onTap,
+    required Color colorBtn,
+    required String text,
+  }) {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(6),
+      child: Material(
+        color: colorBtn,
+        child: SizedBox(
+          height: 45,
+          width: double.infinity,
+          child: InkWell(
+            onTap: onTap,
+            splashColor: colorBtn,
+            highlightColor: const Color(0XFF012243),
+            child: Center(
+              child: Text(
+                text,
+                style: FontStyle.secondButton,
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
   /// function ini menampilkan widget button dimana tedapat icon pada bagian kiri dan text pada bagian tengah
   /// button tidak memiliki brackground hanya memiliki border
-  static Widget buttonSeccondary({
+  static InkWell buttonSeccondary({
     required Function() onTap,
     required String text,
   }) {
@@ -49,6 +77,7 @@ class ButtonCustom {
         alignment: Alignment.center,
         width: double.infinity,
         decoration: BoxDecoration(
+            color: Colors.white,
             borderRadius: BorderRadius.circular(6),
             border: Border.all(color: ColorApp.secondaryEA)),
         child: Text(
@@ -59,7 +88,31 @@ class ButtonCustom {
     );
   }
 
-  static Widget buttonLoading() {
+  static InkWell buttonSeccondaryBor({
+    required Function() onTap,
+    required String text,
+  }) {
+    return InkWell(
+      onTap: onTap,
+      splashColor: ColorApp.secondaryEA,
+      highlightColor: ColorApp.secondaryEA,
+      child: Container(
+        height: 45,
+        alignment: Alignment.center,
+        width: double.infinity,
+        decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(6),
+            border: Border.all(color: Colors.blue)),
+        child: Text(
+          text,
+          style: FontStyle.button.copyWith(color: Colors.blue),
+        ),
+      ),
+    );
+  }
+
+  static Container buttonLoading() {
     return Container(
         height: 45,
         alignment: Alignment.center,
@@ -74,12 +127,78 @@ class ButtonCustom {
         ));
   }
 
+  static Container buttonSecondaryWithIcon({
+    required Function() onTap,
+    required String text,
+    required String icon,
+  }) {
+    return Container(
+      height: 45,
+      alignment: Alignment.center,
+      width: double.infinity,
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(6),
+          border: Border.all(color: ColorApp.secondaryEA)),
+      child: InkWell(
+        onTap: onTap,
+        splashColor: ColorApp.secondaryEA,
+        highlightColor: ColorApp.secondaryEA,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Text(
+              text,
+              style: FontStyle.subtitle2.copyWith(color: ColorApp.secondary00),
+            ),
+            Image.asset(icon)
+          ],
+        ),
+      ),
+    );
+  }
+
+  static ListTile listProductCheckout({
+    required String descPayment,
+    required String total,
+    required Widget desc,
+    required String icon,
+    String action = '',
+    bool text = false,
+    required Function() onTap,
+  }) {
+    return ListTile(
+      contentPadding: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
+      leading: CircleAvatar(
+        backgroundColor: ColorApp.primaryA3,
+        child: Image.asset(icon),
+      ),
+      title: Text(
+        descPayment,
+        style: FontStyle.captionTransaction,
+      ),
+      subtitle: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            total,
+            style: FontStyle.caption,
+          ),
+          desc
+        ],
+      ),
+      trailing: text == true
+          ? Text(
+              action,
+              style: FontStyle.captionBold,
+            )
+          : Image(image: AssetImage(action)),
+      onTap: onTap,
+    );
+  }
+
   static Widget dropDownMenu({
-    // required Color dropdownColor,
-    // required bool isExpanded,
-    // required String value,
     required List<String> listItems,
-    // required void Function(Object?)? onChange,
     required String hint,
   }) {
     return Container(
@@ -119,18 +238,17 @@ class ButtonCustom {
     );
   }
 
-  static Widget homePageMenu({
+  static InkWell homePageMenu({
     required String image,
     required String title,
     required Function() onTap,
   }) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        InkWell(
-          focusColor: Colors.transparent,
-          splashColor: Colors.transparent,
-          child: Container(
+    return InkWell(
+      onTap: onTap,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Container(
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
             decoration: BoxDecoration(
                 color: Colors.white,
@@ -142,16 +260,16 @@ class ButtonCustom {
               height: 20,
             ),
           ),
-        ),
-        Expanded(
-          child: Text(
-            title,
-            maxLines: 2,
-            style: FontStyle.caption,
-            textAlign: TextAlign.center,
-          ),
-        )
-      ],
+          Expanded(
+            child: Text(
+              title,
+              maxLines: 2,
+              style: FontStyle.caption,
+              textAlign: TextAlign.center,
+            ),
+          )
+        ],
+      ),
     );
   }
 }
