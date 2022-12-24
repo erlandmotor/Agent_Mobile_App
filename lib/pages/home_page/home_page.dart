@@ -6,6 +6,7 @@ import 'package:agent_mobile_app/main.dart';
 import 'package:agent_mobile_app/pages/cashout/cashout_page.dart';
 import 'package:agent_mobile_app/pages/desc_product/paket_data/paket_data_page.dart';
 import 'package:agent_mobile_app/pages/desc_product/pulsa/pulsa_page.dart';
+import 'package:agent_mobile_app/pages/home_page/other_menus/other_prducts_page.dart';
 import 'package:agent_mobile_app/pages/notification/notification_page.dart';
 import 'package:agent_mobile_app/pages/poin_page/poin_rewards_page.dart';
 import 'package:agent_mobile_app/providers/product_prov/product_providers.dart';
@@ -56,8 +57,9 @@ class _HomePageState extends State<HomePage> {
     ButtonCustom.homePageMenu(
         onTap: () {
           RouteWidget.push(
-              context: contextNav.currentContext!,
-              page: CashoutPage(icon: 'assets/icons/wallet.png'));
+            context: contextNav.currentContext!,
+            page: OtherProductMenuPages(),
+          );
         },
         image: 'assets/icons/other.png',
         title: 'Lainnya'),

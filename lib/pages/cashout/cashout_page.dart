@@ -2,8 +2,9 @@ import 'package:agent_mobile_app/helper/margin_layout.dart';
 import 'package:agent_mobile_app/helper/routes.dart';
 import 'package:agent_mobile_app/helper/themes_colors.dart';
 import 'package:agent_mobile_app/helper/themse_fonts.dart';
-import 'package:agent_mobile_app/pages/auth_page/widgets/widget_form_input.dart';
 import 'package:agent_mobile_app/pages/cashout/otp_regitration.dart';
+import 'package:agent_mobile_app/pages/current_pages.dart';
+import 'package:agent_mobile_app/pages/desc_product/widget_reusable/widget_reusable.dart';
 import 'package:agent_mobile_app/widget_reusable/widget_appbar_default.dart';
 import 'package:agent_mobile_app/widget_reusable/widget_button.dart';
 import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
@@ -11,15 +12,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class CashoutPage extends StatelessWidget {
-  CashoutPage({super.key, required this.icon});
+  CashoutPage({super.key});
 
-  final String icon;
-  final TextEditingController _noRek = TextEditingController();
+  final TextEditingController _noRek = TextEditingController(text: '');
   final TextEditingController _nominalCashout = TextEditingController();
+  final GlobalKey<FormState> _keyForm = GlobalKey<FormState>();
 
   final ValueNotifier<bool> _approveAmount = ValueNotifier<bool>(true);
-
-  bool filled = false;
+  final ValueNotifier<bool> _norekIsNotEmpty = ValueNotifier<bool>(true);
+  final ValueNotifier<bool> _isVerifBank = ValueNotifier<bool>(false);
 
   @override
   Widget build(BuildContext context) {
@@ -29,108 +30,175 @@ class CashoutPage extends StatelessWidget {
       appBar: CustomAppBar.appBarDefaultSecond(context,
           backgroundColor: ColorApp.primaryA3,
           colorComponen: ColorApp.secondaryFF,
-          title: 'Tarik Tunai'),
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
-        child: ButtonCustom.buttonPrimary(
-            onTap: () {
-              _dialogNominal(context);
-            },
-            colorBtn: ColorApp.primaryA3,
-            text: 'Pilih Jumlah Nominal Sendiri'),
-      ),
-      body: Padding(
-        padding: Marginlayout.marginAll,
-        child: Column(
-          children: [
-            Image.asset(
-              icon,
-              height: 50,
-            ),
-            const SizedBox(
-              height: 24,
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+          title: 'Tarik Tunai',
+          action: [
+            IconButton(
+              onPressed: () {
+                RouteWidget.pushReplacment(
+                    context: context, page: const CurrentPages(index: 2));
+              },
+              icon: const Icon(
+                Icons.help_outline_sharp,
+                color: Colors.white,
+              ),
+            )
+          ]),
+      bottomNavigationBar: ValueListenableBuilder(
+          valueListenable: _isVerifBank,
+          builder: (context, verfBank, _) {
+            if (verfBank == false) {
+              return const SizedBox();
+            } else {
+              return Padding(
+                padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+                child: ButtonCustom.buttonPrimary(
+                    onTap: () {
+                      _dialogNominal(context);
+                    },
+                    colorBtn: ColorApp.primaryA3,
+                    text: 'Pilih Jumlah Nominal Sendiri'),
+              );
+            }
+          }),
+      body: Column(
+        children: [
+          const SizedBox(
+            height: 16,
+          ),
+          Image.asset(
+            'assets/logo/bca.png',
+            height: 50,
+          ),
+          const SizedBox(
+            height: 24,
+          ),
+          Text(
+            'Masukkan Nomor Rekening',
+            style: FontStyle.subtitle2,
+          ),
+          const SizedBox(
+            height: 8,
+          ),
+          Padding(
+            padding: Marginlayout.marginhorizontal,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text(
-                  'Masukkan Nomor Rekening',
-                  style: FontStyle.subtitle2,
-                ),
-                const SizedBox(
-                  height: 8,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Expanded(
-                      flex: 6,
-                      child: WidgetFormOnlyInput(
+                Expanded(
+                  flex: 6,
+                  child: Form(
+                    key: _keyForm,
+                    child: TextFormField(
+                      controller: _noRek,
+                      validator: (String? error) {
+                        if (error!.isEmpty) {
+                          return 'Form ini tidak boleh kosong';
+                        }
+                      },
+                      cursorColor: ColorApp.primaryA3,
+                      keyboardType: TextInputType.number,
+                      onChanged: (String value) {
+                        if (value == '') {
+                          _isVerifBank.value = false;
+                          _norekIsNotEmpty.value = true;
+                        } else {
+                          _norekIsNotEmpty.value = false;
+                        }
+                      },
+                      decoration: InputDecoration(
+                        contentPadding: const EdgeInsets.symmetric(
+                            vertical: 12, horizontal: 10),
+                        focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: ColorApp.primaryA3)),
                         hintText: 'Nomor Rekening',
-                        controller: _noRek,
+                        fillColor: ColorApp.primaryA3,
+                        focusColor: ColorApp.primaryA3,
+                        hoverColor: ColorApp.primaryA3,
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(6),
+                            borderSide:
+                                BorderSide(color: ColorApp.secondaryEA)),
+                        hintStyle: FontStyle.body2
+                            .copyWith(color: ColorApp.secondaryB2),
                       ),
                     ),
-                    const SizedBox(
-                      width: 8,
-                    ),
-                    Expanded(
-                        flex: 4,
-                        child: filled != true
-                            ? ButtonCustom.buttonPrimarySecond(
-                                onTap: () {},
-                                colorBtn: ColorApp.primaryF0,
-                                text: 'Verifikasi')
-                            : ButtonCustom.buttonPrimary(
-                                onTap: () {},
-                                colorBtn: ColorApp.primaryA3,
-                                text: 'Verifikasi')),
-                  ],
+                  ),
                 ),
+                const SizedBox(
+                  width: 8,
+                ),
+                Expanded(
+                    flex: 4,
+                    child: ValueListenableBuilder(
+                        valueListenable: _norekIsNotEmpty,
+                        builder: (context, empty, _) {
+                          if (empty == true) {
+                            return ButtonCustom.buttonNoAction(
+                                text: 'Verifikasi');
+                          } else {
+                            return ButtonCustom.buttonPrimary(
+                                onTap: () {
+                                  _isVerifBank.value = true;
+                                },
+                                colorBtn: ColorApp.primaryA3,
+                                text: 'Verifikasi');
+                          }
+                        })),
               ],
             ),
-            const SizedBox(
-              height: 16,
+          ),
+          const SizedBox(
+            height: 16,
+          ),
+          Container(
+            padding: Marginlayout.marginAll,
+            height: 56,
+            width: double.infinity,
+            color: ColorApp.secondaryEA.withOpacity(0.35),
+            child: Row(
+              children: [
+                Image.asset(
+                  'assets/logo/bca.png',
+                  height: 30,
+                ),
+                const SizedBox(
+                  width: 12,
+                ),
+                Text(
+                  'ANDRE SETYO',
+                  style: FontStyle.subtitle1SemiBold,
+                )
+              ],
             ),
-            Container(
-              padding: Marginlayout.marginAll,
-              height: 56,
-              width: double.infinity,
-              color: ColorApp.secondaryEA.withOpacity(0.2),
-              child: Row(
-                children: [
-                  Image.asset(
-                    icon,
-                    height: 30,
-                  ),
-                  const SizedBox(
-                    width: 12,
-                  ),
-                  Text(
-                    'ANDRE SETYO',
-                    style: FontStyle.subtitle1SemiBold,
-                  )
-                ],
-              ),
-            ),
-            const SizedBox(
-              height: 16,
-            ),
-            Expanded(
-                child: GridView.builder(
-              itemCount: 12,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  mainAxisSpacing: 16,
-                  childAspectRatio: 2.2,
-                  crossAxisSpacing: 16),
-              itemBuilder: (context, index) {
-                return listCashout(
-                    context: context, price: '50', totalPrice: '52.000');
-              },
-            )),
-          ],
-        ),
+          ),
+          ValueListenableBuilder(
+              valueListenable: _isVerifBank,
+              builder: (context, verifBank, _) {
+                if (verifBank == true) {
+                  return Expanded(
+                    child: GridView.builder(
+                      itemCount: 12,
+                      padding: Marginlayout.marginAll,
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              mainAxisSpacing: 16,
+                              childAspectRatio: 2.2,
+                              crossAxisSpacing: 16),
+                      itemBuilder: (context, index) {
+                        return listCashout(
+                            context: context,
+                            price: '50',
+                            totalPrice: '52.000');
+                      },
+                    ),
+                  );
+                } else {
+                  return const SizedBox();
+                }
+              })
+        ],
       ),
     );
   }
@@ -414,9 +482,26 @@ class CashoutPage extends StatelessWidget {
                   width: 16,
                 ),
                 Expanded(
-                    child: secondButton(
-                  context: context,
-                )),
+                    child: ButtonCustom.buttonPrimary(
+                        onTap: () {
+                          if (int.parse(_nominalCashout.text
+                                      .replaceAll('.', '')) %
+                                  50000 ==
+                              0) {
+                            _approveAmount.value = true;
+                            Navigator.pop(context);
+                            RouteWidget.push(
+                                context: context,
+                                page: OtpRegistration(
+                                  amount: int.parse(
+                                      _nominalCashout.text.replaceAll('.', '')),
+                                ));
+                          } else {
+                            _approveAmount.value = false;
+                          }
+                        },
+                        colorBtn: ColorApp.primaryA3,
+                        text: 'LANJUT')),
               ],
             ),
           ],
@@ -463,19 +548,7 @@ class CashoutPage extends StatelessWidget {
           ),
         ),
       ),
-      onTap: () {
-        if (int.parse(_nominalCashout.text.replaceAll('.', '')) % 50000 == 0) {
-          _approveAmount.value = true;
-          Navigator.pop(context);
-          RouteWidget.push(
-              context: context,
-              page: OtpRegistration(
-                amount: int.parse(_nominalCashout.text.replaceAll('.', '')),
-              ));
-        } else {
-          _approveAmount.value = false;
-        }
-      },
+      onTap: () {},
     );
   }
 

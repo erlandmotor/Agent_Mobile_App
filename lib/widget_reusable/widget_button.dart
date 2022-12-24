@@ -34,6 +34,23 @@ class ButtonCustom {
     );
   }
 
+  static Container buttonNoAction({
+    required String text,
+  }) {
+    return Container(
+      height: 45,
+      decoration: BoxDecoration(
+        color: ColorApp.secondaryEA,
+        borderRadius: BorderRadius.circular(6),
+      ),
+      alignment: Alignment.center,
+      child: Text(
+        text,
+        style: FontStyle.button.copyWith(color: ColorApp.primaryA3),
+      ),
+    );
+  }
+
   static ClipRRect buttonPrimarySecond({
     required Function() onTap,
     required Color colorBtn,
@@ -245,8 +262,13 @@ class ButtonCustom {
   }) {
     return InkWell(
       onTap: onTap,
+      focusColor: Colors.transparent,
+      hoverColor: Colors.transparent,
+      splashColor: Colors.transparent,
+      highlightColor: Colors.transparent,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
