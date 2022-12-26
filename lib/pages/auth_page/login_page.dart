@@ -126,8 +126,9 @@ class LoginPage extends StatelessWidget {
                             if (formKeySignin.currentState!.validate() ==
                                 true) {
                               context.read<SigninProvider>().signIn(
-                                  email: _emailInput.text.trim(),
-                                  password: _passwordInput.text.trim());
+                                    email: _emailInput.text.trim(),
+                                    password: _passwordInput.text.trim(),
+                                  );
                             }
                           },
                           colorBtn: ColorApp.primaryA3,

@@ -7,6 +7,7 @@ class ApiUrl {
   static String signUp = 'auth/signup';
   static String signIn = 'auth/signin';
   static String verificationCode = 'auth/otp/validate';
+  static String refreshToken = 'auth/token/refresh';
   static String resendPin = 'auth/otp/resend';
   static String forgotPassword = 'auth/forgot-password';
   static String newPassword = 'auth/new-password';
@@ -35,5 +36,4 @@ class ApiUrl {
 
   // transaction
   static String transaction = '/transactions';
-
 }
