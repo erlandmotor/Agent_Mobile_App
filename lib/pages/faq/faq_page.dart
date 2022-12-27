@@ -85,7 +85,7 @@ class _FaqPageState extends State<FaqPage> {
                         radius: 12,
                         color: ColorApp.primaryA3,
                       )),
-                    );
+                  );
                   } else {
                     if (data.filterFaq.isEmpty) {
                       return SizedBox(

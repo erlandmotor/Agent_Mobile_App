@@ -39,9 +39,8 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
   }
 
   Future wrapperPage() async {
-    if (await _service.getToken() != null ||
-        await _service.getRefreshToken() != null) {
-      RouteWidget.pushReplacment(context: context, page: CurrentPages());
+    if (await _service.getToken() != null) {
+      RouteWidget.pushReplacment(context: context, page: const CurrentPages());
     } else {
       RouteWidget.pushReplacment(context: context, page: OnBoardingPage());
     }

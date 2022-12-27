@@ -36,8 +36,7 @@ class SigninProvider extends ChangeNotifier {
       );
       if (message['code'] == 200) {
         _invalidLoging.value = false;
-        pref.setString(SPrefKey.token, message['data']['access_token']);
-        pref.setString(SPrefKey.refreshToken, message['data']['refresh_token']);
+        pref.setString(SPrefKey.token, message['data']['refresh_token']);
         RouteWidget.pushReplacment(
             context: contextNav.currentContext!, page: const CurrentPages());
       } else if (message['code'] == 401) {

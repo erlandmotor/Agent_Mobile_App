@@ -96,7 +96,7 @@ class ButtonCustom {
         decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(6),
-            border: Border.all(color: ColorApp.secondaryEA)),
+            border: Border.all(color: ColorApp.secondaryEA, width: 2)),
         child: Text(
           text,
           style: FontStyle.button.copyWith(color: ColorApp.secondary00),

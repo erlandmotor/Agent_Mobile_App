@@ -4,8 +4,8 @@ import 'package:agent_mobile_app/helper/themse_fonts.dart';
 import 'package:flutter/material.dart';
 
 class BodyChoiceBank extends StatelessWidget {
-  final Function() onTapChoiceBank;
-  BodyChoiceBank({Key? key, required this.onTapChoiceBank}) : super(key: key);
+  final ValueNotifier<String> bank;
+  BodyChoiceBank({Key? key, required this.bank}) : super(key: key);
   final List<Map<String, dynamic>> _databank = [
     {
       'name': 'BNI',
@@ -44,27 +44,25 @@ class BodyChoiceBank extends StatelessWidget {
             child: ListView.builder(
                 itemCount: _databank.length,
                 itemBuilder: (context, index) {
-                  return InkWell(
-                    onTap: onTapChoiceBank,
-                    child: Padding(
-                      padding: const EdgeInsets.only(bottom: 8.0),
-                      child: Container(
-                        height: 56,
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                            color: ColorApp.secondaryFF,
-                            borderRadius: BorderRadius.circular(6),
-                            boxShadow: CustomShadow.md),
-                        child: ListTile(
-                          leading: Image.asset(
-                            _databank[index]['icon'],
-                            height: 30,
-                          ),
-                          title: Text(
-                            _databank[index]['name'],
-                            style: FontStyle.subtitle1SemiBold,
-                          ),
-                        ),
+                  return Container(
+                    margin: const EdgeInsets.only(bottom: 8.0),
+                    height: 56,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                        color: ColorApp.secondaryFF,
+                        borderRadius: BorderRadius.circular(6),
+                        boxShadow: CustomShadow.md),
+                    child: ListTile(
+                      onTap: () {
+                        bank.value = _databank[index]['image'];
+                      },
+                      leading: Image.asset(
+                        _databank[index]['image'],
+                        height: 30,
+                      ),
+                      title: Text(
+                        _databank[index]['name'],
+                        style: FontStyle.subtitle1SemiBold,
                       ),
                     ),
                   );

@@ -68,10 +68,4 @@ class ServiceApi {
     final String? token = pref.getString(SPrefKey.token);
     return token;
   }
-
-  Future getRefreshToken() async {
-    SharedPreferences pref = await SharedPreferences.getInstance();
-    final String? refreshToken = pref.getString(SPrefKey.refreshToken);
-    return refreshToken;
-  }
 }

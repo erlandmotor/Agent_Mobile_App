@@ -3,6 +3,7 @@ import 'package:agent_mobile_app/helper/routes.dart';
 import 'package:agent_mobile_app/helper/themes_colors.dart';
 import 'package:agent_mobile_app/helper/themse_fonts.dart';
 import 'package:agent_mobile_app/models/transaction_model.dart';
+import 'package:agent_mobile_app/pages/desc_product/desc_transaction_page.dart';
 import 'package:agent_mobile_app/pages/detail_transaction/detail_transaction_page.dart';
 import 'package:agent_mobile_app/providers/product_prov/product_providers.dart';
 import 'package:agent_mobile_app/widget_reusable/widget_button.dart';
@@ -83,7 +84,7 @@ class OtpRegistration extends StatelessWidget {
                     style: FontStyle.subtitle2,
                   ),
                   TextSpan(
-                    text: ' andre*********@gmail.com',
+                    text: ' amril*******@gmail.com',
                     style: FontStyle.subtitle2SemiBold,
                   ),
                 ],
@@ -144,42 +145,27 @@ class OtpRegistration extends StatelessWidget {
                         context: context,
                         page: DetailTransactionPage(
                           image: 'assets/icons/success.png',
-                          price: '',
-                          // context
-                          //           .read<ProductProviders>()
-                          //           .formateQurency(
-                          //               angka: data
-                          //                   .listTransaction[index].amount!),
+                          price: context
+                              .read<ProductProviders>()
+                              .formateQurency(angka: amount),
                           desc: '',
-                          // 'Pembelian ${data.listTransaction[index].amount!}',
                           methodPayment: Text(
-                            'Saldo Digo',
+                            'Deposit',
                             style: FontStyle.subtitle2SemiBold,
                           ),
-                          status: '',
-                          // data.listTransaction[index].status! ==
-                          //         'SUCCEEDED'
-                          //     ? 'Berhasil'
-                          //     : data.listTransaction[index].status! ==
-                          //             'PENDING'
-                          //         ? 'Pending'
-                          //         : 'Gagal',
-                          date: '',
+                          status: 'Sukses',
+                          date: '27-12-2022',
                           // context
                           //     .read<RewardsProviders>()
                           //     .parseDate(
                           //         data.listTransaction[index]
                           //             .createdAt!,
                           //         'dd MMMM yyyy'),
-                          time: '',
+                          time: '22:47',
                           // '${context.read<RewardsProviders>().parseDate(data.listTransaction[index].createdAt!, 'hh:mm')}  ${DateTime.parse(data.listTransaction[index].createdAt!).toLocal().timeZoneName} ',
-                          total: ',',
-
-                          // context
-                          //     .read<ProductProviders>()
-                          //     .formateQurency(
-                          //         angka: data
-                          //             .listTransaction[index].amount!),
+                          total: context
+                              .read<ProductProviders>()
+                              .formateQurency(angka: amount),
                         ));
                   },
                   colorBtn: ColorApp.primaryA3,
